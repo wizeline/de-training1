@@ -1,0 +1,12 @@
+site_name: E-commerce orders
+theme:
+    name: rtd-dropdown
+pages:
+    - E-commerce orders: index.md
+    - Data specification:
+        - Orders specification: specs/orders.md
+        - Articles specification: specs/articles.md
+        - Clients specification: specs/clients.md
+    - Appendixes:
+        - Categories: appendixes/categories.md
+        - Country codes: appendixes/country_codes.md
