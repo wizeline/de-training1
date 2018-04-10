@@ -4,9 +4,9 @@ theme:
 pages:
     - Overview: index.md
     - Data specification:
-        - Orders specification: specs/orders.md
-        - Articles specification: specs/articles.md
         - Clients specification: specs/clients.md
+        - Stock specification: specs/stock.md
+        - Orders specification: specs/orders.md
     - Appendixes:
         - Categories: appendixes/categories.md
         - Country codes: appendixes/country_codes.md

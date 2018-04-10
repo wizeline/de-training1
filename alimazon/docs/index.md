@@ -13,8 +13,8 @@ Before trying to solve Alimazon problems you should know that most of its data
 belongs in any of three datasets.
 
   * [The clients dataset](specs/clients/)
-  * [The inventory dataset](specs/articles/)
-  * [The buy orders dataset](specs/orders/)
+  * [The stock dataset](specs/stock/)
+  * [The buy-orders dataset](specs/orders/)
 
 First get familiarized with the data models of the datasets; then move to the
 [problems](problems/) section to help Alimazon on its quest to <del>World

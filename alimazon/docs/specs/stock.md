@@ -1,4 +1,4 @@
-# Articles Specification
+# Stock Specification
 
 Description
 
