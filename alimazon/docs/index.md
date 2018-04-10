@@ -17,5 +17,5 @@ belongs in any of three datasets.
   * [The buy-orders dataset](specs/orders/)
 
 First get familiarized with the data models of the datasets; then move to the
-[problems](problems/) section to help Alimazon on its quest to <del>World
-domination</del> be the go-to online store for the World.
+[problems](problems/) section to help Alimazon on its quest to ~~World
+domination~~ be the go-to online store for the World.

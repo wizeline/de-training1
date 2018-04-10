@@ -10,3 +10,5 @@ pages:
     - Appendixes:
         - Categories: appendixes/categories.md
         - Country codes: appendixes/country_codes.md
+markdown_extensions:
+    - del_ins
