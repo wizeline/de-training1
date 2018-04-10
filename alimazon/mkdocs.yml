@@ -1,8 +1,8 @@
-site_name: E-commerce orders
+site_name: Alimazon
 theme:
     name: rtd-dropdown
 pages:
-    - E-commerce orders: index.md
+    - Overview: index.md
     - Data specification:
         - Orders specification: specs/orders.md
         - Articles specification: specs/articles.md

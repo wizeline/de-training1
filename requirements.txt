@@ -1,4 +1,4 @@
 mkdocs
 mkdocs-rtd-dropdown
 
--r ecommerce_orders/tools/requirements.txt
+-r alimazon/tools/requirements.txt
