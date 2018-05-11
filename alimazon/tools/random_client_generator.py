@@ -17,7 +17,7 @@ _DEFAULT_NAMES_FILE = './resources/names.txt'
 _DEFAULT_SURNAMES_FILE = './resources/surnames.txt'
 _DEFAULT_CODES_FILE = '../docs/resources/country_codes.csv'
 _DEFAULT_ROWS_PER_FILE = 10000
-_DEFAULT_OUTPUT_PREFFIX = './resources/clients/clients_'
+_DEFAULT_OUTPUT_PREFIX = './resources/clients/clients_'
 
 
 def _weights(domain, default_weight='auto', **kwargs):
@@ -50,7 +50,7 @@ def _parse_args():
         'surnames_filename': _DEFAULT_SURNAMES_FILE,
         'codes_filename': _DEFAULT_CODES_FILE,
         'max_rows': _DEFAULT_ROWS_PER_FILE,
-        'output_preffix': _DEFAULT_OUTPUT_PREFFIX,
+        'output_prefix': _DEFAULT_OUTPUT_PREFIX,
     }
 
 
@@ -73,7 +73,7 @@ def _main():
     for idx in range((args['sample_size'] + 1) // args['max_rows']):
         rows = min(args['sample_size'] - args['max_rows'] * (idx + 1),
                    args['max_rows'])
-        output_filename = '{}_{:0>5}.jsonl'.format(args['output_preffix'], idx)
+        output_filename = '{}_{:0>5}.jsonl'.format(args['output_prefix'], idx)
         with open(output_filename, 'w') as output_file:
             output_file.write('\n'.join(json.dumps({
                 'id': str(uuid4()),
