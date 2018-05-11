@@ -76,7 +76,7 @@ def _main():
     codes_sampler = _sampler(codes, _weights(codes, _none=0.3))
 
     for idx in range((args['sample_size'] + 1) // args['max_rows']):
-        rows = min(args['sample_size'] - args['max_rows'] * (idx + 1),
+        rows = min(args['sample_size'] - args['max_rows'] * idx,
                    args['max_rows'])
         filename = '{}/{}_client_{:0>5}.jsonl.gz'.format(args['output_folder'],
                                                          _today_string(),
@@ -92,6 +92,7 @@ def _main():
                                       timedelta(args['period'] *
                                                 random())).isoformat()
             }) for _ in range(rows)))
+            output_file.write('\n')
 
 
 if __name__ == '__main__':
