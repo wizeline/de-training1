@@ -17,7 +17,7 @@ _DEFAULT_PERIOD = 3  # years
 _DEFAULT_NAMES_FILE = './resources/names.txt'
 _DEFAULT_SURNAMES_FILE = './resources/surnames.txt'
 _DEFAULT_CODES_FILE = '../docs/resources/country_codes.csv'
-_DEFAULT_ROWS_PER_FILE = 10000
+_DEFAULT_ROWS_PER_FILE = 5000
 _DEFAULT_OUTPUT_FOLDER = './resources/clients'
 
 
