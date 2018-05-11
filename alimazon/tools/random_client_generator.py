@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from itertools import accumulate
 from random import random
 from uuid import uuid4
+import gzip
 import json
 
 
@@ -74,7 +75,7 @@ def _main():
         rows = min(args['sample_size'] - args['max_rows'] * (idx + 1),
                    args['max_rows'])
         output_filename = '{}_{:0>5}.jsonl'.format(args['output_prefix'], idx)
-        with open(output_filename, 'w') as output_file:
+        with gzip.open(output_filename, 'wt') as output_file:
             output_file.write('\n'.join(json.dumps({
                 'id': str(uuid4()),
                 'name': '{} {}'.format(next(names_sampler),
