@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """Get the latest list of country ISO 3166-1 alpha-3 codes from
 Wikipedia"""
 import requests
