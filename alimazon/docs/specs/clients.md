@@ -2,8 +2,7 @@
 
 ## Description
 
-The clients dataset has all information related to the customers as of name, gender
-, country of residence and signup day.
+The clients dataset has all information related to the customers: name, gender, country of residence and signup date and time.
 
 ## Format
 
