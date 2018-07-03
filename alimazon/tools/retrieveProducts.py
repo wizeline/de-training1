@@ -7,7 +7,7 @@ Created on Wed Jun 27 11:36:08 2018
 """
 #import os
 
-#_DEFAULT_DATA_FOLDER = './resources/clients'
+#_DEFAULT_DATA_FOLDER = './resources/products'
 #_DEFAULT_CONNECTION = 'JSON'
 #_PROBABILITY_OF_SELECTION = .99
 
@@ -17,10 +17,12 @@ Created on Wed Jun 27 11:36:08 2018
 import glob
 import random
 import csv
+import gzip
 
 class productSampler:
     
     args = {}
+    procFiles = {}
     productList = []
     listSize = 0
     
@@ -29,22 +31,27 @@ class productSampler:
             'data_folder': data_folder }
         
     def _getFiles(self, fDirectory):
-        fList = [f for f in glob.glob(fDirectory + "/*.tsv")]
+        fList = [f for f in glob.glob(fDirectory + "/*.tsv.gz")]
         return fList
 
+    def _detectNewFiles(self, fList):
+        for f in fList:
+            if f not in self.procFiles.keys():
+                self.procFiles[f]=1
 
-    def _parseFiles(self, fList):
-        pList = []
-        for fName in fList:
-            with open(fName, 'r') as f:
-                reader = csv.reader(f, delimiter='\t')
-                for row in reader:
-                    pList.append(row[0])
-        return pList
+    def _parseFiles(self):
+        for fName in self.procFiles:
+            if(self.procFiles[fName]):
+                with gzip.open(fName, 'rt') as f:
+                    reader = csv.reader(f, delimiter='\t')
+                    for row in reader:
+                        self.productList.append(row[0])
+                self.procFiles[fName] = 0
         
     def load(self):
         fList = self._getFiles(self.args['data_folder'])
-        self.productList = self._parseFiles(fList)
+        self._detectNewFiles(fList)
+        self._parseFiles()
         self.listSize = len(self.productList)
     
     def sample(self, sampleSize=0):
