@@ -14,7 +14,8 @@ belongs in any of three datasets.
 
   * [The clients dataset](specs/clients/)
   * [The stock dataset](specs/stock/)
-  * [The buy-orders dataset](specs/orders/)
+  * [The buy-orders dataset](specs/buy_orders/)
+  * [The sell-orders dataset](specs/sell_orders/)
 
 First get familiarized with the data models of the datasets; then move to the
 [problems](problems/) section to help Alimazon on its quest to ~~World

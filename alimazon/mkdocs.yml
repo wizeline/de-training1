@@ -3,10 +3,10 @@ theme:
     name: rtd-dropdown
 pages:
     - Overview: index.md
-    - Data specification:
-        - Clients specification: specs/clients.md
-        - Stock specification: specs/stock.md
-        - Orders specification: specs/orders.md
+    - Data Specification:
+        - Clients: specs/clients.md
+        - Buy Orders: specs/buy_orders.md
+        - Sell Orders: specs/sell_orders.md
     - Appendixes:
         - Categories: appendixes/categories.md
         - Country codes: appendixes/country_codes.md
