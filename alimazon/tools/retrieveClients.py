@@ -21,6 +21,7 @@ import random
 class clientSampler:
     
     args = {}
+    procFiles = {}
     idList = []
     index = 0
     listSize = 0
@@ -35,19 +36,24 @@ class clientSampler:
         fList = [f for f in glob.glob(fDirectory + "/*.jsonl.gz")]
         return fList
 
+    def _detectNewFiles(self, fList):
+        for f in fList:
+            if f not in self.procFiles.keys():
+                self.procFiles[f]=1
 
-    def _parseFiles(self, fList):
-        idList = []
-        for fName in fList:
-            with json_lines.open(fName) as f:
-                for item in f:
-                    idList.append(item['id'])
-        return idList
+    def _parseFiles(self):
+        for fName in self.procFiles:
+            if(self.procFiles[fName]):
+                with json_lines.open(fName) as f:
+                    for client in f:
+                        self.idList.append(client['id'])
+                self.procFiles[fName] = 0
         
     def load(self):
         if(self.args['connection_type']=='JSON'):
             fList = self._getFiles(self.args['data_folder'])
-            self.idList = self._parseFiles(fList)
+            self._detectNewFiles(fList)
+            self._parseFiles()
             self.listSize = len(self.idList)
         # implement load on SQLite DB
     
