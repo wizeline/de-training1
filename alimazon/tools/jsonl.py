@@ -5,9 +5,13 @@ For details on the format, see: http://jsonlines.org/
 import contextlib
 import gzip
 import json
-
 from itertools import chain
+
 from gzip_util import is_gzipped_file
+from iter_util import batch
+
+# TODO: run experiments to determine a sound default value
+_DEFAULT_BATCH_SIZE = 5000
 
 
 def read_from_files(filepaths, include_columns=None, exclude_columns=None):
@@ -39,14 +43,14 @@ def copy_from_files(filepaths, to_filepath, include_columns=None, exclude_column
     write_to_file(to_filepath, records)
 
 
-def write_to_file(filepath, iterable):
+def write_to_file(filepath, iterable, batch_size=_DEFAULT_BATCH_SIZE):
     with _open_file(filepath, mode='wt') as output:
-        write_to_stream(output, iterable)
+        write_to_stream(output, iterable, batch_size=batch_size)
 
 
-def write_to_stream(output_stream, iterable):
-    for record in iterable:
-        output_stream.write(json.dumps(record) + '\n')
+def write_to_stream(output_stream, iterable, batch_size=_DEFAULT_BATCH_SIZE):
+    for records in batch(iterable, batch_size):
+        output_stream.write('\n'.join(json.dumps(record) for record in records))
 
 
 def _select_columns(line, columns):
