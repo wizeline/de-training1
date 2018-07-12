@@ -4,7 +4,7 @@ bucket_01 = "de-training-bucket-01"
 
 bucket_02 = "de-training-bucket-02"
 
-stagging_bucket = "de-training-stagging"
+staging_bucket = "de-training-staging"
 
 zeppelin_sh_path = "/Users/donovan/Documents/Wizeline/Python/DataEngineering/de-training/gcloud/zeppelin.sh"
 

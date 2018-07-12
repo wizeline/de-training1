@@ -2,7 +2,7 @@
 // Definition of variables
 variable project_name {}
 
-variable "stagging_bucket" {}
+variable "staging_bucket" {}
 
 variable "bucket_01" {}
 
@@ -51,8 +51,8 @@ resource "google_storage_bucket" "de-bucket02" {
 }
 
 // Bucket required for the cluster
-resource "google_storage_bucket" "de-stagging" {
-  name          = "${var.stagging_bucket}"
+resource "google_storage_bucket" "de-staging" {
+  name          = "${var.staging_bucket}"
   location      = "${var.location}"
   force_destroy = "true"
 }
@@ -67,8 +67,8 @@ resource "google_dataproc_cluster" "de-training" {
   depends_on = ["google_storage_bucket.de-bucket01"]
 
   cluster_config {
-    // Staggin bucket name previously created
-    staging_bucket = "${var.stagging_bucket}"
+    // Staging bucket name previously created
+    staging_bucket = "${var.staging_bucket}"
 
     gce_cluster_config {
       zone = "${var.zone}"
