@@ -5,9 +5,9 @@ from datetime import datetime, timedelta
 from itertools import accumulate
 from random import random
 from uuid import uuid4
-import gzip
-import json
 import math
+
+import jsonl
 
 _GENDERS = ('male', 'female', None)
 
@@ -59,6 +59,19 @@ def _today_string():
     return datetime.today().strftime('%Y%m%dT%H%M%S')
 
 
+def samples(samplers, context):
+    for _ in range(context['max_rows']):
+        yield {
+            'id': str(uuid4()),
+            'name': '{} {}'.format(next(samplers['names_sampler']),
+                                   next(samplers['surnames_sampler'])),
+            'gender': next(samplers['gender_sampler']),
+            'country': next(samplers['codes_sampler']),
+            'registration_date': (
+                context['start'] + timedelta(context['period'] * random())).isoformat()
+        }
+
+
 def _main():
     args = _parse_args()
 
@@ -70,31 +83,21 @@ def _main():
         codes = [c.strip().split('|')[0] for c in countries_file][1:]
         codes.append(None)
 
-    names_sampler = _sampler(names, _weights(names))
-    surnames_sampler = _sampler(surnames, _weights(surnames))
-    gender_sampler = _sampler(_GENDERS, _weights(_GENDERS, _none=0.4))
-    codes_sampler = _sampler(codes, _weights(codes, _none=0.3))
-
+    samplers = {
+        'names_sampler': _sampler(names, _weights(names)),
+        'surnames_sampler': _sampler(surnames, _weights(surnames)),
+        'gender_sampler': _sampler(_GENDERS, _weights(_GENDERS, _none=0.4)),
+        'codes_sampler': _sampler(codes, _weights(codes, _none=0.3))
+    }
     files_count = math.ceil(args['sample_size'] / args['max_rows'])
     for idx in range(files_count):
         rows = min(args['sample_size'] - args['max_rows'] * idx,
                    args['max_rows'])
-        filename = '{}/{}_client_{:0>5}.jsonl.gz'.format(args['output_folder'],
-                                                         _today_string(),
-                                                         idx)
-        with gzip.open(filename, 'wt') as output_file:
-            output_file.write('\n'.join(json.dumps({
-                'id': str(uuid4()),
-                'name': '{} {}'.format(next(names_sampler),
-                                       next(surnames_sampler)),
-                'gender': next(gender_sampler),
-                'country': next(codes_sampler),
-                'registration_date': (args['start'] +
-                                      timedelta(args['period'] *
-                                                random())).isoformat()
-            }) for _ in range(rows)))
-            output_file.write('\n')
-
+        filename = '{}/{}_client_{:0>5}.jsonl.gz'.format(
+            args['output_folder'],
+            _today_string(),
+            idx)
+        jsonl.write_to_file(filename, samples(samplers, args), batch_size=rows)
 
 if __name__ == '__main__':
     _main()
