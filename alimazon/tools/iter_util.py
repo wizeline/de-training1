@@ -1,4 +1,10 @@
-from itertools import groupby, count
+from itertools import (
+    groupby, count, islice
+)
+
+def take(n, iterable):
+    return list(islice(iterable, n))
+
 
 def batch(iterable, size):
     """

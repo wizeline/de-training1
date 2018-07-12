@@ -1,5 +1,8 @@
 import contextlib
+import gzip
 import os
+
+from gzip_util import is_gzipped_file
 
 # TODO: implement unit tests
 # TODO: document functions more thoroughly
@@ -71,6 +74,15 @@ def replace_filename(filepath, new_name):
     return os.path.join(filepath, new_name)
 
 
+def append_to_filename(filepath, suffix):
+    """
+    append_to_filename('/users/home/file.tsv.gz', '_0001')
+       => '/users/home/file_0001.tsv.gz'
+    """
+    filepath, extensions = split_extensions(filepath)
+    return filepath + suffix + extensions
+
+
 def prepend_to_filename(filepath, prefix):
     """
     prepend_to_filename('/users/home/file.tsv.gz', 'temp')
@@ -103,3 +115,16 @@ def temporary_file_rename(full_filepath, new_name):
     os.rename(full_filepath, new_full_filepath)
     yield new_full_filepath
     os.rename(new_full_filepath, full_filepath)
+
+
+@contextlib.contextmanager
+def open_file(input_filepath, mode, **kwargs):
+    if is_gzipped_file(input_filepath):
+        file = gzip.open(input_filepath, mode=mode, **kwargs)
+    else:
+        file = open(input_filepath, mode=mode, **kwargs)
+
+    try:
+        yield file
+    finally:
+        file.close()

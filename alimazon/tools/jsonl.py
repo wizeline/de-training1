@@ -3,12 +3,12 @@ Read, write and copy files and iterables in JSONL format.
 For details on the format, see: http://jsonlines.org/
 """
 import contextlib
-import gzip
 import json
-from itertools import chain
+import os
 
-from gzip_util import is_gzipped_file
+from itertools import chain
 from iter_util import batch
+from file_util import append_to_filename, open_file
 
 # TODO: run experiments to determine a sound default value
 _DEFAULT_BATCH_SIZE = 5000
@@ -20,7 +20,7 @@ def read_from_files(filepaths, include_columns=None, exclude_columns=None):
 
 
 def read_from_file(filepath, include_columns=None, exclude_columns=None):
-    with _open_file(filepath, mode='rt') as input:
+    with open_file(filepath, mode='rt') as input:
         yield from read_from_iterable(input, include_columns, exclude_columns)
 
 
@@ -43,8 +43,20 @@ def copy_from_files(filepaths, to_filepath, include_columns=None, exclude_column
     write_to_file(to_filepath, records)
 
 
+def write_to_files(
+        base_filepath,
+        iterable,
+        max_records_per_file,
+        suffix_generator=lambda index: str(index)):
+
+    for index, records in enumerate(batch(iterable, size=max_records_per_file)):
+        filepath = append_to_filename(base_filepath, suffix_generator(index))
+        write_to_file(filepath, records)
+
+
 def write_to_file(filepath, iterable, batch_size=_DEFAULT_BATCH_SIZE):
-    with _open_file(filepath, mode='wt') as output:
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+    with open_file(filepath, mode='wt') as output:
         write_to_stream(output, iterable, batch_size=batch_size)
 
 
@@ -70,16 +82,3 @@ def _compute_include_columns(line, include_columns, exclude_columns):
     if not include_columns:
         include_columns = all_columns
     return list(set(include_columns) - set(exclude_columns))
-
-
-@contextlib.contextmanager
-def _open_file(input_filepath, mode, **kwargs):
-    if is_gzipped_file(input_filepath):
-        file = gzip.open(input_filepath, mode=mode, **kwargs)
-    else:
-        file = open(input_filepath, mode=mode, **kwargs)
-
-    try:
-        yield file
-    finally:
-        file.close()

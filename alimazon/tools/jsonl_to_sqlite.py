@@ -81,6 +81,15 @@ def _raise_if_nonexistent(filepaths):
             sys.exit()
 
 
+# TODO: define a clear error handling strategy (e.g. if only one of the files is missing,
+#       do we really want to abort? should we support a --ignore-missing-input flag?)
+def _raise_if_nonexistent(filepaths):
+    for filepath in filepaths:
+        if not os.path.isfile(filepath):
+            _print_error('Input file "{0}" does not exist'.format(filepath))
+            sys.exit()
+
+
 def _from_jsonl_to_sqlite_table(input_filepath, output_filepath, table_name=None):
     new_filename = _create_filename(input_filepath, table_name)
     with temporary_file_rename(input_filepath, new_name=new_filename) as input_filepath:
