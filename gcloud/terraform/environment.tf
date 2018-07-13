@@ -2,15 +2,15 @@
 // Definition of variables
 variable project_name {}
 
-variable "staging_bucket" {}
+variable "staging_prefix" {}
 
-variable "bucket_01" {}
+variable "bucket_prefix_a" {}
 
-variable "bucket_02" {}
+variable "bucket_prefix_b" {}
 
 variable "zeppelin_sh_path" {}
 
-variable "cluster_name" {}
+variable "cluster_prefix" {}
 
 variable "region" {}
 
@@ -19,6 +19,8 @@ variable "location" {}
 variable "machine_type" {}
 
 variable "zone" {}
+
+variable "num_alumns" {}
 
 // ---------------------------------
 // Configure the Google Cloud provider
@@ -31,44 +33,44 @@ provider "google" {
 // Configure resources
 
 // Bucket where the zeppelin sh file is going to be copied
-resource "google_storage_bucket" "de-bucket01" {
-  name          = "${var.bucket_01}"
+resource "google_storage_bucket" "de-bucket-a" {
+  name          = "${var.bucket_prefix_a}-${count.index}"
   location      = "${var.location}"
   force_destroy = "true"
+  count         = "${var.num_alumns}"
 
   provisioner "local-exec" {
     // This command is run in the local machine, if required in the remote resource
     // change it to remote-exec
-    command = "gsutil cp ${var.zeppelin_sh_path} gs://${var.bucket_01}/"
+    command = "gsutil cp ${var.zeppelin_sh_path} gs://${var.bucket_prefix_a}-${count.index}/"
   }
 }
 
 // Bucket for general purposes (delete if not required)
-resource "google_storage_bucket" "de-bucket02" {
-  name          = "${var.bucket_02}"
+resource "google_storage_bucket" "de-bucket-b" {
+  name          = "${var.bucket_prefix_b}-${count.index}"
   location      = "${var.location}"
   force_destroy = "true"
+  count         = "${var.num_alumns}"
 }
 
 // Bucket required for the cluster
 resource "google_storage_bucket" "de-staging" {
-  name          = "${var.staging_bucket}"
+  name          = "${var.staging_prefix}-${count.index}"
   location      = "${var.location}"
   force_destroy = "true"
+  count         = "${var.num_alumns}"
 }
 
 // Cluster that is initialized with zeppelin.sh previously copied.
 resource "google_dataproc_cluster" "de-training" {
-  name   = "${var.cluster_name}"
+  name   = "${var.cluster_prefix}-${count.index}"
   region = "${var.region}"
-
-  // Here is the name of the bucket where the zeppelin sh is copied
-  // terraform does not accept interpolation in depends and naming
-  depends_on = ["google_storage_bucket.de-bucket01"]
+  count  = "${var.num_alumns}"
 
   cluster_config {
     // Staging bucket name previously created
-    staging_bucket = "${var.staging_bucket}"
+    staging_bucket = "${var.staging_prefix}-${count.index}"
 
     gce_cluster_config {
       zone = "${var.zone}"
@@ -101,7 +103,7 @@ resource "google_dataproc_cluster" "de-training" {
     # You can define multiple initialization_action blocks
     initialization_action {
       // Path to the bucket where the zeppelin.sh was copied
-      script      = "gs://${var.bucket_01}/zeppelin.sh"
+      script      = "gs://${var.bucket_prefix_a}-${count.index}/zeppelin.sh"
       timeout_sec = 500
     }
   }

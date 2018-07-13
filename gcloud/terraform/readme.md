@@ -2,9 +2,20 @@
 
 ## Install
 
-To create the GCP environment first needs to update **environment.tfvars** file with the desired values, then run this commands in your terminal:
+First you need to download Terraform and install it, you can use either homewbrew in Mac or download the package from the offical page.
+
+The official page url is:
+
+`https://www.terraform.io/intro/getting-started/install.html`
+
+The brew formula url is:
+
+`http://brewformulas.org/Terraform`
+
+To create the GCP environment first needs to update **environment.tfvars** file with the desired values, then go to the terraform folder (gcloud/terraform) and run this commands in your terminal:
 
 ```bash
+terraform init
 terraform apply -var-file=environment.tfvars
 ```
 

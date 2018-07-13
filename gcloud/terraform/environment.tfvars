@@ -1,14 +1,14 @@
 project_name = "data-castle-bravo"
 
-bucket_01 = "de-training-bucket-01"
+bucket_prefix_a = "de-training-bucket-a"
 
-bucket_02 = "de-training-bucket-02"
+bucket_prefix_b = "de-training-bucket-b"
 
-staging_bucket = "de-training-staging"
+staging_prefix = "de-training-staging"
 
 zeppelin_sh_path = "/Users/donovan/Documents/Wizeline/Python/DataEngineering/de-training/gcloud/zeppelin.sh"
 
-cluster_name = "de-training"
+cluster_prefix = "de-training"
 
 region = "us-central1"
 
@@ -17,3 +17,5 @@ zone = "us-central1-a"
 location = "US"
 
 machine_type = "n1-standard-1"
+
+num_alumns = 2
