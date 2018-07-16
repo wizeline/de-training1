@@ -1,6 +1,6 @@
 import random
 from datetime import datetime
-
+import dateutil.parser as date_parser
 
 def today_string():
     return datetime.today().strftime('%Y%m%dT%H%M%S')
@@ -11,6 +11,10 @@ def datetime_sequence(start, end, step):
         yield start
         start += step
 
+def _ensure_datetime(date):
+    if type(date) != datetime:
+        date = date_parser.parse(date)
+    return date
 
 # TODO: validate arguments
 def sample_datetime_sequence(start, end, step, sample_probability, random_seed=None):
