@@ -11,7 +11,7 @@ def datetime_sequence(start, end, step):
         yield start
         start += step
 
-def _ensure_datetime(date):
+def ensure_datetime(date):
     if type(date) != datetime:
         date = date_parser.parse(date)
     return date

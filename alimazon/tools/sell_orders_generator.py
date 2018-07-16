@@ -8,7 +8,7 @@ import random
 from clients_service import ClientsService
 from products_service import ProductsService
 from random_util import _random_prices, _random_quantities, _to_price, _random_products
-from date_util import sample_datetime_sequence, today_string, _ensure_datetime
+from date_util import sample_datetime_sequence, today_string, ensure_datetime
 import jsonl
 
 
@@ -41,8 +41,8 @@ def _create_data_samplers(settings):
 
 
 def _client_purchase_dates(start_date, end_date, profile):
-    start_date = _ensure_datetime(start_date)
-    end_date = _ensure_datetime(end_date)
+    start_date = ensure_datetime(start_date)
+    end_date = ensure_datetime(end_date)
 
     return sample_datetime_sequence(
         start_date,
