@@ -2,13 +2,13 @@
 
 from uuid import uuid4
 from datetime import datetime, timedelta
-import dateutil.parser as date_parser
 import numpy as np
 import random
 
 from clients_service import ClientsService
 from products_service import ProductsService
-from date_util import sample_datetime_sequence, today_string
+from random_util import _random_prices, _random_quantities, _to_price, _random_products
+from date_util import sample_datetime_sequence, today_string, ensure_datetime
 import jsonl
 
 
@@ -40,14 +40,9 @@ def _create_data_samplers(settings):
     }
 
 
-def _random_products():
-    while True:
-        yield products.choose_random()
-
-
 def _client_purchase_dates(start_date, end_date, profile):
-    start_date = _ensure_datetime(start_date)
-    end_date = _ensure_datetime(end_date)
+    start_date = ensure_datetime(start_date)
+    end_date = ensure_datetime(end_date)
 
     return sample_datetime_sequence(
         start_date,
@@ -70,47 +65,11 @@ def _random_sell_order(client_id, timestamp, samplers):
     }
 
 
-def _ensure_datetime(date):
-    if type(date) != datetime:
-        date = date_parser.parse(date)
-    return date
-
 
 def _random_client_profiles(client_profiles):
     weights = list(map(lambda profile: profile['occurrence_probability'], client_profiles))
     while True:
         yield np.random.choice(client_profiles, p=weights)
-
-
-def _random_prices(min, max):
-    assert min >= 0
-    for number in _truncated_lognormal_sequence(min, max):
-        yield _to_price(number)
-
-
-def _random_quantities(min, max):
-    # TODO: replace with a power law distribution
-    while True:
-        yield int(random.uniform(min, max))
-
-
-# TODO: this is a (very) poor man's method of generating a truncated lognormal distribution
-#       DO NOT use it for something serious
-def _truncated_lognormal_sequence(lower, upper):
-    _DEFAULT_BATCH_SIZE = 1000
-    if lower > upper:
-        raise ValueError('condition [lower >= upper] is not satisfied')
-
-    while True:
-        draws = list(np.random.lognormal(mean=3.0, sigma=1.0, size=_DEFAULT_BATCH_SIZE))
-        while draws:
-            number = draws.pop()
-            if lower <= number <= upper:
-                yield number
-
-
-def _to_price(number):
-    return round(number, ndigits=2)
 
 
 def _smoke_test():
