@@ -18,7 +18,7 @@ bucket_output_name_prefix = "de-training-output-bucket-"
 
 #Cluster information
 
-zeppelin_sh_path = "../zeppelin.sh"
+zeppelin_sh_path = "gs://dcb-initialization-actions/zeppelin.sh"
 
 cluster_prefix = "de-training"
 

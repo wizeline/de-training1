@@ -1,6 +1,11 @@
 # GCP enviroment creation
 
-## Install
+---
+
+## Pre-requisites
+
+* Latest Google Cloud SDK
+* Latest Terraform version
 
 ### GCP SDK
 
@@ -20,36 +25,38 @@ The brew formula url is:
 
 `http://brewformulas.org/Terraform`
 
+---
+
+## Install
+
 ### Executing Terraform script
 
-To create the GCP environment first needs to update **environment.tfvars** file with the desired values (number of alumns, naming of buckets, etc.), then go to the terraform folder (gcloud/terraform) and run this commands in your terminal:
+To create the GCP environment first needs to update **environment.tfvars** file with the desired values (number of alumns, naming of buckets, etc.), then go to folder `gcloud/scripts` and run the `deploy.sh` script.
 
-```bash
-terraform init
-terraform apply -var-file=environment.tfvars
-```
+`./deploy.sh`
 
-After it finished the creation of the environment, run the following commands in a terminal
+After run it will prompt the infrastructure that terraform will create, type "yes" and hit enter. The creation process shall start.
 
-```bash
-gcloud compute ssh CLUSTER_NAME-m
-gcloud compute ssh --ssh-flag="-D PORT_VALUE" --ssh-flag="-N" --ssh-flag="-n" CLUSTER_NAME-m
-```
+### Creating SSH tunel and running Zeppelin
 
-Were **CLUSTER_NAME** is the name defined in **environment.tfvars** file and **PORT_VALUE** is any port desired for SSH tunneling.
+After it finished the creation of the environment, go, in a new terminal, to `gcloud/scripts` folder and run the script `ssh_tunnel.sh`
 
-### Running Zeppelin
+`./ssh_tunnel.sh`
 
-After running the commands, open a browser and set the proxy to **SOCKS** with localhost and port value defined.
+This will create the ssh tunnel, the terminal will hang in this process until the user terminates it.
 
-To run zeppeling just open in yout browser to **<http://localhost:8080/>**
+In a new terminal, go to `gcloud/scripts` folder and run the script `start.sh`
 
-### Delete created environment
+`./start.sh`
 
-After completing the training or usage of the environment, the environment needs to be deleted to avoid billing of the resources. To do that run the following command
+This will opent a Chrome browser with SOCKS proxy enabled.
 
-```bash
-terraform destroy -var-file=environment.tfvars
-```
+---
 
-Remember to remove the **SOCKS** proxy property from your browser after finishing.
+## Delete created environment
+
+After completing the training or usage of the environment, the environment needs to be deleted to avoid billing of the resources. To do that go to `gcloud/scripts` folder and run the `delete.sh` script
+
+`./delete.sh`
+
+It will prompt to type "yes" if you want to delete the resources created.

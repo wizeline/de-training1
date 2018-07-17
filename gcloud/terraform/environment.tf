@@ -14,8 +14,8 @@ variable "bucket_input_name" {}
 variable "bucket_output_name_prefix" {}
 
 # Cluster information
-
 variable "zeppelin_sh_path" {}
+
 variable "cluster_prefix" {}
 variable "machine_type" {}
 variable "cluster_master_num_local_ssds" {}
@@ -44,12 +44,6 @@ resource "google_storage_bucket" "de-training-bucket-input" {
   name          = "${var.bucket_input_name}"
   location      = "${var.location}"
   force_destroy = "true"
-
-  provisioner "local-exec" {
-    // This command is run in the local machine, if required in the remote resource
-    // change it to remote-exec
-    command = "gsutil cp ${var.zeppelin_sh_path} gs://${var.bucket_input_name}/"
-  }
 }
 
 // Bucket for general purposes (delete if not required)
@@ -106,7 +100,7 @@ resource "google_dataproc_cluster" "de-training" {
     # You can define multiple initialization_action blocks
     initialization_action {
       // Path to the bucket where the zeppelin.sh was copied
-      script      = "gs://${var.bucket_input_name}/zeppelin.sh"
+      script      = "${var.zeppelin_sh_path}"
       timeout_sec = "${var.cluster_init_timeout}"
     }
   }
