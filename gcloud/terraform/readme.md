@@ -41,6 +41,8 @@ After run it will prompt the infrastructure that terraform will create, type "ye
 
 After it finished the creation of the environment, go, in a new terminal, to `gcloud/scripts` folder and run the script `ssh_tunnel.sh`
 
+Note: If need to change the Port to be used, just modify the `ssh_tunnel.sh` script
+
 `./ssh_tunnel.sh`
 
 This will create the ssh tunnel, the terminal will hang in this process until the user terminates it.
@@ -50,6 +52,8 @@ In a new terminal, go to `gcloud/scripts` folder and run the script `start.sh`
 `./start.sh`
 
 This will opent a Chrome browser with SOCKS proxy enabled.
+
+Note: if the port was modified, in `ssh_tunnel.sh` script, needs to modify also `start.sh` port so both matches.
 
 ---
 
