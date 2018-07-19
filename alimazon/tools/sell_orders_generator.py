@@ -4,6 +4,8 @@ from uuid import uuid4
 from datetime import datetime, timedelta
 import numpy as np
 import random
+import json
+import click
 
 from clients_service import ClientsService
 from products_service import ProductsService
@@ -16,10 +18,10 @@ clients = ClientsService()
 products = ProductsService()
 
 def generate_random_sell_orders(settings):
-    end_date = settings['end_date']
+    end_date = datetime.strptime(settings['end_date'], '%Y-%m-%d %H:%M:%S')
     samplers = _create_data_samplers(settings)
 
-    condition = 'registration_date >= "{}"'.format(settings['start_date'])
+    condition = 'registration_date >= "{}"'.format(datetime.strptime(settings['start_date'], '%Y-%m-%d %H:%M:%S'))
     for client in clients.where(condition):
         client_id, client_signup_date = client
         client_profile = next(samplers['client_profile_sampler'])
@@ -47,7 +49,7 @@ def _client_purchase_dates(start_date, end_date, profile):
     return sample_datetime_sequence(
         start_date,
         end=end_date,
-        step=profile['purchase_recurring_period'],
+        step=timedelta(days=profile['purchase_recurring_period_days']),
         sample_probability=profile['purchase_probability'])
 
 
@@ -72,37 +74,49 @@ def _random_client_profiles(client_profiles):
         yield np.random.choice(client_profiles, p=weights)
 
 
-def _smoke_test():
-    today = datetime.today()
-    one_month = timedelta(weeks=4)
-    settings = {
-        'start_date': '2017-01-01T00:00:00',
-        'end_date': '2018-01-01T00:00:00',
-        'min_product_price': 1.0,
-        'max_product_price': 10000,
-        'min_product_quantity': 1,
-        'max_product_quantity': 100,
-        'client_profiles': [
-            {
-                'type': 'avid',
-                'occurrence_probability': 0.30,
-                'purchase_recurring_period': timedelta(days=3),
-                'purchase_probability': 0.85
-            },
-            {
-                'type': 'casual',
-                'occurrence_probability': 0.55,
-                'purchase_recurring_period': timedelta(days=13),
-                'purchase_probability': 0.75
-            },
-            {
-                'type': 'rare',
-                'occurrence_probability': 0.15,
-                'purchase_recurring_period': timedelta(days=34),
-                'purchase_probability': 0.90
-            }
-        ],
-    }
+@click.command(context_settings=dict(help_option_names=['-h', '--help']))
+@click.option(
+    '-c', '--conf-file',
+    help="""
+    JSON format Client purchase orders configuration file (e.g. sell_orders.conf). If it is not specified, default values will be used.
+    """,
+    type=str
+)
+def _smoke_test(conf_file=None):
+    if conf_file:
+        with open(conf_file) as json_conf_file:
+            settings = json.load(json_conf_file)
+    else:
+        today = datetime.today()
+        one_month = timedelta(weeks=4)
+        settings = {
+            'start_date': '2017-01-01 00:00:00',
+            'end_date': '2018-01-01 00:00:00',
+            'min_product_price': 1,
+            'max_product_price': 10000,
+            'min_product_quantity': 1,
+            'max_product_quantity': 100,
+            'client_profiles': [
+                {
+                    'type': 'avid',
+                    'occurrence_probability': 0.30,
+                    'purchase_recurring_period_days': 3,
+                    'purchase_probability': 0.85
+                },
+                {
+                    'type': 'casual',
+                    'occurrence_probability': 0.55,
+                    'purchase_recurring_period_days': 13,
+                    'purchase_probability': 0.75
+                },
+                {
+                    'type': 'rare',
+                    'occurrence_probability': 0.15,
+                    'purchase_recurring_period_days': 34,
+                    'purchase_probability': 0.90
+                }
+            ],
+        }
     orders = generate_random_sell_orders(settings)
 
     def generate_suffix(index):

@@ -6,13 +6,15 @@ from itertools import accumulate
 from random import random
 from uuid import uuid4
 import math
+import click
+import json
 
 import jsonl
 
 _GENDERS = ('male', 'female', None)
 
-_DEFAULT_SAMPLE_SIZE = 5*10**4
-_DEFAULT_START_DATE = datetime(2017, 1, 1)
+_DEFAULT_SAMPLE_SIZE = 50000
+_DEFAULT_START_DATE = '2017-01-01 00:00:00'
 _DEFAULT_PERIOD_IN_YEARS = 3
 _DEFAULT_NAMES_FILE = './resources/names.txt'
 _DEFAULT_SURNAMES_FILE = './resources/surnames.txt'
@@ -68,12 +70,25 @@ def samples(samplers, context):
             'gender': next(samplers['gender_sampler']),
             'country': next(samplers['codes_sampler']),
             'registration_date': (
-                context['start'] + timedelta(context['period'] * random())).isoformat()
+                datetime.strptime(context['start'], '%Y-%m-%d %H:%M:%S') +
+                timedelta(context['period'] * random())).isoformat()
         }
 
 
-def _main():
-    args = _parse_args()
+@click.command(context_settings=dict(help_option_names=['-h', '--help']))
+@click.option(
+    '-c', '--conf-file',
+    help="""
+    JSON format Client configuration file (e.g. client.conf). If it is not specified, default values will be used.
+    """,
+    type=str
+)
+def _main(conf_file=None):
+    if conf_file:
+        with open(conf_file) as json_conf_file:
+            args = json.load(json_conf_file)
+    else:
+        args = _parse_args()
 
     with open(args['names_filename']) as names_file, \
             open(args['surnames_filename']) as surnames_file, \
