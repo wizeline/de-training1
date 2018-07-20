@@ -10,7 +10,7 @@ import click
 from clients_service import ClientsService
 from products_service import ProductsService
 from random_util import _random_prices, _random_quantities, _to_price, _random_products
-from date_util import sample_datetime_sequence, today_string, ensure_datetime
+from date_util import sample_datetime_sequence, today_string, ensure_datetime, iso_string_to_date
 import jsonl
 
 
@@ -18,10 +18,10 @@ clients = ClientsService()
 products = ProductsService()
 
 def generate_random_sell_orders(settings):
-    end_date = datetime.strptime(settings['end_date'], '%Y-%m-%d %H:%M:%S')
+    end_date = iso_string_to_date(settings['end_date'])
     samplers = _create_data_samplers(settings)
 
-    condition = 'registration_date >= "{}"'.format(datetime.strptime(settings['start_date'], '%Y-%m-%d %H:%M:%S'))
+    condition = 'registration_date >= "{}"'.format(iso_string_to_date(settings['start_date']))
     for client in clients.where(condition):
         client_id, client_signup_date = client
         client_profile = next(samplers['client_profile_sampler'])
@@ -82,41 +82,9 @@ def _random_client_profiles(client_profiles):
     """,
     type=str
 )
-def _smoke_test(conf_file=None):
-    if conf_file:
-        with open(conf_file) as json_conf_file:
-            settings = json.load(json_conf_file)
-    else:
-        today = datetime.today()
-        one_month = timedelta(weeks=4)
-        settings = {
-            'start_date': '2017-01-01 00:00:00',
-            'end_date': '2018-01-01 00:00:00',
-            'min_product_price': 1,
-            'max_product_price': 10000,
-            'min_product_quantity': 1,
-            'max_product_quantity': 100,
-            'client_profiles': [
-                {
-                    'type': 'avid',
-                    'occurrence_probability': 0.30,
-                    'purchase_recurring_period_days': 3,
-                    'purchase_probability': 0.85
-                },
-                {
-                    'type': 'casual',
-                    'occurrence_probability': 0.55,
-                    'purchase_recurring_period_days': 13,
-                    'purchase_probability': 0.75
-                },
-                {
-                    'type': 'rare',
-                    'occurrence_probability': 0.15,
-                    'purchase_recurring_period_days': 34,
-                    'purchase_probability': 0.90
-                }
-            ],
-        }
+def _smoke_test(conf_file='sell_orders_default.conf'):
+    with open(conf_file) as json_conf_file:
+        settings = json.load(json_conf_file)
     orders = generate_random_sell_orders(settings)
 
     def generate_suffix(index):

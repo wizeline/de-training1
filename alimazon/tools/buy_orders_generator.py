@@ -9,15 +9,15 @@ import json
 
 from products_service import ProductsService
 from random_util import _random_prices, _random_quantities, _truncated_lognormal_sequence, _to_price, _random_products
-from date_util import sample_datetime_sequence, today_string, ensure_datetime
+from date_util import sample_datetime_sequence, today_string, ensure_datetime, iso_string_to_date, date_to_iso_string
 import jsonl
 
 products = ProductsService()
 
 def generate_random_buy_orders(settings):
     n_orders = settings['buy_orders_count']
-    end_date = datetime.strptime(settings['end_date'], '%Y-%m-%d %H:%M:%S')
-    start_date = datetime.strptime(settings['start_date'], '%Y-%m-%d %H:%M:%S')
+    end_date = iso_string_to_date(settings['end_date'])
+    start_date = iso_string_to_date(settings['start_date'])
     samplers = _create_data_samplers(settings)
     supplier_profile = next(samplers['supplier_profile_sampler'])
 
@@ -77,43 +77,10 @@ def _random_buy_order(timestamp, samplers):
     """,
     type=str
 )
-def _smoke_test(conf_file):
-    if conf_file:
-        with open(conf_file) as json_conf_file:
-            settings = json.load(json_conf_file)
-    else:
-        today = datetime.today()
-        one_month = today + timedelta(weeks=4)
-        settings = {
-            'buy_orders_count': 10000,
-            'start_date': today.strftime("%Y-%m-%d %H:%M:%S"),
-            'end_date': one_month.strftime("%Y-%m-%d %H:%M:%S"),
-            'min_product_price': 1.0,
-            'max_product_price': 10000,
-            'min_product_quantity': 1,
-            'max_product_quantity': 100,
-            'supplier_profiles': [
-                {
-                    'type': 'approved',
-                    'occurrence_probability': 0.15,
-                    'purchase_recurring_period_days': 6,
-                    'purchase_probability': 0.65,
+def _smoke_test(conf_file='buy_orders_default.conf'):
+    with open(conf_file) as json_conf_file:
+        settings = json.load(json_conf_file)
 
-                },
-                {
-                    'type': 'prefered',
-                    'occurrence_probability': 0.65,
-                    'purchase_recurring_period_days': 2,
-                    'purchase_probability': 0.85
-                },
-                {
-                    'type': 'strategic',
-                    'occurrence_probability': 0.20,
-                    'purchase_recurring_period_days': 5,
-                    'purchase_probability': 0.70
-                }
-            ],
-        }
     orders = generate_random_buy_orders(settings)
 
     def generate_suffix(index):

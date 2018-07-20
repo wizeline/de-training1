@@ -1,7 +1,5 @@
 #!/bin/bash
 # Alimazon dataset generator
-# Author: Daniel Morales <daniel.morales@wizeline.com>
-# Last updated on: Jul/19/2018
 # --------------------------------------------------------------
 
 ##### Default parameters
@@ -36,7 +34,6 @@ generate_buy_orders()
 {
     echo -n "Generating buy orders... "
     python buy_orders_generator.py -c $buy_settings
-    # python jsonl_to_sqlite.py "resources/buy-orders/*.jsonl.gz" --output-filepath="resources/buy-orders/buy_orders.sqlite"
     echo "OK"
 }
 
@@ -44,7 +41,6 @@ generate_sell_orders()
 {
     echo -n "Generating sell orders... "
     python sell_orders_generator.py -c $sell_settings
-    # python jsonl_to_sqlite.py "resources/sell-orders/*.jsonl.gz" --output-filepath="resources/sell-orders/sell_orders.sqlite"
     echo "OK"
 }
 

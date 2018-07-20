@@ -5,6 +5,11 @@ import dateutil.parser as date_parser
 def today_string():
     return datetime.today().strftime('%Y%m%dT%H%M%S')
 
+def iso_string_to_date(date_string):
+    return datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%S')
+
+def date_to_iso_string(date):
+    return date.strftime("%Y-%m-%dT%H:%M:%S")
 
 def datetime_sequence(start, end, step):
     while start < end:
