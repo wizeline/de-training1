@@ -63,6 +63,7 @@ def write_to_file(filepath, iterable, batch_size=_DEFAULT_BATCH_SIZE):
 def write_to_stream(output_stream, iterable, batch_size=_DEFAULT_BATCH_SIZE):
     for records in batch(iterable, batch_size):
         output_stream.write('\n'.join(json.dumps(record) for record in records))
+        output_stream.write('\n')
 
 
 def _select_columns(line, columns):

@@ -4,18 +4,20 @@ from uuid import uuid4
 from datetime import datetime, timedelta
 import numpy as np
 import random
+import click
+import json
 
 from products_service import ProductsService
 from random_util import _random_prices, _random_quantities, _truncated_lognormal_sequence, _to_price, _random_products
-from date_util import sample_datetime_sequence, today_string, ensure_datetime
+from date_util import sample_datetime_sequence, today_string, ensure_datetime, iso_string_to_date, date_to_iso_string
 import jsonl
 
 products = ProductsService()
 
 def generate_random_buy_orders(settings):
     n_orders = settings['buy_orders_count']
-    end_date = settings['end_date']
-    start_date = settings['start_date']
+    end_date = iso_string_to_date(settings['end_date'])
+    start_date = iso_string_to_date(settings['start_date'])
     samplers = _create_data_samplers(settings)
     supplier_profile = next(samplers['supplier_profile_sampler'])
 
@@ -50,7 +52,7 @@ def _create_purchase_dates(start_date, end_date, profile):
     return sample_datetime_sequence(
         start_date,
         end=end_date,
-        step=profile['purchase_recurring_period'],
+        step=timedelta(days=profile['purchase_recurring_period_days']),
         sample_probability=profile['purchase_probability'])
 
 
@@ -67,39 +69,18 @@ def _random_buy_order(timestamp, samplers):
     }
 
 
-def _smoke_test():
-    today = datetime.today()
-    one_month = today + timedelta(weeks=4)
-    settings = {
-        'buy_orders_count': 10000,
-        'start_date': today,
-        'end_date': one_month,
-        'min_product_price': 1.0,
-        'max_product_price': 10000,
-        'min_product_quantity': 1,
-        'max_product_quantity': 100,
-        'supplier_profiles': [
-            {
-                'type': 'approved',
-                'occurrence_probability': 0.15,
-                'purchase_recurring_period': timedelta(days=6),
-                'purchase_probability': 0.65,
+@click.command(context_settings=dict(help_option_names=['-h', '--help']))
+@click.option(
+    '-c', '--conf-file',
+    help="""
+    JSON format Stock purchase orders configuration file (e.g. buy_orders.conf). If it is not specified, default values will be used.
+    """,
+    type=str
+)
+def _smoke_test(conf_file='buy_orders_default.conf'):
+    with open(conf_file) as json_conf_file:
+        settings = json.load(json_conf_file)
 
-            },
-            {
-                'type': 'prefered',
-                'occurrence_probability': 0.65,
-                'purchase_recurring_period': timedelta(days=2),
-                'purchase_probability': 0.85
-            },
-            {
-                'type': 'strategic',
-                'occurrence_probability': 0.20,
-                'purchase_recurring_period': timedelta(days=5),
-                'purchase_probability': 0.70
-            }
-        ],
-    }
     orders = generate_random_buy_orders(settings)
 
     def generate_suffix(index):
