@@ -31,6 +31,8 @@ The brew formula url is:
 
 ### Executing Terraform script
 
+First of all, before running terraform, the GCP project needs to have a Service Account created, the deploy.sh script has instructions in there for creation, if needed.
+
 To create the GCP environment first needs to update **environment.tfvars** file with the desired values (number of alumns, naming of buckets, etc.), then go to folder `gcloud/scripts` and run the `deploy.sh` script.
 
 `./deploy.sh`
@@ -47,13 +49,17 @@ Note: If need to change the Port to be used, just modify the `ssh_tunnel.sh` scr
 
 This will create the ssh tunnel, the terminal will hang in this process until the user terminates it.
 
-In a new terminal, go to `gcloud/scripts` folder and run the script `start.sh`
+In a new terminal, go to `gcloud/scripts` folder and run the script `start_proxy.sh`
 
-`./start.sh`
+`./start_proxy.sh`
 
 This will opent a Chrome browser with SOCKS proxy enabled.
 
-Note: if the port was modified, in `ssh_tunnel.sh` script, needs to modify also `start.sh` port so both matches.
+Note: if the port was modified, in `ssh_tunnel.sh` script, needs to modify also `start_proxy.sh` port so both matches.
+
+After finishing working just run `stop_proxy.sh` to stop SOCKS proxy
+
+`./stop_proxy.sh`
 
 ---
 
