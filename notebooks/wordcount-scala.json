@@ -1,0 +1,929 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n## Welcome\nWelcome to Wizeline Data Engineering Academy! \n\nWe hope you have a great experience during the course and you end up with a solid grasp of the topics we\u0027ll be covering.\nIf you have any feedback about our courses, please feel free to send us an email to academy@wizeline.com.\n\n## Hello, World! -- Word Count (Scala Version)\nIn this exercise, your instructor will guide through the creation of an example program to count the number of words in a set of documents in Spark.\n\nAfterwards, you\u0027ll get a chance to complete a couple of exercises that extend that example and will help you solidify your understanding. \n\nPlease reach out to one of the tutors if you have any questions or run into trouble during the session.\n\nHave Fun!",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.241",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eWelcome\u003c/h2\u003e\n\u003cp\u003eWelcome to Wizeline Data Engineering Academy! \u003c/p\u003e\n\u003cp\u003eWe hope you have a great experience during the course and you end up with a solid grasp of the topics we\u0026rsquo;ll be covering.\u003cbr/\u003eIf you have any feedback about our courses, please feel free to send us an email to \u003ca href\u003d\"mailto:\u0026#x61;\u0026#99;\u0026#97;\u0026#x64;e\u0026#109;\u0026#121;\u0026#x40;\u0026#x77;i\u0026#122;\u0026#x65;\u0026#108;\u0026#x69;n\u0026#101;.c\u0026#111;\u0026#x6d;\"\u003e\u0026#x61;\u0026#99;\u0026#97;\u0026#x64;e\u0026#109;\u0026#121;\u0026#x40;\u0026#x77;i\u0026#122;\u0026#x65;\u0026#108;\u0026#x69;n\u0026#101;.c\u0026#111;\u0026#x6d;\u003c/a\u003e.\u003c/p\u003e\n\u003ch2\u003eHello, World! \u0026ndash; Word Count (Scala Version)\u003c/h2\u003e\n\u003cp\u003eIn this exercise, your instructor will guide through the creation of an example program to count the number of words in a set of documents in Spark.\u003c/p\u003e\n\u003cp\u003eAfterwards, you\u0026rsquo;ll get a chance to complete a couple of exercises that extend that example and will help you solidify your understanding. \u003c/p\u003e\n\u003cp\u003ePlease reach out to one of the tutors if you have any questions or run into trouble during the session.\u003c/p\u003e\n\u003cp\u003eHave Fun!\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618241_-1435849930",
+      "id": "20180713-170034_521067052",
+      "dateCreated": "2018-07-16 21:46:58.241",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md \n## Reading the dataset\nAs we mentioned before, we\u0027ll be using `Datasets` as our basic data structure, so let\u0027s import it:",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.242",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eReading the dataset\u003c/h2\u003e\n\u003cp\u003eAs we mentioned before, we\u0026rsquo;ll be using \u003ccode\u003eDatasets\u003c/code\u003e as our basic data structure, so let\u0026rsquo;s import it:\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618242_-883592092",
+      "id": "20180713-152515_1970095947",
+      "dateCreated": "2018-07-16 21:46:58.242",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "import org.apache.spark.sql.{Dataset}",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.242",
+      "config": {
+        "tableHide": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.sql.Dataset\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618242_1819585723",
+      "id": "20180713-172417_1709710571",
+      "dateCreated": "2018-07-16 21:46:58.242",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md To begin our example, let\u0027s pull a text file from a public bucket in Google Cloud:",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.242",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eTo begin our example, let\u0026rsquo;s pull a text file from a public bucket in Google Cloud:\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618242_1246765067",
+      "id": "20180713-172521_1303216552",
+      "dateCreated": "2018-07-16 21:46:58.242",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val content \u003d scala.io.Source.fromURL(\"https://storage.googleapis.com/wize-datasets/big.txt\").mkString\nval documents \u003d sc.parallelize(List(content)).toDS.as[String]",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.243",
+      "config": {
+        "tableHide": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "editorHide": false,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "content: String \u003d\n\"The Project Gutenberg EBook of The Adventures of Sherlock Holmes\nby Sir Arthur Conan Doyle\n(#15 in our series by Sir Arthur Conan Doyle)\n\nCopyright laws are changing all over the world. Be sure to check the\ncopyright laws for your country before downloading or redistributing\nthis or any other Project Gutenberg eBook.\n\nThis header should be the first thing seen when viewing this Project\nGutenberg file.  Please do not remove it.  Do not change or edit the\nheader without written permission.\n\nPlease read the \"legal small print,\" and other information about the\neBook and Project Gutenberg at the bottom of this file.  Included is\nimportant information about your specific rights and restrictions in\nhow the file may be used.  You can also find out about how to make a\ndonation...documents: org.apache.spark.sql.Dataset[String] \u003d [value: string]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618242_1038080708",
+      "id": "20180713-152523_768975449",
+      "dateCreated": "2018-07-16 21:46:58.242",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md In this example, we will use only one document, but in practice you could extend this to use any number of documents in all sorts of formats, even if they couldn\u0027t fit in a single machine. That\u0027s the power of Spark!",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.243",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eIn this example, we will use only one document, but in practice you could extend this to use any number of documents in all sorts of formats, even if they couldn\u0026rsquo;t fit in a single machine. That\u0026rsquo;s the power of Spark!\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618243_-346518300",
+      "id": "20180713-173145_1979252085",
+      "dateCreated": "2018-07-16 21:46:58.243",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n## Converting documents to words\nThough it\u0027s not completely necessary to define a separate function to break the input documents into words, we\u0027ll define a function `toWords` that will come in handy to have it once we get to other exercises to avoid duplicating code.\n\nThe function allows you to customize the boundaries between words using a regular expression. By default, it uses whitespaces as the delimiter. It also removes any empty words (e.g. for the text `\"hello,,world\"` and a separator that includes whitespace and commas, it would produce `\"hello\"` and `\"world\"` only)",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.243",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eConverting documents to words\u003c/h2\u003e\n\u003cp\u003eThough it\u0026rsquo;s not completely necessary to define a separate function to break the input documents into words, we\u0026rsquo;ll define a function \u003ccode\u003etoWords\u003c/code\u003e that will come in handy once we get to other exercises.\u003c/p\u003e\n\u003cp\u003eThe function allows you to customize the boundaries between words using a regular expression. By default, it uses whitespaces as the delimiter. It also removes any empty words (e.g. for the text \u003ccode\u003e\u0026quot;hello,,world\u0026quot;\u003c/code\u003e and a separator that includes whitespace and commas, it would produce \u003ccode\u003e\u0026quot;hello\u0026quot;\u003c/code\u003e and \u003ccode\u003e\u0026quot;world\u0026quot;\u003c/code\u003e only)\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618243_-1838332736",
+      "id": "20180713-185000_1281997520",
+      "dateCreated": "2018-07-16 21:46:58.243",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "def toWords(documents: Dataset[String], separatorsRegexp: String \u003d \"\"\"\\s+\"\"\"): Dataset[String] \u003d {\n    documents.flatMap(\n        doc \u003d\u003e doc.split(separatorsRegexp).map(_.toLowerCase).filter(!_.isEmpty))\n}",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.243",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "punctuationRegexp: String \u003d [\\p{Punct}\\s]\ntoWords: (documents: org.apache.spark.sql.Dataset[String], separatorsRegexp: String)org.apache.spark.sql.Dataset[String]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618243_1906985980",
+      "id": "20180713-162106_300537953",
+      "dateCreated": "2018-07-16 21:46:58.243",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md Given that we\u0027re mostly interested in words without punctuation in this example, we\u0027ll use a more specific regular expression. Don\u0027t worry too much about the details, though. If you\u0027re curious about how exactly it works, you can check this [post](https://stackoverflow.com/questions/30074109/removing-punctuation-marks-form-text-in-scala-spark)",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.243",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eGiven that we\u0026rsquo;re mostly interested in words without punctuation in this example, we\u0026rsquo;ll use a more specific regular expression. Don\u0026rsquo;t worry too much about the details, though. If you\u0026rsquo;re curious about how exactly it works, you can check this \u003ca href\u003d\"https://stackoverflow.com/questions/30074109/removing-punctuation-marks-form-text-in-scala-spark\"\u003epost\u003c/a\u003e\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618243_2115912985",
+      "id": "20180713-193952_1952995095",
+      "dateCreated": "2018-07-16 21:46:58.243",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val punctuationRegexp \u003d \"\"\"[\\p{Punct}\\s]\"\"\"",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.244",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "punctuationRegexp: String \u003d [\\p{Punct}\\s]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618243_681289816",
+      "id": "20180713-194312_424075201",
+      "dateCreated": "2018-07-16 21:46:58.243",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n### Incremental Development and Exploration\nThough it\u0027s convenient to have a function to reuse, when we\u0027re developing code for the first time it\u0027s usually a good idea to try individual function calls in isolation to make sure the data is flowing as expected.\n\nLet\u0027s go ahead and try a couple of those functions in isolation:",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.244",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch3\u003eIncremental Development and Exploration\u003c/h3\u003e\n\u003cp\u003eThough it\u0026rsquo;s convenient to have a function to reuse, when we\u0026rsquo;re developing code for the first time it\u0026rsquo;s usually a good idea to try individual function calls in isolation to make sure the data is flowing as expected.\u003c/p\u003e\n\u003cp\u003eLet\u0026rsquo;s go ahead and try a couple of those functions in isolation:\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618244_721492542",
+      "id": "20180713-190730_1897522264",
+      "dateCreated": "2018-07-16 21:46:58.244",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val lowerCased \u003d documents.map(doc \u003d\u003e doc.toLowerCase)\nlowerCased.head()",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.245",
+      "config": {
+        "tableHide": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "editorHide": false,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "lowerCased: org.apache.spark.sql.Dataset[String] \u003d [value: string]\nres31: String \u003d\n\"the project gutenberg ebook of the adventures of sherlock holmes\nby sir arthur conan doyle\n(#15 in our series by sir arthur conan doyle)\n\ncopyright laws are changing all over the world. be sure to check the\ncopyright laws for your country before downloading or redistributing\nthis or any other project gutenberg ebook.\n\nthis header should be the first thing seen when viewing this project\ngutenberg file.  please do not remove it.  do not change or edit the\nheader without written permission.\n\nplease read the \"legal small print,\" and other information about the\nebook and project gutenberg at the bottom of this file.  included is\nimportant information about your specific rights and restrictions in\nhow the file may be used.  you can also find out about how to make a\ndonation t..."
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618244_1405301285",
+      "id": "20180713-191055_175413413",
+      "dateCreated": "2018-07-16 21:46:58.244",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val filtered \u003d documents.map(doc \u003d\u003e \n    doc.split(punctuationRegexp).filter(word \u003d\u003e word.size \u003c 5))\nfiltered.head()",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.245",
+      "config": {
+        "tableHide": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "editorHide": false,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "filtered: org.apache.spark.sql.Dataset[Array[String]] \u003d [value: array\u003cstring\u003e]\nres40: Array[String] \u003d Array(The, of, The, of, by, Sir, \"\", \"\", 15, in, our, by, Sir, \"\", \"\", laws, are, all, over, the, \"\", Be, sure, to, the, laws, for, your, or, this, or, any, \"\", \"\", This, be, the, seen, when, this, file, \"\", \"\", do, not, it, \"\", \"\", Do, not, or, edit, the, \"\", \"\", read, the, \"\", \"\", \"\", and, the, and, at, the, of, this, file, \"\", \"\", is, your, and, in, how, the, file, may, be, used, \"\", \"\", You, can, also, find, out, how, to, make, a, to, \"\", and, how, to, get, \"\", \"\", \"\", \"\", \"\", To, The, of, Free, \"\", \"\", \"\", \"\", \"\", By, Both, and, By, \"\", 1971, \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", Were, By, of, \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", The, of, \"\", \"\", Sir, \"\", Date, \"\", \"\", 1999, \"\", \"\", \"\", 1661, \"\", \"\", Most, \"\", 29, \"\", 2002, \"\", \"\", \"\", 12, \"\", \"\", \"\", set, \"\", \"\", \"..."
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618245_1917531384",
+      "id": "20180713-191334_296049631",
+      "dateCreated": "2018-07-16 21:46:58.245",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md Let\u0027s also make sure that our function `toWords` produces the expected output (i.e. a set of words):",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.245",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eLet\u0026rsquo;s also make sure that our function \u003ccode\u003etoWords\u003c/code\u003e produces the expected output (i.e. a set of words):\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618245_14669858",
+      "id": "20180713-192314_2145515679",
+      "dateCreated": "2018-07-16 21:46:58.245",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val words \u003d toWords(documents)\nwords.head(10)",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.245",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "editorHide": false,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "words: org.apache.spark.sql.Dataset[String] \u003d [value: string]\nres42: Array[String] \u003d Array(the, project, gutenberg, ebook, of, the, adventures, of, sherlock, holmes)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618245_1177178975",
+      "id": "20180713-192337_1741363054",
+      "dateCreated": "2018-07-16 21:46:58.245",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\nFeel free to try and experiment with all sorts of expressions until you feel comfortable with your understanding of how the data is being transformed and flowing from function to function.",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.245",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eFeel free to try and experiment with all sorts of expressions until you feel comfortable with your understanding of how the data is being transformed and flowing from function to function.\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618245_-418689164",
+      "id": "20180713-191737_182562044",
+      "dateCreated": "2018-07-16 21:46:58.245",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n## Counting Words\nLet\u0027s now move on to solving the problem we started with! With the `toWords` function in our hands, our `countWords` function should be pretty short:",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.246",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eCounting Words\u003c/h2\u003e\n\u003cp\u003eLet\u0026rsquo;s now move on to solving the problem we started with! With the \u003ccode\u003etoWords\u003c/code\u003e function in our hands, our \u003ccode\u003ecountWords\u003c/code\u003e function should be pretty short:\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618245_-990783065",
+      "id": "20180713-192012_688996853",
+      "dateCreated": "2018-07-16 21:46:58.246",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "def countWords(documents: Dataset[String], separatorsRegexp: String \u003d \"\"\"\\s+\"\"\") : Dataset[(String, Long)] \u003d {\n    val words \u003d toWords(documents, separatorsRegexp)\n    val counts \u003d words.groupByKey(identity).count()\n\n    counts\n}",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.246",
+      "config": {
+        "tableHide": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "countWords: (documents: org.apache.spark.sql.Dataset[String], separatorsRegexp: String)org.apache.spark.sql.Dataset[(String, Long)]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618246_-1916807189",
+      "id": "20180713-165608_638775812",
+      "dateCreated": "2018-07-16 21:46:58.246",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md Let\u0027s test it (if you need a refresher of what\u0027s going on with the `groupByKey` and `count` functions, please refer to the slides shown earlier in this session):",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.246",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eLet\u0026rsquo;s test it (if you need a refresher of what\u0026rsquo;s going on with the \u003ccode\u003egroupByKey\u003c/code\u003e and \u003ccode\u003ecount\u003c/code\u003e functions, please refer to the slides shown earlier in this session):\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618246_356445229",
+      "id": "20180713-192508_1130563054",
+      "dateCreated": "2018-07-16 21:46:58.246",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val counts \u003d countWords(words)\ncounts.head(10)",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.246",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "counts: org.apache.spark.sql.Dataset[(String, Long)] \u003d [value: string, count(1): bigint]\nres47: Array[(String, Long)] \u003d Array((still,922), (those,1201), (some,1536), (few,458), (doubts,39), (inner,60), (hope,149), (everyday,14), (connected,52), (requirement,3))\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618246_1235952817",
+      "id": "20180713-165720_1184054894",
+      "dateCreated": "2018-07-16 21:46:58.246",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md It works! Yay!",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.247",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eIt works! Yay!\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618246_276994723",
+      "id": "20180713-194553_145958858",
+      "dateCreated": "2018-07-16 21:46:58.246",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n## Exercises\nNow that you\u0027re comfortable with this example, try solving the following exercises to further improve your understanding:\n\n1. Which are the top 10 longest words and how many of each are there in the dataset? (Hint: consider using the `Dataset` methods `mapGroups` and `orderBy`. Check out the [API](https://spark.apache.org/docs/2.0.2/api/java/org/apache/spark/sql/KeyValueGroupedDataset.html) for details)\n2. Can you find all interesting sets of anagrams (i.e. those of at least two words)? (Hint: you may need to use the `filter` method)\n    Two words are anagrams of each other if they contain the same number of occurrences of each letter. For instance, `“mar”.isAnagram(“ram”) \u003d\u003d true`, but `“line”.isAnagram(“nilee”) \u003d\u003d false`\n    For the set `{“art”, “rat”, “car”, “arc”}`, there are two interesting sets: `{“art”, “rat”}` and `{“car”, “arc”}` because they contain at least two elements. The set `{“buck”, “knuck”}` has no interesting sets of anagrams.\n\nIf you get stuck, don\u0027t hesitate to reach out to one of the tutors. They\u0027re here to help you!",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:46:58.247",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eExercises\u003c/h2\u003e\n\u003cp\u003eNow that you\u0026rsquo;re comfortable with this example, try solving the following exercises to further improve your understanding:\u003c/p\u003e\n\u003col\u003e\n  \u003cli\u003eWhich are the top 10 longest words and how many of each are there in the dataset? (Hint: consider using the \u003ccode\u003eDataset\u003c/code\u003e methods \u003ccode\u003emapGroups\u003c/code\u003e and \u003ccode\u003eorderBy\u003c/code\u003e. Check out the \u003ca href\u003d\"https://spark.apache.org/docs/2.0.2/api/java/org/apache/spark/sql/KeyValueGroupedDataset.html\"\u003eAPI\u003c/a\u003e for details)\u003c/li\u003e\n  \u003cli\u003eCan you find all interesting sets of anagrams (i.e. those of at least two words)? (Hint: you may need to use the \u003ccode\u003efilter\u003c/code\u003e method)\u003cbr/\u003eTwo words are anagrams of each other if they contain the same number of occurrences of each letter. For instance, \u003ccode\u003e“mar”.isAnagram(“ram”) \u003d\u003d true\u003c/code\u003e, but \u003ccode\u003e“line”.isAnagram(“nilee”) \u003d\u003d false\u003c/code\u003e\u003cbr/\u003eFor the set \u003ccode\u003e{“art”, “rat”, “car”, “arc”}\u003c/code\u003e, there are two interesting sets: \u003ccode\u003e{“art”, “rat”}\u003c/code\u003e and \u003ccode\u003e{“car”, “arc”}\u003c/code\u003e because they contain at least two elements. The set \u003ccode\u003e{“buck”, “knuck”}\u003c/code\u003e has no interesting sets of anagrams.\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003eIf you get stuck, don\u0026rsquo;t hesitate to reach out to one of the tutors. They\u0026rsquo;re here to help you!\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777618247_-816464546",
+      "id": "20180713-165752_2126024409",
+      "dateCreated": "2018-07-16 21:46:58.247",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n## Homework\nTo be designed...",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-16 21:56:00.623",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eHomework\u003c/h2\u003e\n\u003cp\u003eTo be designed\u0026hellip;\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531777625936_-1968561564",
+      "id": "20180716-214705_141895454",
+      "dateCreated": "2018-07-16 21:47:05.936",
+      "dateStarted": "2018-07-16 21:56:00.626",
+      "dateFinished": "2018-07-16 21:56:00.635",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "WordCount",
+  "id": "2DKNP7ZEU",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}
