@@ -31,7 +31,7 @@ The brew formula url is:
 
 ### Executing Terraform script
 
-First of all, before running terraform, the GCP project needs to have a Service Account created, the deploy.sh script has instructions in there for creation, if needed.
+First of all, before running terraform, the GCP project needs to have a Service Account created, the `deploy.sh` script has instructions in there for creation, if needed. For more information, each script has comments on how it works and what needs to be updated in order to tune the settings.
 
 To create the GCP environment first needs to update **environment.tfvars** file with the desired values (number of alumns, naming of buckets, etc.), then go to folder `gcloud/scripts` and run the `deploy.sh` script.
 
