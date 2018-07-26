@@ -6,7 +6,7 @@ PROJECT_ID="data-castle-bravo"
 # Roles for the new service account
 ROLES="roles/editor"
 # This path is where the Key of the service account is stored, if no service account exists yet, it will create one in the path specified
-PATH_TO_JSON_KEY=~/donovan_gcp_key.json
+PATH_TO_JSON_KEY=~/gcp_key.json
 
 #First, if a service account does not exists,  we need to create the service account, for that uncomment the following command
 #gcloud iam service-accounts create $SERVICE_ACCOUNT_NAME --display-name $SERVICE_ACCOUNT_NAME
