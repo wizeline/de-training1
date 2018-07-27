@@ -1,6 +1,10 @@
 #! /bin/bash
 # The services account name is the one that exists in GCP, if not exists, it will show an error that the account exists, but there is no issue with that
-SERVICE_ACCOUNT_NAME="test-training"
+echo "Type the service account name to be used for the creation of the resources. 
+The resources will be created using this service account."
+echo
+read SERVICE_ACCOUNT_NAME
+echo
 # Project active
 PROJECT_ID="data-castle-bravo"
 # Roles for the new service account

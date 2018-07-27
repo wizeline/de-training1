@@ -14,7 +14,7 @@ staging_prefix = "de-training-staging"
 
 bucket_input_name = "de-training-bucket-input"
 
-bucket_output_name_prefix = "de-training-output-bucket-"
+bucket_output_name_prefix = "de-training-output-bucket"
 
 #Cluster information
 
