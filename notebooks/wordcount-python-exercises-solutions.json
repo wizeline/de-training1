@@ -1,0 +1,753 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n## Exercises Solutions\nRemember that the best way to learn is by doing, so if you haven\u0027t yet tried to complete the exercises on your own, please give them a try before looking at the solutions.",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-17 21:46:18.799",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eExercises Solutions\u003c/h2\u003e\n\u003cp\u003eRemember that the best way to learn is by doing, so if you haven\u0026rsquo;t yet tried to complete the exercises on your own, please give them a try before looking at the solutions.\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531859916347_673981404",
+      "id": "20180717-203836_1864110548",
+      "dateCreated": "2018-07-17 20:38:36.348",
+      "dateStarted": "2018-07-17 21:46:18.826",
+      "dateFinished": "2018-07-17 21:46:18.837",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\nWe\u0027ll begin by loading once again the documents for further processing and reusing the `to_words` and `count_words` functions that we saw during the session:",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-17 21:47:11.395",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eWe\u0026rsquo;ll begin by loading once again the documents for further processing and reusing the \u003ccode\u003eto_words\u003c/code\u003e and \u003ccode\u003ecount_words\u003c/code\u003e functions that we saw during the session:\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531859981322_1798737667",
+      "id": "20180717-203941_485178629",
+      "dateCreated": "2018-07-17 20:39:41.322",
+      "dateStarted": "2018-07-17 21:47:11.398",
+      "dateFinished": "2018-07-17 21:47:11.411",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nimport re\ndef to_words(documents, separators_regexp\u003dr\u0027\\s+\u0027):\n    # We need to make an intermediate conversion to `RDDs` because `Dataframe`s don\u0027t support `flatMap` directly\n    words \u003d documents.select(\u0027document\u0027).rdd.flatMap(\n        # `(word.lower(), )` is because `Dataframe`s expect tuples\n        lambda row: [(word.lower(),) for word in re.split(separators_regexp, row.document) if len(word) \u003e 0])\n    return words.toDF([\"word\"])",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-17 21:46:19.055",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1531860228709_439566685",
+      "id": "20180717-204348_1084183229",
+      "dateCreated": "2018-07-17 20:43:48.709",
+      "dateStarted": "2018-07-17 21:46:19.081",
+      "dateFinished": "2018-07-17 21:46:19.093",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\ndef count_words(documents, separators_regexp\u003dr\u0027\\s+\u0027):\n    words \u003d to_words(documents, separators_regexp)\n    counts \u003d words.groupBy(\"word\").count()\n    return counts",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-17 21:46:19.175",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1531860166197_1141036012",
+      "id": "20180717-204246_1526665935",
+      "dateCreated": "2018-07-17 20:42:46.197",
+      "dateStarted": "2018-07-17 21:46:19.199",
+      "dateFinished": "2018-07-17 21:46:19.205",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nimport requests\n\ndef read_text_from_url(url):\n    content \u003d requests.get(url)\n    # We\u0027ll be creating a `Dataframe` from this content, and `createDataFrame` expects tuples\n    return (content.text,)\n\nurls \u003d [\u0027https://storage.googleapis.com/wize-datasets/big.txt\u0027]\ntexts \u003d sc.parallelize(urls).map(read_text_from_url)\ndocuments \u003d spark.createDataFrame(texts, [\u0027document\u0027])",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-17 21:46:19.297",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://172.17.0.2:4040/jobs/job?id\u003d46"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1531859633237_1028508955",
+      "id": "20180717-203353_746369881",
+      "dateCreated": "2018-07-17 20:33:53.237",
+      "dateStarted": "2018-07-17 21:46:19.321",
+      "dateFinished": "2018-07-17 21:46:20.663",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n+ *Which are the top 10 longest words and how many of each are there in the dataset?*",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-17 21:46:20.729",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cul\u003e\n  \u003cli\u003e\u003cem\u003eWhich are the top 10 longest words and how many of each are there in the dataset?\u003c/em\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531859649817_1613828993",
+      "id": "20180717-203409_643183981",
+      "dateCreated": "2018-07-17 20:34:09.817",
+      "dateStarted": "2018-07-17 21:46:20.754",
+      "dateFinished": "2018-07-17 21:46:20.760",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\nThe solution to this exercise is very simple if you followed the example during the session, since you already had all the information you needed: words and their counts. All that was missing was to learn how to sort that information by the length of each word. Here\u0027s a possible solution:",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-17 21:46:20.853",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eThe solution to this exercise is very simple if you followed the example during the session, since you already had all the information you needed: words and their counts. All that was missing was to learn how to sort that information by the length of each word. Here\u0026rsquo;s a possible solution:\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531859715091_983165829",
+      "id": "20180717-203515_888976772",
+      "dateCreated": "2018-07-17 20:35:15.091",
+      "dateStarted": "2018-07-17 21:46:20.882",
+      "dateFinished": "2018-07-17 21:46:20.889",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nfrom pyspark.sql.functions import length\n\ndef determine_longest_words(documents, separators_regexp\u003dr\u0027\\s+\u0027):\n    counts \u003d count_words(documents, separators_regexp)\n    word_stats \u003d counts.withColumn(\u0027length\u0027, length(counts[\u0027word\u0027]))\n    return word_stats.orderBy(\"length\", ascending\u003dFalse)",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-17 21:46:20.979",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1531860024089_1519975354",
+      "id": "20180717-204024_103052485",
+      "dateCreated": "2018-07-17 20:40:24.089",
+      "dateStarted": "2018-07-17 21:46:21.006",
+      "dateFinished": "2018-07-17 21:46:21.013",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nlongest \u003d determine_longest_words(documents, separators_regexp\u003dr\u0027\\W+\u0027)\nlongest.show()",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-17 21:46:21.100",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+------------------+-----+------+\n|              word|count|length|\n+------------------+-----+------+\n|characteristically|    6|    18|\n|disproportionately|    2|    18|\n|supersensitiveness|    2|    18|\n|_lymphangiectasis_|    1|    18|\n|_lymphangioplasty_|    2|    18|\n| unapproachability|    1|    17|\n| telecommunication|    1|    17|\n| _pleurosthotonos_|    1|    17|\n| indistinguishable|    2|    17|\n| misunderstandings|    6|    17|\n| constitutionality|    6|    17|\n| superstitiousness|    1|    17|\n| contemporaneously|    1|    17|\n| disfranchisements|    1|    17|\n| disadvantageously|    1|    17|\n| conventionalities|    1|    17|\n|  incomprehensible|   41|    16|\n|  disfranchisement|    5|    16|\n|  constitutionally|    3|    16|\n|  insurrectionists|    1|    16|\n+------------------+-----+------+\nonly showing top 20 rows\n\n"
+          }
+        ]
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://172.17.0.2:4040/jobs/job?id\u003d47",
+            "http://172.17.0.2:4040/jobs/job?id\u003d48"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1531860053561_-1557931997",
+      "id": "20180717-204053_182287988",
+      "dateCreated": "2018-07-17 20:40:53.561",
+      "dateStarted": "2018-07-17 21:46:21.132",
+      "dateFinished": "2018-07-17 21:46:33.038",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\nAs you can probably guess by looking at the function above, the `withColumn` method on `Dataframe`s returns a new `Dataframe` with an additional column constructed as specified by the\nsecond argument. One interesting thing to notice is that the expression we\u0027re passing to build this new column is an invocation to what is called a \"vectorized\" function, i.e. a function that works not on individual scalar values, but rather on the whole column all at once.",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-17 21:46:33.095",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eAs you can probably guess by looking at the function above, the \u003ccode\u003ewithColumn\u003c/code\u003e method on \u003ccode\u003eDataframe\u003c/code\u003es returns a new \u003ccode\u003eDataframe\u003c/code\u003e with an additional column constructed as specified by the\u003cbr/\u003esecond argument. One interesting thing to notice is that the expression we\u0026rsquo;re passing to build this new column is an invocation to what is called a \u0026ldquo;vectorized\u0026rdquo; function, i.e. a function that works not on individual scalar values, but rather on the whole column all at once.\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531860837591_-1396723948",
+      "id": "20180717-205357_44291979",
+      "dateCreated": "2018-07-17 20:53:57.591",
+      "dateStarted": "2018-07-17 21:46:33.284",
+      "dateFinished": "2018-07-17 21:46:33.318",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n+ _Can you find all interesting sets of anagrams (i.e. those of at least two words)?_\n    Two words are anagrams of each other if they contain the same number of occurrences of each letter. For instance, `“mar”.isAnagram(“ram”) \u003d\u003d true`, but `“line”.isAnagram(“nilee”) \u003d\u003d false`\n    For the set `{“art”, “rat”, “car”, “arc”}`, there are two interesting sets: `{“art”, “rat”}` and `{“car”, “arc”}` because they contain at least two elements. The set `{“buck”, “knuck”}` has no interesting sets of anagrams.",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-17 21:46:33.377",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cul\u003e\n  \u003cli\u003e\u003cem\u003eCan you find all interesting sets of anagrams (i.e. those of at least two words)?\u003c/em\u003e\u003cbr/\u003eTwo words are anagrams of each other if they contain the same number of occurrences of each letter. For instance, \u003ccode\u003e“mar”.isAnagram(“ram”) \u003d\u003d true\u003c/code\u003e, but \u003ccode\u003e“line”.isAnagram(“nilee”) \u003d\u003d false\u003c/code\u003e\u003cbr/\u003eFor the set \u003ccode\u003e{“art”, “rat”, “car”, “arc”}\u003c/code\u003e, there are two interesting sets: \u003ccode\u003e{“art”, “rat”}\u003c/code\u003e and \u003ccode\u003e{“car”, “arc”}\u003c/code\u003e because they contain at least two elements. The set \u003ccode\u003e{“buck”, “knuck”}\u003c/code\u003e has no interesting sets of anagrams.\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531860102919_17391986",
+      "id": "20180717-204142_2055449237",
+      "dateCreated": "2018-07-17 20:41:42.919",
+      "dateStarted": "2018-07-17 21:46:33.487",
+      "dateFinished": "2018-07-17 21:46:33.503",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\nThis exercise is much more involved, as it requires to first think of a conceptual solution to find whether two words are anagrams of each other, and then figuring out which functions to use to achieve each intermediate step in the computation. Here\u0027s a possible solution:",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-17 21:46:33.585",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eThis exercise is much more involved, as it requires to first think of a conceptual solution to find whether two words are anagrams of each other, and then figuring out which functions to use to achieve each intermediate step in the computation. Here\u0026rsquo;s a possible solution:\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531860637554_-1900847349",
+      "id": "20180717-205037_1683333374",
+      "dateCreated": "2018-07-17 20:50:37.554",
+      "dateStarted": "2018-07-17 21:46:33.607",
+      "dateFinished": "2018-07-17 21:46:33.613",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\ndef anagram_sets(documents, separators_regexp\u003dr\u0027\\s+\u0027):\n    words \u003d to_words(documents, separators_regexp).distinct()\n    anagrams \u003d words.rdd.groupBy(lambda row: tuple(sorted(row.word))) \\\n        .values().map(list) \\\n        .filter(lambda anagrams: len(anagrams) \u003e 1)\n    return anagrams",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-17 21:46:33.706",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1531860785952_-189876811",
+      "id": "20180717-205305_1979437516",
+      "dateCreated": "2018-07-17 20:53:05.952",
+      "dateStarted": "2018-07-17 21:46:33.732",
+      "dateFinished": "2018-07-17 21:46:33.757",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nanagrams \u003d anagram_sets(documents, separators_regexp\u003d\u0027\\W+\u0027)\nanagrams.take(10)",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-17 21:46:33.829",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "[[Row(word\u003du\u0027loi\u0027), Row(word\u003du\u0027oil\u0027)], [Row(word\u003du\u0027niches\u0027), Row(word\u003du\u0027inches\u0027)], [Row(word\u003du\u0027pills\u0027), Row(word\u003du\u0027spill\u0027)], [Row(word\u003du\u0027marian\u0027), Row(word\u003du\u0027marina\u0027)], [Row(word\u003du\u0027es\u0027), Row(word\u003du\u0027se\u0027)], [Row(word\u003du\u0027form\u0027), Row(word\u003du\u0027from\u0027)], [Row(word\u003du\u0027pots\u0027), Row(word\u003du\u0027spot\u0027), Row(word\u003du\u0027post\u0027), Row(word\u003du\u0027tops\u0027), Row(word\u003du\u0027stop\u0027)], [Row(word\u003du\u0027_operation\u0027), Row(word\u003du\u0027operation_\u0027)], [Row(word\u003du\u0027notre\u0027), Row(word\u003du\u0027tenor\u0027)], [Row(word\u003du\u0027_reaction\u0027), Row(word\u003du\u0027reaction_\u0027)]]\n"
+          }
+        ]
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://172.17.0.2:4040/jobs/job?id\u003d49",
+            "http://172.17.0.2:4040/jobs/job?id\u003d50"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1531861544648_1039911779",
+      "id": "20180717-210544_305761563",
+      "dateCreated": "2018-07-17 21:05:44.648",
+      "dateStarted": "2018-07-17 21:46:33.860",
+      "dateFinished": "2018-07-17 21:47:10.497",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\nLet\u0027s break it down line by line. The first line: `words \u003d to_words(documents, separators_regexp).distinct()` just gives you back a list of unique words. Simple enough.",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-17 21:47:10.590",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eLet\u0026rsquo;s break it down line by line. The first line: \u003ccode\u003ewords \u003d to_words(documents, separators_regexp).distinct()\u003c/code\u003e just gives you back a list of unique words. Simple enough.\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531860795729_836803555",
+      "id": "20180717-205315_131984777",
+      "dateCreated": "2018-07-17 20:53:15.729",
+      "dateStarted": "2018-07-17 21:47:10.854",
+      "dateFinished": "2018-07-17 21:47:10.871",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\nThe second line: `anagrams \u003d words.rdd.groupBy(lambda row: tuple(sorted(row.word)))` groups words by anagrams by proposing a way to figure out whether two words are anagrams of each other: simply sort their characters and compare the resulting strings.\n",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-17 21:47:10.949",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eThe second line: \u003ccode\u003eanagrams \u003d words.rdd.groupBy(lambda row: tuple(sorted(row.word)))\u003c/code\u003e groups words by anagrams by proposing a way to figure out whether two words are anagrams of each other: simply sort their characters and compare the resulting strings.\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531861234956_2144000606",
+      "id": "20180717-210034_442829954",
+      "dateCreated": "2018-07-17 21:00:34.956",
+      "dateStarted": "2018-07-17 21:47:10.978",
+      "dateFinished": "2018-07-17 21:47:10.991",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\nIn the third line: `.values().map(list)` we discard the keys of the previous grouping, since we don\u0027t really need them anymore. All we care about is the list of values for each group, which happens to be an \"iterable\", hence the need to explicitly \"cast\" it to `tuple`.",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-17 21:47:11.075",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eIn the third line: \u003ccode\u003e.values().map(list)\u003c/code\u003e we discard the keys of the previous grouping, since we don\u0026rsquo;t really need them anymore. All we care about is the list of values for each group, which happens to be an \u0026ldquo;iterable\u0026rdquo;, hence the need to explicitly \u0026ldquo;cast\u0026rdquo; it to \u003ccode\u003etuple\u003c/code\u003e.\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531861308218_-1239980033",
+      "id": "20180717-210148_280669194",
+      "dateCreated": "2018-07-17 21:01:48.218",
+      "dateStarted": "2018-07-17 21:47:11.111",
+      "dateFinished": "2018-07-17 21:47:11.125",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\nFinally, in the last line: `.filter(lambda anagrams: len(anagrams) \u003e 1)` we remove the trivial groups, i.e. those that contain just one element.",
+      "user": "anonymous",
+      "dateUpdated": "2018-07-17 21:47:11.207",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eFinally, in the last line: \u003ccode\u003e.filter(lambda anagrams: len(anagrams) \u0026gt; 1)\u003c/code\u003e we remove the trivial groups, i.e. those that contain just one element.\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1531861398986_2134316100",
+      "id": "20180717-210318_673952657",
+      "dateCreated": "2018-07-17 21:03:18.986",
+      "dateStarted": "2018-07-17 21:47:11.233",
+      "dateFinished": "2018-07-17 21:47:11.247",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "WordCount PySpark (Exercise Solutions)",
+  "id": "2DNNGBQVN",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}
