@@ -7,6 +7,8 @@ client_settings=""
 product_settings=""
 buy_settings=""
 sell_settings=""
+bucket_url=""
+client_count=""
 
 ##### Functions
 usage()
@@ -17,6 +19,7 @@ usage()
     echo "   -c, --client-settings          <path_to_file>        JSON settings file for Clients dataset generator"
     echo "   -b, --client-purchase-orders   <path_to_file>        JSON settings file for Client purchase orders dataset generator"
     echo "   -s, --stock-purchase-orders    <path_to_file>        JSON settings file for Stock purchase orders dataset generator"
+    echo "   -u, --bucket-url               <gs_bucket_url>       Valid Google Storage bucket URL"
     echo "   -h, --help                                           Display help"
     echo
     exit 1
@@ -44,6 +47,12 @@ generate_sell_orders()
     echo "OK"
 }
 
+push_to_bucket()
+{
+    temp=`cat $client_settings | grep -o -E "\"sample_size\": [0-9]+" | awk -F "\: " '{print $2}'`
+    client_count=${temp##*|}
+    ./push_to_bucket.sh -b $bucket_url -r resources -s $client_count
+}
 
 #### Main
 while [ "$1" != "" ]; do
@@ -56,6 +65,9 @@ while [ "$1" != "" ]; do
                                 ;;
         -s | --sell-settings )          shift
                                 sell_settings=$1
+                                ;;
+        -u | --bucket-url  )            shift
+                                bucket_url=$1
                                 ;;
         -h | --help )           usage
                                 exit
@@ -73,6 +85,9 @@ if [ "$client_settings" != "" ]; then
         if [ "$sell_settings" != "" ]; then
             generate_sell_orders
             echo "Dataset generation completed successfully"
+            if [ "$bucket_url" != "" ]; then
+                push_to_bucket
+            fi
         fi
     else
         echo "Stock purchase settings were not specified, the complete dataset will not be generated"
