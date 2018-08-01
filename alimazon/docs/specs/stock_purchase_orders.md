@@ -1,4 +1,4 @@
-# Buy Orders Specification
+# Stock Purchase Orders Specification
 
 ## Description
 

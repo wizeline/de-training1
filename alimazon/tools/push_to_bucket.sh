@@ -15,7 +15,7 @@ usage()
     echo "Usage: $0 [parameters...] --bucket-url --resources-folder --client-size" >&2
     echo
     echo "   -b, --bucket-url         <bucket_url>          Google bucket url <gs://my-bucket>"
-    echo "   -r, --resources-folder   <path_to_folder>      Path to resources folder where clients/ sell_orders/ and buy_orders/ exists"
+    echo "   -r, --resources-folder   <path_to_folder>      Path to resources folder where clients/ stock_orders/ and client-orders/ exists"
     echo "   -s, --client-size        <number>              Number of clients on the dataset"
     echo "   -h, --help                                     Display help"
     echo
@@ -26,9 +26,9 @@ to_bucket()
 {
     echo -n "Copying files... "
     echo
-    gsutil -m cp $resources/clients/*.jsonl.gz $bucket_url/data-training-alimazon/$dataset_client_size/clients/
-    gsutil -m cp $resources/buy-orders/*.jsonl.gz $bucket_url/data-training-alimazon/$dataset_client_size/buy-orders/
-    gsutil -m cp $resources/sell-orders/*.jsonl.gz $bucket_url/data-training-alimazon/$dataset_client_size/sell-orders/
+    gsutil -m cp $resources/clients/*.jsonl.gz $bucket_url/alimazon/$dataset_client_size/clients/
+    gsutil -m cp $resources/stock-orders/*.jsonl.gz $bucket_url/alimazon/$dataset_client_size/stock-orders/
+    gsutil -m cp $resources/client-orders/*.jsonl.gz $bucket_url/alimazon/$dataset_client_size/client-orders/
     echo "OK"
 }
 

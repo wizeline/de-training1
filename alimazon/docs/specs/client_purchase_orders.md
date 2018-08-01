@@ -1,4 +1,4 @@
-# Sell Orders Specification
+# Client Purchase Orders Specification
 
 ## Description
 
