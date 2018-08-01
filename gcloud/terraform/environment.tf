@@ -10,7 +10,6 @@ variable "location" {}
 # Buckets names
 variable "staging_prefix" {}
 
-variable "bucket_input_name" {}
 variable "bucket_output_name_prefix" {}
 
 # Cluster information
@@ -29,6 +28,11 @@ variable "cluster_worker_boot_disk_size" {}
 # Number of users
 variable "num_users" {}
 
+#User Members
+variable "user_members" {
+  type = "list"
+}
+
 // ---------------------------------
 // Configure the Google Cloud provider
 provider "google" {
@@ -39,19 +43,30 @@ provider "google" {
 // ---------------------------------  
 // Configure resources
 
-// Bucket where the zeppelin sh file is going to be copied
-resource "google_storage_bucket" "de-training-bucket-input" {
-  name          = "${var.bucket_input_name}"
-  location      = "${var.location}"
-  force_destroy = "true"
-}
-
-// Bucket for general purposes (delete if not required)
+// Bucket for users to put their data/file
 resource "google_storage_bucket" "de-bucket-output" {
+  project       = "${var.project_name}"
   name          = "${var.bucket_output_name_prefix}-${count.index}"
   location      = "${var.location}"
   force_destroy = "true"
   count         = "${var.num_users}"
+}
+
+// Access to users for buckets, the list in environment vars goes from index 0 to n-1 (same as the buckets)
+resource "google_storage_bucket_iam_member" "viewer" {
+  bucket = "${var.bucket_output_name_prefix}-${count.index}"
+  role   = "roles/storage.objectViewer"
+  member = "user:${element(var.user_members, count.index)}"
+  count  = "${var.num_users}"
+  depends_on = ["google_storage_bucket.de-bucket-output"]
+}
+
+resource "google_storage_bucket_iam_member" "create" {
+  bucket = "${var.bucket_output_name_prefix}-${count.index}"
+  role   = "roles/storage.objectCreator"
+  member = "user:${element(var.user_members, count.index)}"
+  count  = "${var.num_users}"
+  depends_on = ["google_storage_bucket.de-bucket-output"]
 }
 
 // Bucket required for the cluster

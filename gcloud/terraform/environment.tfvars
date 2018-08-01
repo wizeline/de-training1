@@ -40,3 +40,10 @@ cluster_worker_boot_disk_size = 10
 
 # Number of users
 num_users = 2
+
+# Service Accounts list
+# The number of accounts should match with the number of users
+user_members = [
+    "rincondonovan@gmail.com", //This is an example, update with the users gmail accounts. index 0 goes to bucket 0
+    "witcho@gmail.com"
+    ]

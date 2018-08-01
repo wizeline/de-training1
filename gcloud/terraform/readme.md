@@ -6,6 +6,7 @@
 
 * Latest Google Cloud SDK
 * Latest Terraform version
+* GMail account
 
 ### GCP SDK
 

@@ -23,7 +23,7 @@ case "$OSTYPE" in
     xdg-open http://localhost:8080 ;;
   bsd*)     echo "BSD";;
   msys*)    # Windows
-    proxycfg -p localhost:$SSH_PORT
+    netsh winhttp set proxy localhost:$SSH_PORT
     start "http://localhost:8080" ;;
   *);;
 esac
