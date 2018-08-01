@@ -5,8 +5,8 @@ pages:
     - Overview: index.md
     - Data Specification:
         - Clients: specs/clients.md
-        - Buy Orders: specs/buy_orders.md
-        - Sell Orders: specs/sell_orders.md
+        - Stock Purchase Orders: specs/stock_purchase_orders.md
+        - Client Purchase Orders: specs/client_purchase_orders.md
     - Appendixes:
         - Categories: appendixes/categories.md
         - Country codes: appendixes/country_codes.md

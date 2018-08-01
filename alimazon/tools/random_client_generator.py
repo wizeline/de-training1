@@ -83,7 +83,7 @@ def _main(conf_file='client_default.conf'):
     for idx in range(files_count):
         rows = min(args['sample_size'] - args['max_rows_per_file'] * idx,
                    args['max_rows_per_file'])
-        filename = '{}/{}_client_{:0>5}.jsonl.gz'.format(
+        filename = '{}/part_{}_{:0>5}.jsonl.gz'.format(
             args['output_folder'],
             _today_string(),
             idx)

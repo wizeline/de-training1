@@ -17,7 +17,7 @@ import jsonl
 clients = ClientsService()
 products = ProductsService()
 
-def generate_random_sell_orders(settings):
+def generate_random_client_orders(settings):
     end_date = iso_string_to_date(settings['end_date'])
     samplers = _create_data_samplers(settings)
 
@@ -26,7 +26,7 @@ def generate_random_sell_orders(settings):
         client_id, client_signup_date = client
         client_profile = next(samplers['client_profile_sampler'])
         for timestamp in _client_purchase_dates(client_signup_date, end_date, client_profile):
-            yield _random_sell_order(client_id, timestamp, samplers)
+            yield _random_client_order(client_id, timestamp, samplers)
 
 
 def _create_data_samplers(settings):
@@ -53,7 +53,7 @@ def _client_purchase_dates(start_date, end_date, profile):
         sample_probability=profile['purchase_probability'])
 
 
-def _random_sell_order(client_id, timestamp, samplers):
+def _random_client_order(client_id, timestamp, samplers):
     product_price = next(samplers['product_price_sampler'])
     quantity = next(samplers['product_quantity_sampler'])
     product_id = next(samplers['product_sampler']).id
@@ -78,19 +78,19 @@ def _random_client_profiles(client_profiles):
 @click.option(
     '-c', '--conf-file',
     help="""
-    JSON format Client purchase orders configuration file (e.g. sell_orders.conf). If it is not specified, default values will be used.
+    JSON format Client purchase orders configuration file (e.g. client_orders.conf). If it is not specified, default values will be used.
     """,
     type=str
 )
-def _smoke_test(conf_file='sell_orders_default.conf'):
+def _smoke_test(conf_file='client_orders_default.conf'):
     with open(conf_file) as json_conf_file:
         settings = json.load(json_conf_file)
-    orders = generate_random_sell_orders(settings)
+    orders = generate_random_client_orders(settings)
 
     def generate_suffix(index):
         return '_{0}_{1:05}'.format(today_string(), index)
 
-    jsonl.write_to_files('./resources/sell-orders/part.jsonl.gz',
+    jsonl.write_to_files('./resources/client-orders/part.jsonl.gz',
                          orders,
                          max_records_per_file=5000,
                          suffix_generator=generate_suffix)
