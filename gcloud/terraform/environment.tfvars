@@ -10,9 +10,9 @@ location = "US"
 
 # Buckets names
 
-staging_prefix = "de-training-staging"
+input_bucket_name = "wize-datasets"
 
-bucket_input_name = "de-training-bucket-input"
+staging_prefix = "de-training-staging"
 
 bucket_output_name_prefix = "de-training-output-bucket"
 
@@ -45,5 +45,5 @@ num_users = 2
 # The number of accounts should match with the number of users
 user_members = [
     "rincondonovan@gmail.com", //This is an example, update with the users gmail accounts. index 0 goes to bucket 0
-    "witcho@gmail.com"
+    "dm9450@gmail.com",
     ]
