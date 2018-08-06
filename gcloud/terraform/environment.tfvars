@@ -10,11 +10,11 @@ location = "US"
 
 # Buckets names
 
+input_bucket_name = "wize-datasets"
+
 staging_prefix = "de-training-staging"
 
-bucket_input_name = "de-training-bucket-input"
-
-bucket_output_name_prefix = "de-training-output-bucket-"
+bucket_output_name_prefix = "de-training-output-bucket"
 
 #Cluster information
 
@@ -40,3 +40,10 @@ cluster_worker_boot_disk_size = 10
 
 # Number of users
 num_users = 2
+
+# Service Accounts list
+# The number of accounts should match with the number of users
+user_members = [
+    "rincondonovan@gmail.com", //This is an example, update with the users gmail accounts. index 0 goes to bucket 0
+    "dm9450@gmail.com",
+    ]
