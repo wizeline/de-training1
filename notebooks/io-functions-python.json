@@ -1,0 +1,425 @@
+{
+   "paragraphs":[
+      {
+         "text":"%md\n## Reading and Writing files from the Cloud Dataproc cluster with PySpark\n\nThe very first task that you may require is to find a way to load the provided datasets for the course. Equally importantly, you must also find a way to write the results in a format the instructors can review it.\n\nAlthough you are not limited to use these methods, we'll provide you with the functions below to help you interact with the data, so that you can go beyond what the course offers.\n\n[Alimazon dataset](http://127.0.0.1:8000) is partitioned on a set of files using a JSON line-compressed format (`jsonl.gz`), which is stored under the `gs://de-training-input-bucket` bucket on the `Cloud Dataproc` cluster.",
+         "user":"anonymous",
+         "dateUpdated":"2018-08-07T20:28:23+0000",
+         "config":{
+            "tableHide":false,
+            "editorSetting":{
+               "language":"markdown",
+               "editOnDblClick":true
+            },
+            "colWidth":12,
+            "editorMode":"ace/mode/markdown",
+            "editorHide":true,
+            "results":{
+
+            },
+            "enabled":true
+         },
+         "settings":{
+            "params":{
+
+            },
+            "forms":{
+
+            }
+         },
+         "results":{
+            "code":"SUCCESS",
+            "msg":[
+               {
+                  "type":"HTML",
+                  "data":"<div class=\"markdown-body\">\n<h2>Reading and Writing files from the Cloud Dataproc cluster with PySpark</h2>\n<p>The very first task that you may require is to find a way to load the provided datasets for the course. Equally importantly, you must also find a way to write the results in a format the instructors can review it.</p>\n<p>Although you are not limited to use these methods, we&rsquo;ll provide you with the functions below to help you interact with the data, so that you can go beyond what the course offers.</p>\n<p><a href=\"http://127.0.0.1:8000\">Alimazon dataset</a> is partitioned on a set of files using a JSON line-compressed format (<code>jsonl.gz</code>), which is stored under the <code>gs://de-training-input-bucket</code> bucket on the <code>Cloud Dataproc</code> cluster.</p>\n</div>"
+               }
+            ]
+         },
+         "apps":[
+
+         ],
+         "jobName":"paragraph_1533673494221_1745235398",
+         "id":"20180801-144940_885197480",
+         "dateCreated":"2018-08-07T20:24:54+0000",
+         "dateStarted":"2018-08-07T20:28:23+0000",
+         "dateFinished":"2018-08-07T20:28:26+0000",
+         "status":"FINISHED",
+         "progressUpdateIntervalMs":500,
+         "focus":true,
+         "$$hashKey":"object:700"
+      },
+      {
+         "text":"%md\n## Ready-to-Use Tools\nThe Cloud Storage connector (which is our gateway to load the dataset) is installed by default on all Cloud Dataproc cluster nodes under `/usr/lib/hadoop/lib/`,  and is available in both Spark and PySpark environments.\n\nIn a Spark (or PySpark) environment, using the `gs://` prefix should be enough to reach the files stored on a bucket. And because all of Spark’s file-based input methods (including `textFile`) support running on directories, compressed files, and wildcards, the task of loading the data gets even simpler.\n\nFor example, you can use `textFile(\"/my/directory\")`, `textFile(\"/my/directory/*.txt\")`, and `textFile(\"/my/directory/*.gz\")`.",
+         "user":"anonymous",
+         "dateUpdated":"2018-08-07T20:30:10+0000",
+         "config":{
+            "tableHide":false,
+            "editorSetting":{
+               "language":"markdown",
+               "editOnDblClick":true
+            },
+            "colWidth":12,
+            "editorMode":"ace/mode/markdown",
+            "editorHide":true,
+            "results":{
+
+            },
+            "enabled":true
+         },
+         "settings":{
+            "params":{
+
+            },
+            "forms":{
+
+            }
+         },
+         "results":{
+            "code":"SUCCESS",
+            "msg":[
+               {
+                  "type":"HTML",
+                  "data":"<div class=\"markdown-body\">\n<h2>Ready-to-Use Tools</h2>\n<p>The Cloud Storage connector (which is our gateway to load the dataset) is installed by default on all Cloud Dataproc cluster nodes under <code>/usr/lib/hadoop/lib/</code>, and is available in both Spark and PySpark environments.</p>\n<p>In a Spark (or PySpark) environment, using the <code>gs://</code> prefix should be enough to reach the files stored on a bucket. And because all of Spark’s file-based input methods (including <code>textFile</code>) support running on directories, compressed files, and wildcards, the task of loading the data gets even simpler.</p>\n<p>For example, you can use <code>textFile(&quot;/my/directory&quot;)</code>, <code>textFile(&quot;/my/directory/*.txt&quot;)</code>, and <code>textFile(&quot;/my/directory/*.gz&quot;)</code>.</p>\n</div>"
+               }
+            ]
+         },
+         "apps":[
+
+         ],
+         "jobName":"paragraph_1533673494228_1754854121",
+         "id":"20180801-160705_1607961030",
+         "dateCreated":"2018-08-07T20:24:54+0000",
+         "dateStarted":"2018-08-07T20:30:10+0000",
+         "dateFinished":"2018-08-07T20:30:10+0000",
+         "status":"FINISHED",
+         "progressUpdateIntervalMs":500,
+         "$$hashKey":"object:701"
+      },
+      {
+         "text":"%md\n## Reading the dataset: PySpark\n\nLet's break down the paragraph below to understand the load process:\n\n- To use the PySpark environment, notice the addition of the `%pyspark` interpreter. There, you can type Python code and access the pre-loaded  [pyspark.context.SparkContext](https://spark.apache.org/docs/2.3.0/api/java/org/apache/spark/SparkContext.html) assigned to the `sc` object or the [pyspark.sql.session.SparkSession](https://spark.apache.org/docs/preview/api/python/pyspark.sql.html) functions using the `spark` object.\n\n- The `loadjsonl` function will take the dataset bucket path to where all the `.jsonl.gz` files are stored, and will return a `Dataframe` object by calling the \n  `spark.read.load(path_to_files, format=\"json\")` function. This means that all the files will be ingested using a JSON format and then loaded and distributed into the Spark Cluster.",
+         "user":"anonymous",
+         "dateUpdated":"2018-08-07T20:32:47+0000",
+         "config":{
+            "tableHide":false,
+            "editorSetting":{
+               "language":"markdown",
+               "editOnDblClick":true
+            },
+            "colWidth":12,
+            "editorMode":"ace/mode/markdown",
+            "editorHide":true,
+            "results":{
+
+            },
+            "enabled":true
+         },
+         "settings":{
+            "params":{
+
+            },
+            "forms":{
+
+            }
+         },
+         "results":{
+            "code":"SUCCESS",
+            "msg":[
+               {
+                  "type":"HTML",
+                  "data":"<div class=\"markdown-body\">\n<h2>Reading the dataset: PySpark</h2>\n<p>Let&rsquo;s break down the paragraph below to understand the load process:</p>\n<ul>\n  <li>\n  <p>To use the PySpark environment, notice the addition of the <code>%pyspark</code> interpreter. There, you can type Python code and access the pre-loaded <a href=\"https://spark.apache.org/docs/2.3.0/api/java/org/apache/spark/SparkContext.html\">pyspark.context.SparkContext</a> assigned to the <code>sc</code> object or the <a href=\"https://spark.apache.org/docs/preview/api/python/pyspark.sql.html\">pyspark.sql.session.SparkSession</a> functions using the <code>spark</code> object.</p></li>\n  <li>\n  <p>The <code>loadjsonl</code> function will take the dataset bucket path to where all the <code>.jsonl.gz</code> files are stored, and will return a <code>Dataframe</code> object by calling the<br/> <code>spark.read.load(path_to_files, format=&quot;json&quot;)</code> function. This means that all the files will be ingested using a JSON format and then loaded and distributed into the Spark Cluster.</p></li>\n</ul>\n</div>"
+               }
+            ]
+         },
+         "apps":[
+
+         ],
+         "jobName":"paragraph_1533673494235_1753699874",
+         "id":"20180801-144944_838889942",
+         "dateCreated":"2018-08-07T20:24:54+0000",
+         "dateStarted":"2018-08-07T20:32:47+0000",
+         "dateFinished":"2018-08-07T20:32:47+0000",
+         "status":"FINISHED",
+         "progressUpdateIntervalMs":500,
+         "$$hashKey":"object:702"
+      },
+      {
+         "text":"%pyspark\ndef load_jsonl(dataset_bucket_path):\n    return spark.read.load(dataset_bucket_path + \"*.jsonl.gz\", format=\"json\")\n",
+         "dateUpdated":"2018-08-07T20:24:54+0000",
+         "config":{
+            "colWidth":12,
+            "editorMode":"ace/mode/python",
+            "results":{
+
+            },
+            "enabled":true,
+            "editorSetting":{
+               "language":"python",
+               "editOnDblClick":false
+            }
+         },
+         "settings":{
+            "params":{
+
+            },
+            "forms":{
+
+            }
+         },
+         "results":{
+            "code":"SUCCESS",
+            "msg":[
+
+            ]
+         },
+         "apps":[
+
+         ],
+         "jobName":"paragraph_1533673494237_1751391381",
+         "id":"20180801-151102_359702705",
+         "dateCreated":"2018-08-07T20:24:54+0000",
+         "status":"READY",
+         "errorMessage":"",
+         "progressUpdateIntervalMs":500,
+         "$$hashKey":"object:703"
+      },
+      {
+         "text":"%pyspark\nclients = load_jsonl(\"gs://de-training-input-bucket/alimazon/50000/clients/\")\nclients.show(10)",
+         "dateUpdated":"2018-08-07T20:24:54+0000",
+         "config":{
+            "editorSetting":{
+               "language":"python",
+               "editOnDblClick":false
+            },
+            "colWidth":12,
+            "editorMode":"ace/mode/python",
+            "editorHide":false,
+            "results":{
+
+            },
+            "enabled":true
+         },
+         "settings":{
+            "params":{
+
+            },
+            "forms":{
+
+            }
+         },
+         "results":{
+            "code":"SUCCESS",
+            "msg":[
+               {
+                  "type":"TEXT",
+                  "data":"+-------+------+--------------------+-----------------+--------------------+\n|country|gender|                  id|             name|   registration_date|\n+-------+------+--------------------+-----------------+--------------------+\n|   null|female|165d64af-4360-438...|     Flo Prichard|2018-05-17T17:20:...|\n|    ALA|female|2b35ffba-9b5e-478...|    Nina Barnhill|2017-04-03T23:37:...|\n|   null|  null|a63d3c09-e5bc-471...|      Alon Worthy|2019-09-30T08:06:...|\n|    EGY|  null|4883ed08-968a-424...|         Chi Lapp|2017-01-02T14:40:...|\n|   null|  null|0e6d9ecb-2335-4c8...|   Mirian Conners|2018-08-02T13:09:...|\n|    BEN|  male|c5de6c59-aa97-493...|Haywood Robertson|2017-09-18T02:25:...|\n|    FLK|  null|2195ced1-f48b-4bb...|   Adrianna Brody|2017-07-10T14:39:...|\n|    AND|  male|5362856c-a308-487...|   Harper Hornsby|2019-10-17T08:03:...|\n|    NPL|  null|eace91a7-3dd0-423...|    Sander Gainey|2017-09-21T04:42:...|\n|    MDA|female|9d4729fc-6315-4ed...|  Jazmine Heffner|2017-10-17T12:11:...|\n+-------+------+--------------------+-----------------+--------------------+\nonly showing top 10 rows\n\n"
+               }
+            ]
+         },
+         "apps":[
+
+         ],
+         "jobName":"paragraph_1533673494237_1751391381",
+         "id":"20180801-170422_472640500",
+         "dateCreated":"2018-08-07T20:24:54+0000",
+         "status":"READY",
+         "errorMessage":"",
+         "progressUpdateIntervalMs":500,
+         "$$hashKey":"object:704"
+      },
+      {
+         "text":"%md\n## Write the output: Pyspark\n\nNow let's see some options for writing the output of your job.\n\nGiven that the operations are made over a dataset that is partitioned and distributed across several nodes, the task of writing the results into a single file may not seem obvious.\n\nBy default the `.write()` function creates a file for each partition of the dataset. So to write the results into a single file, we can do one of the following:\n\n- Use the `.write()` function and concatenate the resulting files with other tools such as `cat`.\n\n- Collect the `Dataframe` partitions into one RDD and then write it into a file. \nThis may not be the right way, given that in a real environment the dataset we are working with may not even fit in the memory of just one worker.\n\n- We can also control the number of partitions of `Dataframe` using the `.coalesce()` or `.repartitions()` functions to reduce the number of partitions. Take into account that `coalesce` uses the existing partitions to minimize the amount of data that's shuffled. And that `repartition` creates new partitions and does a full shuffle over the dataset, which is more computationally expensive. Also, this operation can overload a worker and fail during execution.\n\nThe example below uses the third option by performing some operations over the dataset to report the number of clients of each country and then write the result into a single `.csv` file.\n\n**NOTE:** The output bucket URL should correspond with the `number` assigned to you for the course. For example:\n`gs://de-training-output-bucket-1` or `gs://de-training-output-bucket-2`",
+         "user":"anonymous",
+         "dateUpdated":"2018-08-07T20:47:15+0000",
+         "config":{
+            "tableHide":false,
+            "editorSetting":{
+               "language":"markdown",
+               "editOnDblClick":true
+            },
+            "colWidth":12,
+            "editorMode":"ace/mode/markdown",
+            "editorHide":true,
+            "results":{
+
+            },
+            "enabled":true
+         },
+         "settings":{
+            "params":{
+
+            },
+            "forms":{
+
+            }
+         },
+         "results":{
+            "code":"SUCCESS",
+            "msg":[
+               {
+                  "type":"HTML",
+                  "data":"<div class=\"markdown-body\">\n<h2>Write the output: Pyspark</h2>\n<p>Now let&rsquo;s see some options for writing the output of your job.</p>\n<p>Given that the operations are made over a dataset that is partitioned and distributed across several nodes, the task of writing the results into a single file may not seem obvious.</p>\n<p>By default the <code>.write()</code> function creates a file for each partition of the dataset. So to write the results into a single file, we can do one of the following:</p>\n<ul>\n  <li>\n  <p>Use the <code>.write()</code> function and concatenate the resulting files with other tools such as <code>cat</code>.</p></li>\n  <li>\n  <p>Collect the <code>Dataframe</code> partitions into one RDD and then write it into a file.<br/>This may not be the right way, given that in a real environment the dataset we are working with may not even fit in the memory of just one worker.</p></li>\n  <li>\n  <p>We can also control the number of partitions of <code>Dataframe</code> using the <code>.coalesce()</code> or <code>.repartitions()</code> functions to reduce the number of partitions. Take into account that <code>coalesce</code> uses the existing partitions to minimize the amount of data that&rsquo;s shuffled. And that <code>repartition</code> creates new partitions and does a full shuffle over the dataset, which is more computationally expensive. Also, this operation can overload a worker and fail during execution.</p></li>\n</ul>\n<p>The example below uses the third option by performing some operations over the dataset to report the number of clients of each country and then write the result into a single <code>.csv</code> file.</p>\n<p><strong>NOTE:</strong> The output bucket URL should correspond with the <code>number</code> assigned to you for the course. For example:<br/><code>gs://de-training-output-bucket-1</code> or <code>gs://de-training-output-bucket-2</code></p>\n</div>"
+               }
+            ]
+         },
+         "apps":[
+
+         ],
+         "jobName":"paragraph_1533673494238_1752545628",
+         "id":"20180803-154640_989283005",
+         "dateCreated":"2018-08-07T20:24:54+0000",
+         "dateStarted":"2018-08-07T20:47:15+0000",
+         "dateFinished":"2018-08-07T20:47:15+0000",
+         "status":"FINISHED",
+         "progressUpdateIntervalMs":500,
+         "$$hashKey":"object:705"
+      },
+      {
+         "text":"%pyspark\nclient_counts = clients.groupBy(\"country\").count()\nclient_counts.show(10)",
+         "dateUpdated":"2018-08-07T20:24:54+0000",
+         "config":{
+            "colWidth":12,
+            "editorMode":"ace/mode/python",
+            "results":{
+
+            },
+            "enabled":true,
+            "editorSetting":{
+               "language":"python",
+               "editOnDblClick":false
+            }
+         },
+         "settings":{
+            "params":{
+
+            },
+            "forms":{
+
+            }
+         },
+         "results":{
+            "code":"SUCCESS",
+            "msg":[
+               {
+                  "type":"TEXT",
+                  "data":"+-------+-----+\n|country|count|\n+-------+-----+\n|    NIU|  168|\n|    CCK|  134|\n|    HTI|  125|\n|    PSE|  130|\n|    POL|  150|\n|    LVA|  136|\n|    BRB|  138|\n|    ZMB|  138|\n|    JAM|  129|\n|    SPM|  151|\n+-------+-----+\nonly showing top 10 rows\n\n"
+               }
+            ]
+         },
+         "apps":[
+
+         ],
+         "jobName":"paragraph_1533673494238_1752545628",
+         "id":"20180803-154649_610783237",
+         "dateCreated":"2018-08-07T20:24:54+0000",
+         "status":"READY",
+         "errorMessage":"",
+         "progressUpdateIntervalMs":500,
+         "$$hashKey":"object:706"
+      },
+      {
+         "text":"%pyspark\nclient_counts.coalesce(1).write.mode(\"overwrite\").csv(\"gs://de-training-output-bucket-0/output-test/\")",
+         "dateUpdated":"2018-08-07T20:24:54+0000",
+         "config":{
+            "colWidth":12,
+            "editorMode":"ace/mode/python",
+            "results":{
+
+            },
+            "enabled":true,
+            "editorSetting":{
+               "language":"python",
+               "editOnDblClick":false
+            }
+         },
+         "settings":{
+            "params":{
+
+            },
+            "forms":{
+
+            }
+         },
+         "results":{
+            "code":"SUCCESS",
+            "msg":[
+
+            ]
+         },
+         "apps":[
+
+         ],
+         "jobName":"paragraph_1533673494238_1752545628",
+         "id":"20180806-201051_1546260991",
+         "dateCreated":"2018-08-07T20:24:54+0000",
+         "status":"READY",
+         "errorMessage":"",
+         "progressUpdateIntervalMs":500,
+         "$$hashKey":"object:707"
+      }
+   ],
+   "name":"io-functions-python.json",
+   "id":"2DM1YJA6R",
+   "angularObjects":{
+      "2DNN7KNAP:shared_process":[
+
+      ],
+      "2DNFPQTK6:shared_process":[
+
+      ],
+      "2DQ9CSXFY:shared_process":[
+
+      ],
+      "2DPRH78ZK:shared_process":[
+
+      ],
+      "2DN1Y433R:shared_process":[
+
+      ],
+      "2DKN2C8N8:shared_process":[
+
+      ],
+      "2DKHBWS1Z:shared_process":[
+
+      ],
+      "2DPUR74W7:shared_process":[
+
+      ],
+      "2DPE26ZCU:shared_process":[
+
+      ],
+      "2DPGX4XWP:shared_process":[
+
+      ],
+      "2DM31E6M9:shared_process":[
+
+      ],
+      "2DPJHGEJJ:shared_process":[
+
+      ],
+      "2DM9ZGMF3:shared_process":[
+
+      ],
+      "2DM1XHWGW:shared_process":[
+
+      ],
+      "2DMWD338W:shared_process":[
+
+      ],
+      "2DM2RK4RS:shared_process":[
+
+      ],
+      "2DMPQNEUC:shared_process":[
+
+      ],
+      "2DQ7CG7ZM:shared_process":[
+
+      ]
+   },
+   "config":{
+      "looknfeel":"default",
+      "personalizedMode":"false"
+   },
+   "info":{
+
+   }
+}

@@ -1,23 +1,22 @@
-{
+﻿{
   "paragraphs": [
     {
-      "text": "%md\n## Exercises Solutions\nRemember that the best way to learn is by doing, so if you haven\u0027t yet tried to complete the exercises on your own, please give them a try before looking at the solutions.",
-      "user": "anonymous",
-      "dateUpdated": "2018-07-17 21:45:38.771",
+      "text": "%md\n## \"Word Count\" Exercises Solutions (Scala)\nRemember that the best way to learn is by doing, so if you haven't yet tried to complete the exercises on your own, please give them a try before looking at the solutions.",
+      "dateUpdated": "2018-08-02T21:07:21+0000",
       "config": {
-        "colWidth": 12.0,
-        "fontSize": 9.0,
-        "enabled": true,
-        "results": {},
+        "tableHide": false,
         "editorSetting": {
           "language": "markdown",
           "editOnDblClick": true,
           "completionKey": "TAB",
           "completionSupport": false
         },
+        "colWidth": 12,
         "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
         "editorHide": true,
-        "tableHide": false
+        "results": {},
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -28,37 +27,37 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eExercises Solutions\u003c/h2\u003e\n\u003cp\u003eRemember that the best way to learn is by doing, so if you haven\u0026rsquo;t yet tried to complete the exercises on your own, please give them a try before looking at the solutions.\u003c/p\u003e\n\u003c/div\u003e"
+            "data": "<div class=\"markdown-body\">\n<h2>&ldquo;Word Count&rdquo; Exercises Solutions (Scala)</h2>\n<p>Remember that the best way to learn is by doing, so if you haven&rsquo;t yet tried to complete the exercises on your own, please give them a try before looking at the solutions.</p>\n</div>"
           }
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1531859539487_-609545064",
+      "jobName": "paragraph_1533244041207_624195742",
       "id": "20180717-203219_1843464497",
-      "dateCreated": "2018-07-17 20:32:19.487",
-      "dateStarted": "2018-07-17 21:45:38.795",
-      "dateFinished": "2018-07-17 21:45:38.800",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "focus": true,
+      "$$hashKey": "object:32832"
     },
     {
-      "text": "%md\nWe\u0027ll begin by loading once again the documents for further processing and reusing the `toWords` and `countWords` functions that we saw during the session:",
-      "user": "anonymous",
-      "dateUpdated": "2018-07-17 21:45:38.893",
+      "text": "%md\nWe'll begin by loading once again the documents for further processing and reusing the `toWords` and `countWords` functions that we saw during the session:",
+      "dateUpdated": "2018-08-02T21:07:21+0000",
       "config": {
-        "colWidth": 12.0,
-        "fontSize": 9.0,
-        "enabled": true,
-        "results": {},
+        "tableHide": false,
         "editorSetting": {
           "language": "markdown",
           "editOnDblClick": true,
           "completionKey": "TAB",
           "completionSupport": false
         },
+        "colWidth": 12,
         "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
         "editorHide": true,
-        "tableHide": false
+        "results": {},
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -69,37 +68,36 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eWe\u0026rsquo;ll begin by loading once again the documents for further processing and reusing the \u003ccode\u003etoWords\u003c/code\u003e and \u003ccode\u003ecountWords\u003c/code\u003e functions that we saw during the session:\u003c/p\u003e\n\u003c/div\u003e"
+            "data": "<div class=\"markdown-body\">\n<p>We&rsquo;ll begin by loading once again the documents for further processing and reusing the <code>toWords</code> and <code>countWords</code> functions that we saw during the session:</p>\n</div>"
           }
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1531862111672_-1936296528",
+      "jobName": "paragraph_1533244041210_623041495",
       "id": "20180717-211511_527465795",
-      "dateCreated": "2018-07-17 21:15:11.672",
-      "dateStarted": "2018-07-17 21:45:38.919",
-      "dateFinished": "2018-07-17 21:45:38.929",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32833"
     },
     {
-      "text": "def toWords(documents: Dataset[String], separatorsRegexp: String \u003d \"\"\"\\s+\"\"\"): Dataset[String] \u003d {\n    documents.flatMap(\n        doc \u003d\u003e doc.split(separatorsRegexp).map(_.toLowerCase).filter(!_.isEmpty))\n}",
-      "user": "anonymous",
-      "dateUpdated": "2018-07-17 21:45:39.015",
+      "text": "import org.apache.spark.sql.Dataset\n\ndef toWords(documents: Dataset[String], separatorsRegexp: String = \"\"\"\\s+\"\"\"): Dataset[String] = {\n    documents.flatMap(doc => doc.split(separatorsRegexp))\n        .map(word => word.toLowerCase)\n        .filter(word => !word.isEmpty)\n}",
+      "dateUpdated": "2018-08-02T22:04:41+0000",
       "config": {
-        "colWidth": 12.0,
-        "fontSize": 9.0,
-        "enabled": true,
-        "results": {},
+        "tableHide": false,
         "editorSetting": {
           "language": "scala",
           "editOnDblClick": false,
           "completionKey": "TAB",
           "completionSupport": true
         },
+        "colWidth": 12,
         "editorMode": "ace/mode/scala",
+        "fontSize": 9,
         "editorHide": false,
-        "tableHide": false
+        "results": {},
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -110,35 +108,37 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "toWords: (documents: org.apache.spark.sql.Dataset[String], separatorsRegexp: String)org.apache.spark.sql.Dataset[String]\n"
+            "data": "import org.apache.spark.sql.Dataset\ntoWords: (documents: org.apache.spark.sql.Dataset[String], separatorsRegexp: String)org.apache.spark.sql.Dataset[String]\n"
           }
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1531862251749_277379180",
+      "jobName": "paragraph_1533244041210_623041495",
       "id": "20180717-211731_1841768387",
-      "dateCreated": "2018-07-17 21:17:31.749",
-      "dateStarted": "2018-07-17 21:45:39.056",
-      "dateFinished": "2018-07-17 21:45:39.896",
+      "dateCreated": "2018-08-02T21:07:21+0000",
       "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32834",
+      "user": "anonymous",
+      "dateFinished": "2018-08-02T22:04:42+0000",
+      "dateStarted": "2018-08-02T22:04:41+0000"
     },
     {
-      "text": "def countWords(documents: Dataset[String], separatorsRegexp: String \u003d \"\"\"\\s+\"\"\") : Dataset[(String, Long)] \u003d {\n    val words \u003d toWords(documents, separatorsRegexp)\n    val counts \u003d words.groupByKey(identity).count()\n\n    counts\n}",
-      "user": "anonymous",
-      "dateUpdated": "2018-07-17 21:45:39.957",
+      "text": "def countWords(documents: Dataset[String], separatorsRegexp: String = \"\"\"\\s+\"\"\") : Dataset[(String, Long)] = {\n    val words = toWords(documents, separatorsRegexp)\n    val counts = words.groupByKey(identity).count()\n    counts\n}",
+      "dateUpdated": "2018-08-02T22:04:47+0000",
       "config": {
-        "colWidth": 12.0,
-        "fontSize": 9.0,
-        "enabled": true,
-        "results": {},
+        "lineNumbers": false,
         "editorSetting": {
           "language": "scala",
           "editOnDblClick": false,
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "editorMode": "ace/mode/scala"
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -154,31 +154,31 @@
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1531862265255_-216968611",
+      "jobName": "paragraph_1533244041210_623041495",
       "id": "20180717-211745_1951066762",
-      "dateCreated": "2018-07-17 21:17:45.255",
-      "dateStarted": "2018-07-17 21:45:39.989",
-      "dateFinished": "2018-07-17 21:45:40.339",
+      "dateCreated": "2018-08-02T21:07:21+0000",
       "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32835",
+      "user": "anonymous",
+      "dateFinished": "2018-08-02T22:04:47+0000",
+      "dateStarted": "2018-08-02T22:04:47+0000"
     },
     {
-      "text": "import org.apache.spark.sql.{Dataset}\n\nval punctuationRegexp \u003d \"\"\"[\\p{Punct}\\s]\"\"\"\n\nval content \u003d scala.io.Source.fromURL(\"https://storage.googleapis.com/wize-datasets/big.txt\").mkString\nval documents \u003d sc.parallelize(List(content)).toDS.as[String]",
-      "user": "anonymous",
-      "dateUpdated": "2018-07-17 21:45:40.391",
+      "text": "def loadFile(bucket_file_path: String) = {\n    sc.textFile(bucket_file_path)\n}",
+      "dateUpdated": "2018-08-02T22:05:04+0000",
       "config": {
-        "colWidth": 12.0,
-        "fontSize": 9.0,
-        "enabled": true,
-        "results": {},
         "editorSetting": {
           "language": "scala",
           "editOnDblClick": false,
           "completionKey": "TAB",
           "completionSupport": true
         },
+        "colWidth": 12,
         "editorMode": "ace/mode/scala",
-        "tableHide": true
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -189,119 +189,519 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "import org.apache.spark.sql.Dataset\npunctuationRegexp: String \u003d [\\p{Punct}\\s]\ncontent: String \u003d\n\"The Project Gutenberg EBook of The Adventures of Sherlock Holmes\nby Sir Arthur Conan Doyle\n(#15 in our series by Sir Arthur Conan Doyle)\n\nCopyright laws are changing all over the world. Be sure to check the\ncopyright laws for your country before downloading or redistributing\nthis or any other Project Gutenberg eBook.\n\nThis header should be the first thing seen when viewing this Project\nGutenberg file.  Please do not remove it.  Do not change or edit the\nheader without written permission.\n\nPlease read the \"legal small print,\" and other information about the\neBook and Project Gutenberg at the bottom of this file.  Included is\nimportant information about your specific rights and restrictions in\nhow the file may be used.  You can also find out about how to make a\ndonation...documents: org.apache.spark.sql.Dataset[String] \u003d [value: string]\n"
+            "data": "loadFile: (bucket_file_path: String)org.apache.spark.rdd.RDD[String]\n"
           }
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1531862173969_-384536875",
-      "id": "20180717-211613_1722600278",
-      "dateCreated": "2018-07-17 21:16:13.970",
-      "dateStarted": "2018-07-17 21:45:40.420",
-      "dateFinished": "2018-07-17 21:45:44.907",
+      "jobName": "paragraph_1533244041210_623041495",
+      "id": "20180731-232114_598900552",
+      "dateCreated": "2018-08-02T21:07:21+0000",
       "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32836",
+      "user": "anonymous",
+      "dateFinished": "2018-08-02T22:05:05+0000",
+      "dateStarted": "2018-08-02T22:05:04+0000"
     },
     {
-      "text": "%md\n+ *Which are the top 10 longest words and how many of each are there in the dataset?*",
-      "user": "anonymous",
-      "dateUpdated": "2018-07-17 21:45:44.934",
+      "text": "val documents = loadFile(\"gs://de-training-input-bucket/words/big.txt\").toDS()\ndocuments.show()",
+      "dateUpdated": "2018-08-02T22:05:34+0000",
       "config": {
-        "colWidth": 12.0,
-        "fontSize": 9.0,
-        "enabled": true,
-        "results": {},
-        "editorSetting": {
-          "language": "markdown",
-          "editOnDblClick": true,
-          "completionKey": "TAB",
-          "completionSupport": false
-        },
-        "editorMode": "ace/mode/markdown",
-        "editorHide": true,
-        "tableHide": false
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "HTML",
-            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cul\u003e\n  \u003cli\u003e\u003cem\u003eWhich are the top 10 longest words and how many of each are there in the dataset?\u003c/em\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/div\u003e"
-          }
-        ]
-      },
-      "apps": [],
-      "jobName": "paragraph_1531862225248_1584697619",
-      "id": "20180717-211705_1316930531",
-      "dateCreated": "2018-07-17 21:17:05.248",
-      "dateStarted": "2018-07-17 21:45:44.961",
-      "dateFinished": "2018-07-17 21:45:44.967",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%md\nThe solution to this exercise is very simple if you followed the example during the session, since you already had all the information you needed: words and their counts. All that was missing was to learn how to sort that information by the length of each word. Here\u0027s a possible solution:",
-      "user": "anonymous",
-      "dateUpdated": "2018-07-17 21:45:45.060",
-      "config": {
-        "colWidth": 12.0,
-        "fontSize": 9.0,
-        "enabled": true,
-        "results": {},
-        "editorSetting": {
-          "language": "markdown",
-          "editOnDblClick": true,
-          "completionKey": "TAB",
-          "completionSupport": false
-        },
-        "editorMode": "ace/mode/markdown",
-        "editorHide": true,
-        "tableHide": false
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "HTML",
-            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eThe solution to this exercise is very simple if you followed the example during the session, since you already had all the information you needed: words and their counts. All that was missing was to learn how to sort that information by the length of each word. Here\u0026rsquo;s a possible solution:\u003c/p\u003e\n\u003c/div\u003e"
-          }
-        ]
-      },
-      "apps": [],
-      "jobName": "paragraph_1531862389169_-481931962",
-      "id": "20180717-211949_34443017",
-      "dateCreated": "2018-07-17 21:19:49.169",
-      "dateStarted": "2018-07-17 21:45:45.087",
-      "dateFinished": "2018-07-17 21:45:45.096",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "def longestWords(documents: Dataset[String], separatorsRegexp: String \u003d \"\"\"\\s+\"\"\"): Dataset[(Int, String, Long)] \u003d {\n    val words \u003d countWords(documents, separatorsRegexp)\n    words.map { case (word, count) \u003d\u003e (word.size, word, count) }\n         .orderBy($\"_1\".desc)\n}",
-      "user": "anonymous",
-      "dateUpdated": "2018-07-17 21:45:45.184",
-      "config": {
-        "colWidth": 12.0,
-        "fontSize": 9.0,
-        "enabled": true,
-        "results": {},
         "editorSetting": {
           "language": "scala",
           "editOnDblClick": false,
           "completionKey": "TAB",
           "completionSupport": true
         },
+        "colWidth": 12,
         "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "documents: org.apache.spark.sql.Dataset[String] = [value: string]\n+--------------------+\n|               value|\n+--------------------+\n|The Project Guten...|\n|by Sir Arthur Con...|\n|(#15 in our serie...|\n|                    |\n|Copyright laws ar...|\n|copyright laws fo...|\n|this or any other...|\n|                    |\n|This header shoul...|\n|Gutenberg file.  ...|\n|header without wr...|\n|                    |\n|Please read the \"...|\n|eBook and Project...|\n|important informa...|\n|how the file may ...|\n|donation to Proje...|\n|                    |\n|                    |\n|**Welcome To The ...|\n+--------------------+\nonly showing top 20 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1533244041211_622656746",
+      "id": "20180801-191033_464035631",
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32838",
+      "user": "anonymous",
+      "dateFinished": "2018-08-02T22:05:35+0000",
+      "dateStarted": "2018-08-02T22:05:34+0000"
+    },
+    {
+      "text": "%md \n### Can you count the number of characters in the set of documents?",
+      "dateUpdated": "2018-08-02T21:07:21+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h3>Can you count the number of characters in the set of documents?</h3>\n</div>"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1533244041211_622656746",
+      "id": "20180730-125350_577688281",
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32839"
+    },
+    {
+      "text": "%md\nThis is exactly the same problem as the example the instructor demonstrated, only with a slight twist: rather than splitting the text into words, we need to split it into characters. Let's see how we can accomplish this by modifying the above functions:",
+      "dateUpdated": "2018-08-02T21:07:21+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<p>This is exactly the same problem as the example the instructor demonstrated, only with a slight twist: rather than splitting the text into words, we need to split it into characters. Let&rsquo;s see how we can accomplish this by modifying the above functions:</p>\n</div>"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1533244041213_620348253",
+      "id": "20180730-125420_2063509585",
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32840"
+    },
+    {
+      "text": "import scala.util.matching.Regex\n\ndef toChars(\n    documents: Dataset[String], \n    pattern: Regex = \".\".r) : Dataset[String] = \n{\n    documents\n        .flatMap(doc => doc.split(\"\"))\n        .map(char => char.toLowerCase)\n        .filter(char => pattern.findFirstIn(char) != None)\n}",
+      "dateUpdated": "2018-08-02T22:05:43+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import scala.util.matching.Regex\ntoChars: (documents: org.apache.spark.sql.Dataset[String], pattern: scala.util.matching.Regex)org.apache.spark.sql.Dataset[String]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1533244041213_620348253",
+      "id": "20180730-130712_353902806",
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32841",
+      "user": "anonymous",
+      "dateFinished": "2018-08-02T22:05:44+0000",
+      "dateStarted": "2018-08-02T22:05:43+0000"
+    },
+    {
+      "text": "%md\nNotice we added a `pattern` optional parameter that can come in handy if we want to restrict the characters that we analyze.",
+      "dateUpdated": "2018-08-02T21:07:21+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<p>Notice we added a <code>pattern</code> optional parameter that can come in handy if we want to restrict the characters that we analyze.</p>\n</div>"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1533244041214_621502500",
+      "id": "20180731-125435_1882541499",
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32842"
+    },
+    {
+      "text": "def countChars(\n    documents: Dataset[String],\n    pattern: Regex = \".\".r) : Dataset[(String, Long)] = \n{\n    val chars = toChars(documents, pattern=pattern)\n    val counts = chars.groupByKey(identity).count()\n    counts\n}",
+      "dateUpdated": "2018-08-02T22:05:54+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "countChars: (documents: org.apache.spark.sql.Dataset[String], pattern: scala.util.matching.Regex)org.apache.spark.sql.Dataset[(String, Long)]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1533244041214_621502500",
+      "id": "20180730-131043_1715520435",
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32843",
+      "user": "anonymous",
+      "dateFinished": "2018-08-02T22:05:55+0000",
+      "dateStarted": "2018-08-02T22:05:54+0000"
+    },
+    {
+      "text": "%md\nLet's give these functions a try:",
+      "dateUpdated": "2018-08-02T21:07:21+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<p>Let&rsquo;s give these functions a try:</p>\n</div>"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1533244041215_621117751",
+      "id": "20180802-112502_1032268612",
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32844"
+    },
+    {
+      "text": "val chars = countChars(documents)\nchars.show()",
+      "dateUpdated": "2018-08-02T22:05:59+0000",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "chars: org.apache.spark.sql.Dataset[(String, Long)] = [value: string, count(1): bigint]\n+-----+--------+\n|value|count(1)|\n+-----+--------+\n|    7|    1890|\n|    ~|       2|\n|    l|  198648|\n|    ;|    3511|\n|    x|    9810|\n|    =|    1764|\n|    <|       2|\n|    ]|     435|\n|    g|   96916|\n|    3|    2492|\n|    8|    2527|\n|    +|      91|\n|    *|     489|\n|    0|    3064|\n|    m|  127063|\n|    !|    4345|\n|    \t|      12|\n|    f|  120875|\n|    5|    2192|\n|    (|    1748|\n+-----+--------+\nonly showing top 20 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1533244041215_621117751",
+      "id": "20180731-125616_1021872024",
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32845",
+      "user": "anonymous",
+      "dateFinished": "2018-08-02T22:06:07+0000",
+      "dateStarted": "2018-08-02T22:05:59+0000"
+    },
+    {
+      "text": "%md\nLet's see what happens if we pass a pattern to analyze only alphabetic characters:",
+      "dateUpdated": "2018-08-02T21:07:21+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<p>Let&rsquo;s see what happens if we pass a pattern to analyze only alphabetic characters:</p>\n</div>"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1533244041217_1886941632",
+      "id": "20180731-125548_884328081",
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32846"
+    },
+    {
+      "text": "val alphas = countChars(documents, \"[a-zA-Z]\".r)\nalphas.show()",
+      "dateUpdated": "2018-08-02T22:06:21+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "alphas: org.apache.spark.sql.Dataset[(String, Long)] = [value: string, count(1): bigint]\n+-----+--------+\n|value|count(1)|\n+-----+--------+\n|    l|  198648|\n|    x|    9810|\n|    g|   96916|\n|    m|  127063|\n|    f|  120875|\n|    n|  369018|\n|    k|   32798|\n|    v|   52378|\n|    e|  633818|\n|    o|  386867|\n|    h|  294681|\n|    z|    3796|\n|    p|   98913|\n|    d|  215706|\n|    y|   90481|\n|    w|  100831|\n|    c|  144972|\n|    u|  138732|\n|    i|  365638|\n|    q|    4571|\n+-----+--------+\nonly showing top 20 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1533244041217_1886941632",
+      "id": "20180730-131159_962072403",
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32847",
+      "user": "anonymous",
+      "dateFinished": "2018-08-02T22:06:29+0000",
+      "dateStarted": "2018-08-02T22:06:21+0000"
+    },
+    {
+      "text": "%md\n### Which are the top 10 longest words and how many of each are there in the dataset?",
+      "dateUpdated": "2018-08-02T21:07:21+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h3>Which are the top 10 longest words and how many of each are there in the dataset?</h3>\n</div>"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1533244041218_1888095879",
+      "id": "20180717-211705_1316930531",
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32848"
+    },
+    {
+      "text": "%md\nThe solution to this exercise is very simple if you followed the example during the session, since you already had all the information you needed: words and their counts. All that was missing was to learn how to sort that information by the length of each word. Here's a possible solution:",
+      "dateUpdated": "2018-08-02T21:07:21+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<p>The solution to this exercise is very simple if you followed the example during the session, since you already had all the information you needed: words and their counts. All that was missing was to learn how to sort that information by the length of each word. Here&rsquo;s a possible solution:</p>\n</div>"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1533244041218_1888095879",
+      "id": "20180717-211949_34443017",
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32849"
+    },
+    {
+      "text": "def longestWords(documents: Dataset[String], separatorsRegexp: String = \"\"\"\\s+\"\"\"): Dataset[(Int, String, Long)] = {\n    val words = countWords(documents, separatorsRegexp)\n    words.map { case (word, count) => (word.size, word, count) }\n         .orderBy($\"_1\".desc)\n}",
+      "dateUpdated": "2018-08-02T22:06:40+0000",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
         "editorHide": false,
-        "tableHide": false
+        "results": {},
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -317,30 +717,32 @@
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1531862402414_-1363582448",
+      "jobName": "paragraph_1533244041218_1888095879",
       "id": "20180717-212002_1888821357",
-      "dateCreated": "2018-07-17 21:20:02.414",
-      "dateStarted": "2018-07-17 21:45:45.207",
-      "dateFinished": "2018-07-17 21:45:45.566",
+      "dateCreated": "2018-08-02T21:07:21+0000",
       "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32850",
+      "user": "anonymous",
+      "dateFinished": "2018-08-02T22:06:42+0000",
+      "dateStarted": "2018-08-02T22:06:41+0000"
     },
     {
-      "text": "val longest \u003d longestWords(documents, punctuationRegexp)\nlongest.show()",
-      "user": "anonymous",
-      "dateUpdated": "2018-07-17 21:45:45.606",
+      "text": "val punctuationRegexp = \"\"\"[\\p{Punct}\\s]\"\"\"\nval longest = longestWords(documents, punctuationRegexp)\nlongest.show()",
+      "dateUpdated": "2018-08-02T22:06:48+0000",
       "config": {
-        "colWidth": 12.0,
-        "fontSize": 9.0,
-        "enabled": true,
-        "results": {},
+        "tableHide": false,
         "editorSetting": {
           "language": "scala",
           "editOnDblClick": false,
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "editorMode": "ace/mode/scala"
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -351,49 +753,38 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "longest: org.apache.spark.sql.Dataset[(Int, String, Long)] \u003d [_1: int, _2: string ... 1 more field]\n+---+------------------+---+\n| _1|                _2| _3|\n+---+------------------+---+\n| 18|disproportionately|  2|\n| 18|supersensitiveness|  2|\n| 18|characteristically|  6|\n| 17| constitutionality|  6|\n| 17| contemporaneously|  1|\n| 17| disadvantageously|  1|\n| 17| unapproachability|  1|\n| 17| telecommunication|  1|\n| 17| superstitiousness|  1|\n| 17| indistinguishable|  2|\n| 17| disfranchisements|  1|\n| 17| misunderstandings|  6|\n| 17| conventionalities|  1|\n| 16|  circumstantially|  1|\n| 16|  enthusiastically|  3|\n| 16|  superciliousness|  1|\n| 16|  insurrectionists|  1|\n| 16|  unenforceability|  2|\n| 16|  disfranchisement|  5|\n| 16|  lymphangioplasty|  3|\n+---+------------------+---+\nonly showing top 20 rows\n\n"
+            "data": "punctuationRegexp: String = [\\p{Punct}\\s]\nlongest: org.apache.spark.sql.Dataset[(Int, String, Long)] = [_1: int, _2: string ... 1 more field]\n+---+------------------+---+\n| _1|                _2| _3|\n+---+------------------+---+\n| 18|disproportionately|  2|\n| 18|supersensitiveness|  2|\n| 18|characteristically|  6|\n| 17| constitutionality|  6|\n| 17| contemporaneously|  1|\n| 17| disadvantageously|  1|\n| 17| unapproachability|  1|\n| 17| telecommunication|  1|\n| 17| superstitiousness|  1|\n| 17| indistinguishable|  2|\n| 17| disfranchisements|  1|\n| 17| misunderstandings|  6|\n| 17| conventionalities|  1|\n| 16|  circumstantially|  1|\n| 16|  enthusiastically|  3|\n| 16|  superciliousness|  1|\n| 16|  insurrectionists|  1|\n| 16|  unenforceability|  2|\n| 16|  disfranchisement|  5|\n| 16|  lymphangioplasty|  3|\n+---+------------------+---+\nonly showing top 20 rows\n\n"
           }
         ]
       },
-      "runtimeInfos": {
-        "jobUrl": {
-          "propertyName": "jobUrl",
-          "label": "SPARK JOB",
-          "tooltip": "View in Spark web UI",
-          "group": "spark",
-          "values": [
-            "http://172.17.0.2:4040/jobs/job?id\u003d42"
-          ],
-          "interpreterSettingId": "spark"
-        }
-      },
       "apps": [],
-      "jobName": "paragraph_1531862460329_239551785",
+      "jobName": "paragraph_1533244041218_1888095879",
       "id": "20180717-212100_4676898",
-      "dateCreated": "2018-07-17 21:21:00.329",
-      "dateStarted": "2018-07-17 21:45:45.645",
-      "dateFinished": "2018-07-17 21:45:48.078",
+      "dateCreated": "2018-08-02T21:07:21+0000",
       "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32851",
+      "user": "anonymous",
+      "dateFinished": "2018-08-02T22:06:55+0000",
+      "dateStarted": "2018-08-02T22:06:48+0000"
     },
     {
       "text": "%md\nAs you can see, the solution is quite simple. Perhaps the only part that deserves an explanation is the line: `.orderBy($\"_1\".desc)`. The `$` is an operator that turns its operand (in this case `\"_1\"`) into an object of type `org.apache.spark.sql.Column`, and `\"_1\"` is just the default name that `Dataset`s give to fields when you use tuples rather than the `Row` object, as we are doing in this case.",
-      "user": "anonymous",
-      "dateUpdated": "2018-07-17 21:45:48.111",
+      "dateUpdated": "2018-08-02T21:07:21+0000",
       "config": {
-        "colWidth": 12.0,
-        "fontSize": 9.0,
-        "enabled": true,
-        "results": {},
+        "tableHide": false,
         "editorSetting": {
           "language": "markdown",
           "editOnDblClick": true,
           "completionKey": "TAB",
           "completionSupport": false
         },
+        "colWidth": 12,
         "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
         "editorHide": true,
-        "tableHide": false
+        "results": {},
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -404,37 +795,36 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eAs you can see, the solution is quite simple. Perhaps the only part that deserves an explanation is the line: \u003ccode\u003e.orderBy($\u0026quot;_1\u0026quot;.desc)\u003c/code\u003e. The \u003ccode\u003e$\u003c/code\u003e is an operator that turns its operand (in this case \u003ccode\u003e\u0026quot;_1\u0026quot;\u003c/code\u003e) into an object of type \u003ccode\u003eorg.apache.spark.sql.Column\u003c/code\u003e, and \u003ccode\u003e\u0026quot;_1\u0026quot;\u003c/code\u003e is just the default name that \u003ccode\u003eDataset\u003c/code\u003es give to fields when you use tuples rather than the \u003ccode\u003eRow\u003c/code\u003e object, as we are doing in this case.\u003c/p\u003e\n\u003c/div\u003e"
+            "data": "<div class=\"markdown-body\">\n<p>As you can see, the solution is quite simple. Perhaps the only part that deserves an explanation is the line: <code>.orderBy($&quot;_1&quot;.desc)</code>. The <code>$</code> is an operator that turns its operand (in this case <code>&quot;_1&quot;</code>) into an object of type <code>org.apache.spark.sql.Column</code>, and <code>&quot;_1&quot;</code> is just the default name that <code>Dataset</code>s give to fields when you use tuples rather than the <code>Row</code> object, as we are doing in this case.</p>\n</div>"
           }
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1531862483300_1572418155",
+      "jobName": "paragraph_1533244041218_1888095879",
       "id": "20180717-212123_154082817",
-      "dateCreated": "2018-07-17 21:21:23.300",
-      "dateStarted": "2018-07-17 21:45:48.140",
-      "dateFinished": "2018-07-17 21:45:48.148",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32852"
     },
     {
-      "text": "%md\n\n+ _Can you find all interesting sets of anagrams (i.e. those of at least two words)?_\n    Two words are anagrams of each other if they contain the same number of occurrences of each letter. For instance, `“mar”.isAnagram(“ram”) \u003d\u003d true`, but `“line”.isAnagram(“nilee”) \u003d\u003d false`\n    For the set `{“art”, “rat”, “car”, “arc”}`, there are two interesting sets: `{“art”, “rat”}` and `{“car”, “arc”}` because they contain at least two elements. The set `{“buck”, “knuck”}` has no interesting sets of anagrams.",
-      "user": "anonymous",
-      "dateUpdated": "2018-07-17 21:45:48.234",
+      "text": "%md\n\n### Can you find all anagrams sets with at least two words?\n\nRemember that two words are anagrams of each other if they contain the same number of occurrences of each letter.\nFor example: `areAnagrams(\"mar\", “ram”) == true`, but `areAnagrams(\"line\", “nilee”) == false`\n\nConsider the following set of documents:\n\n`documents = [ “car art”, “rat arc” ]`\n\nIn this case, there are two such sets: `[“rat”, “art”]` and `[“car”, “arc”]` because they contain at least two elements. \n\nNow consider the following set of documents:\n\n`documents = [ “wizeline rocks”, “chuck norris” ]`\n\nIn this case, there are no such sets.",
+      "dateUpdated": "2018-08-02T21:07:21+0000",
       "config": {
-        "colWidth": 12.0,
-        "fontSize": 9.0,
-        "enabled": true,
-        "results": {},
+        "tableHide": false,
         "editorSetting": {
           "language": "markdown",
           "editOnDblClick": true,
           "completionKey": "TAB",
           "completionSupport": false
         },
+        "colWidth": 12,
         "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
         "editorHide": true,
-        "tableHide": false
+        "results": {},
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -445,37 +835,36 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cul\u003e\n  \u003cli\u003e\u003cem\u003eCan you find all interesting sets of anagrams (i.e. those of at least two words)?\u003c/em\u003e\u003cbr/\u003eTwo words are anagrams of each other if they contain the same number of occurrences of each letter. For instance, \u003ccode\u003e“mar”.isAnagram(“ram”) \u003d\u003d true\u003c/code\u003e, but \u003ccode\u003e“line”.isAnagram(“nilee”) \u003d\u003d false\u003c/code\u003e\u003cbr/\u003eFor the set \u003ccode\u003e{“art”, “rat”, “car”, “arc”}\u003c/code\u003e, there are two interesting sets: \u003ccode\u003e{“art”, “rat”}\u003c/code\u003e and \u003ccode\u003e{“car”, “arc”}\u003c/code\u003e because they contain at least two elements. The set \u003ccode\u003e{“buck”, “knuck”}\u003c/code\u003e has no interesting sets of anagrams.\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/div\u003e"
+            "data": "<div class=\"markdown-body\">\n<h3>Can you find all anagrams sets with at least two words?</h3>\n<p>Remember that two words are anagrams of each other if they contain the same number of occurrences of each letter.<br/>For example: <code>areAnagrams(&quot;mar&quot;, “ram”) == true</code>, but <code>areAnagrams(&quot;line&quot;, “nilee”) == false</code></p>\n<p>Consider the following set of documents:</p>\n<p><code>documents = [ “car art”, “rat arc” ]</code></p>\n<p>In this case, there are two such sets: <code>[“rat”, “art”]</code> and <code>[“car”, “arc”]</code> because they contain at least two elements. </p>\n<p>Now consider the following set of documents:</p>\n<p><code>documents = [ “wizeline rocks”, “chuck norris” ]</code></p>\n<p>In this case, there are no such sets.</p>\n</div>"
           }
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1531863218364_-1003971562",
+      "jobName": "paragraph_1533244041218_1888095879",
       "id": "20180717-213338_1287781038",
-      "dateCreated": "2018-07-17 21:33:38.364",
-      "dateStarted": "2018-07-17 21:45:48.258",
-      "dateFinished": "2018-07-17 21:45:48.272",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32853"
     },
     {
-      "text": "%md\nThis exercise is much more involved, as it requires to first think of a conceptual solution to find whether two words are anagrams of each other, and then figuring out which functions to use to achieve each intermediate step in the computation. Here\u0027s a possible solution:",
-      "user": "anonymous",
-      "dateUpdated": "2018-07-17 21:45:48.356",
+      "text": "%md\nThis exercise is much more involved, as it requires to first think of a conceptual solution to find whether two words are anagrams of each other, and then figuring out which functions to use to achieve each intermediate step in the computation. Here's a possible solution:",
+      "dateUpdated": "2018-08-02T21:07:21+0000",
       "config": {
-        "colWidth": 12.0,
-        "fontSize": 9.0,
-        "enabled": true,
-        "results": {},
+        "tableHide": false,
         "editorSetting": {
           "language": "markdown",
           "editOnDblClick": true,
           "completionKey": "TAB",
           "completionSupport": false
         },
+        "colWidth": 12,
         "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
         "editorHide": true,
-        "tableHide": false
+        "results": {},
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -486,35 +875,34 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eThis exercise is much more involved, as it requires to first think of a conceptual solution to find whether two words are anagrams of each other, and then figuring out which functions to use to achieve each intermediate step in the computation. Here\u0026rsquo;s a possible solution:\u003c/p\u003e\n\u003c/div\u003e"
+            "data": "<div class=\"markdown-body\">\n<p>This exercise is much more involved, as it requires to first think of a conceptual solution to find whether two words are anagrams of each other, and then figuring out which functions to use to achieve each intermediate step in the computation. Here&rsquo;s a possible solution:</p>\n</div>"
           }
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1531863313683_1056992866",
+      "jobName": "paragraph_1533244041220_1885787385",
       "id": "20180717-213513_1398409936",
-      "dateCreated": "2018-07-17 21:35:13.683",
-      "dateStarted": "2018-07-17 21:45:48.380",
-      "dateFinished": "2018-07-17 21:45:48.389",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32854"
     },
     {
-      "text": "def anagramSets(documents: Dataset[String], separatorsRegexp: String \u003d \"\"\"\\s+\"\"\"): Dataset[List[String]] \u003d {\n    val words \u003d toWords(documents, separatorsRegexp).distinct()\n    val anagrams \u003d words.groupByKey(word \u003d\u003e word.sorted)\n      .mapGroups((word, anagrams) \u003d\u003e anagrams.toList)\n      .filter(anagrams \u003d\u003e anagrams.size \u003e 1)\n\n    anagrams\n}",
-      "user": "anonymous",
-      "dateUpdated": "2018-07-17 21:45:48.477",
+      "text": "def anagramSets(documents: Dataset[String], separatorsRegexp: String = \"\"\"\\s+\"\"\"): Dataset[List[String]] = {\n    val words = toWords(documents, separatorsRegexp).distinct()\n    val anagrams = words.groupByKey(word => word.sorted)\n      .mapGroups((word, anagrams) => anagrams.toList)\n      .filter(anagrams => anagrams.size > 1)\n\n    anagrams\n}",
+      "dateUpdated": "2018-08-02T22:07:09+0000",
       "config": {
-        "colWidth": 12.0,
-        "fontSize": 9.0,
-        "enabled": true,
-        "results": {},
         "editorSetting": {
           "language": "scala",
           "editOnDblClick": false,
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "editorMode": "ace/mode/scala"
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -530,30 +918,32 @@
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1531863413170_-2098100542",
+      "jobName": "paragraph_1533244041220_1885787385",
       "id": "20180717-213653_1753752118",
-      "dateCreated": "2018-07-17 21:36:53.171",
-      "dateStarted": "2018-07-17 21:45:48.501",
-      "dateFinished": "2018-07-17 21:45:48.857",
+      "dateCreated": "2018-08-02T21:07:21+0000",
       "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32855",
+      "user": "anonymous",
+      "dateFinished": "2018-08-02T22:07:11+0000",
+      "dateStarted": "2018-08-02T22:07:10+0000"
     },
     {
-      "text": "val anagrams \u003d anagramSets(documents, punctuationRegexp)\nanagrams.show()",
-      "user": "anonymous",
-      "dateUpdated": "2018-07-17 21:45:48.900",
+      "text": "val anagrams = anagramSets(documents, punctuationRegexp)\nanagrams.show()",
+      "dateUpdated": "2018-08-02T22:07:16+0000",
       "config": {
-        "colWidth": 12.0,
-        "fontSize": 9.0,
-        "enabled": true,
-        "results": {},
+        "tableHide": false,
         "editorSetting": {
           "language": "scala",
           "editOnDblClick": false,
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "editorMode": "ace/mode/scala"
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -564,51 +954,38 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "anagrams: org.apache.spark.sql.Dataset[List[String]] \u003d [value: array\u003cstring\u003e]\n+--------------------+\n|               value|\n+--------------------+\n|            [07, 70]|\n|     [467, 647, 476]|\n|          [oka, oak]|\n|[art, rat, tar, tra]|\n|  [boredom, bedroom]|\n|[recourse, resource]|\n|    [corpus, croups]|\n|        [lids, slid]|\n|[125, 521, 512, 2...|\n|    [leaned, leaden]|\n|[please, elapse, ...|\n|[aet, eat, tea, ate]|\n|  [grieved, diverge]|\n|  [whoever, however]|\n|        [more, rome]|\n|          [map, amp]|\n|      [relic, crile]|\n|    [smiled, misled]|\n|          [der, red]|\n|      [slung, lungs]|\n+--------------------+\nonly showing top 20 rows\n\n"
+            "data": "anagrams: org.apache.spark.sql.Dataset[List[String]] = [value: array<string>]\n+--------------------+\n|               value|\n+--------------------+\n|            [07, 70]|\n|     [467, 647, 476]|\n|          [oka, oak]|\n|[art, rat, tar, tra]|\n|  [boredom, bedroom]|\n|[recourse, resource]|\n|    [corpus, croups]|\n|        [lids, slid]|\n|[125, 521, 512, 2...|\n|    [leaned, leaden]|\n|[please, elapse, ...|\n|[aet, eat, tea, ate]|\n|  [grieved, diverge]|\n|  [whoever, however]|\n|        [more, rome]|\n|          [map, amp]|\n|      [relic, crile]|\n|    [smiled, misled]|\n|          [der, red]|\n|      [slung, lungs]|\n+--------------------+\nonly showing top 20 rows\n\n"
           }
         ]
       },
-      "runtimeInfos": {
-        "jobUrl": {
-          "propertyName": "jobUrl",
-          "label": "SPARK JOB",
-          "tooltip": "View in Spark web UI",
-          "group": "spark",
-          "values": [
-            "http://172.17.0.2:4040/jobs/job?id\u003d43",
-            "http://172.17.0.2:4040/jobs/job?id\u003d44",
-            "http://172.17.0.2:4040/jobs/job?id\u003d45"
-          ],
-          "interpreterSettingId": "spark"
-        }
-      },
       "apps": [],
-      "jobName": "paragraph_1531863761410_538660568",
+      "jobName": "paragraph_1533244041220_1885787385",
       "id": "20180717-214241_1649052576",
-      "dateCreated": "2018-07-17 21:42:41.410",
-      "dateStarted": "2018-07-17 21:45:48.929",
-      "dateFinished": "2018-07-17 21:45:55.716",
+      "dateCreated": "2018-08-02T21:07:21+0000",
       "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32856",
+      "user": "anonymous",
+      "dateFinished": "2018-08-02T22:07:28+0000",
+      "dateStarted": "2018-08-02T22:07:16+0000"
     },
     {
-      "text": "%md\nLet\u0027s break it down line by line. The first line: `val words \u003d toWords(documents, separatorsRegexp).distinct()` just gives you back a list of unique words. Simple enough.",
-      "user": "anonymous",
-      "dateUpdated": "2018-07-17 21:45:55.754",
+      "text": "%md\nLet's break it down line by line. The first line: `val words = toWords(documents, separatorsRegexp).distinct()` just gives you back a list of unique words. Simple enough.",
+      "dateUpdated": "2018-08-02T21:07:21+0000",
       "config": {
-        "colWidth": 12.0,
-        "fontSize": 9.0,
-        "enabled": true,
-        "results": {},
+        "tableHide": false,
         "editorSetting": {
           "language": "markdown",
           "editOnDblClick": true,
           "completionKey": "TAB",
           "completionSupport": false
         },
+        "colWidth": 12,
         "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
         "editorHide": true,
-        "tableHide": false
+        "results": {},
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -619,37 +996,36 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eLet\u0026rsquo;s break it down line by line. The first line: \u003ccode\u003eval words \u003d toWords(documents, separatorsRegexp).distinct()\u003c/code\u003e just gives you back a list of unique words. Simple enough.\u003c/p\u003e\n\u003c/div\u003e"
+            "data": "<div class=\"markdown-body\">\n<p>Let&rsquo;s break it down line by line. The first line: <code>val words = toWords(documents, separatorsRegexp).distinct()</code> just gives you back a list of unique words. Simple enough.</p>\n</div>"
           }
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1531863468981_1575037273",
+      "jobName": "paragraph_1533244041220_1885787385",
       "id": "20180717-213748_1295804378",
-      "dateCreated": "2018-07-17 21:37:48.981",
-      "dateStarted": "2018-07-17 21:45:55.791",
-      "dateFinished": "2018-07-17 21:45:55.806",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32857"
     },
     {
-      "text": "%md\nThe second line: `val anagrams \u003d words.groupByKey(word \u003d\u003e word.sorted)` groups words by anagrams by proposing a way to figure out whether two words are anagrams of each other: simply sort their characters and compare the resulting strings.",
-      "user": "anonymous",
-      "dateUpdated": "2018-07-17 21:45:55.887",
+      "text": "%md\nThe second line: `val anagrams = words.groupByKey(word => word.sorted)` groups words by anagrams by proposing a way to figure out whether two words are anagrams of each other: simply sort their characters and compare the resulting strings.",
+      "dateUpdated": "2018-08-02T21:07:21+0000",
       "config": {
-        "colWidth": 12.0,
-        "fontSize": 9.0,
-        "enabled": true,
-        "results": {},
+        "tableHide": false,
         "editorSetting": {
           "language": "markdown",
           "editOnDblClick": true,
           "completionKey": "TAB",
           "completionSupport": false
         },
+        "colWidth": 12,
         "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
         "editorHide": true,
-        "tableHide": false
+        "results": {},
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -660,37 +1036,36 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eThe second line: \u003ccode\u003eval anagrams \u003d words.groupByKey(word \u003d\u0026gt; word.sorted)\u003c/code\u003e groups words by anagrams by proposing a way to figure out whether two words are anagrams of each other: simply sort their characters and compare the resulting strings.\u003c/p\u003e\n\u003c/div\u003e"
+            "data": "<div class=\"markdown-body\">\n<p>The second line: <code>val anagrams = words.groupByKey(word =&gt; word.sorted)</code> groups words by anagrams by proposing a way to figure out whether two words are anagrams of each other: simply sort their characters and compare the resulting strings.</p>\n</div>"
           }
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1531863532273_423933048",
+      "jobName": "paragraph_1533244041221_1885402637",
       "id": "20180717-213852_521170903",
-      "dateCreated": "2018-07-17 21:38:52.274",
-      "dateStarted": "2018-07-17 21:45:55.969",
-      "dateFinished": "2018-07-17 21:45:55.975",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32858"
     },
     {
-      "text": "%md\nIn the third line: `.mapGroups((word, anagrams) \u003d\u003e anagrams.toList)` we discard the keys of the previous grouping, since we don\u0027t really need them anymore. All we care about is the list of values for each group, which happens to be an \"iterable\", hence the need to call `.toList`",
-      "user": "anonymous",
-      "dateUpdated": "2018-07-17 21:45:56.021",
+      "text": "%md\nIn the third line: `.mapGroups((word, anagrams) => anagrams.toList)` we discard the keys of the previous grouping, since we don't really need them anymore. All we care about is the list of values for each group, which happens to be an \"iterable\", hence the need to call `.toList`",
+      "dateUpdated": "2018-08-02T21:07:21+0000",
       "config": {
-        "colWidth": 12.0,
-        "fontSize": 9.0,
-        "enabled": true,
-        "results": {},
+        "tableHide": false,
         "editorSetting": {
           "language": "markdown",
           "editOnDblClick": true,
           "completionKey": "TAB",
           "completionSupport": false
         },
+        "colWidth": 12,
         "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
         "editorHide": true,
-        "tableHide": false
+        "results": {},
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -701,37 +1076,36 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eIn the third line: \u003ccode\u003e.mapGroups((word, anagrams) \u003d\u0026gt; anagrams.toList)\u003c/code\u003e we discard the keys of the previous grouping, since we don\u0026rsquo;t really need them anymore. All we care about is the list of values for each group, which happens to be an \u0026ldquo;iterable\u0026rdquo;, hence the need to call \u003ccode\u003e.toList\u003c/code\u003e\u003c/p\u003e\n\u003c/div\u003e"
+            "data": "<div class=\"markdown-body\">\n<p>In the third line: <code>.mapGroups((word, anagrams) =&gt; anagrams.toList)</code> we discard the keys of the previous grouping, since we don&rsquo;t really need them anymore. All we care about is the list of values for each group, which happens to be an &ldquo;iterable&rdquo;, hence the need to call <code>.toList</code></p>\n</div>"
           }
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1531863591913_-133433479",
+      "jobName": "paragraph_1533244041221_1885402637",
       "id": "20180717-213951_1951649187",
-      "dateCreated": "2018-07-17 21:39:51.913",
-      "dateStarted": "2018-07-17 21:45:56.047",
-      "dateFinished": "2018-07-17 21:45:56.056",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32859"
     },
     {
-      "text": "%md\nFinally, in the last line: `.filter(lambda anagrams: anagrams.size \u003e 1)` we remove the trivial groups, i.e. those that contain just one element.",
-      "user": "anonymous",
-      "dateUpdated": "2018-07-17 21:45:56.144",
+      "text": "%md\nFinally, in the last line: `.filter(lambda anagrams: anagrams.size > 1)` we remove the trivial groups, i.e. those that contain just one element.",
+      "dateUpdated": "2018-08-02T21:07:21+0000",
       "config": {
-        "colWidth": 12.0,
-        "fontSize": 9.0,
-        "enabled": true,
-        "results": {},
+        "tableHide": false,
         "editorSetting": {
           "language": "markdown",
           "editOnDblClick": true,
           "completionKey": "TAB",
           "completionSupport": false
         },
+        "colWidth": 12,
         "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
         "editorHide": true,
-        "tableHide": false
+        "results": {},
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -742,30 +1116,45 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eFinally, in the last line: \u003ccode\u003e.filter(lambda anagrams: anagrams.size \u0026gt; 1)\u003c/code\u003e we remove the trivial groups, i.e. those that contain just one element.\u003c/p\u003e\n\u003c/div\u003e"
+            "data": "<div class=\"markdown-body\">\n<p>Finally, in the last line: <code>.filter(lambda anagrams: anagrams.size &gt; 1)</code> we remove the trivial groups, i.e. those that contain just one element.</p>\n</div>"
           }
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1531863672744_-1805783782",
+      "jobName": "paragraph_1533244041221_1885402637",
       "id": "20180717-214112_288924767",
-      "dateCreated": "2018-07-17 21:41:12.744",
-      "dateStarted": "2018-07-17 21:45:56.171",
-      "dateFinished": "2018-07-17 21:45:56.175",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
+      "dateCreated": "2018-08-02T21:07:21+0000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:32860"
     }
   ],
-  "name": "WordCount Scala (Exercises Solutions)",
-  "id": "2DNNXDWS6",
-  "noteParams": {},
-  "noteForms": {},
+  "name": "wordcount-scala-exercises-solutions.json",
+  "id": "2DNWJYG4A",
   "angularObjects": {
-    "md:shared_process": [],
-    "spark:shared_process": []
+    "2DMMG5R5U:shared_process": [],
+    "2DMT86YGX:shared_process": [],
+    "2DPWEQ61Y:shared_process": [],
+    "2DMEHY72N:shared_process": [],
+    "2DM7364MX:shared_process": [],
+    "2DNAV2RDZ:shared_process": [],
+    "2DKPGN4BS:shared_process": [],
+    "2DM57QEWS:shared_process": [],
+    "2DNX77NXA:shared_process": [],
+    "2DPMYPEZB:shared_process": [],
+    "2DKSKB5FX:shared_process": [],
+    "2DN3AXQ6J:shared_process": [],
+    "2DK2ZKHE6:shared_process": [],
+    "2DPW1ZPP3:shared_process": [],
+    "2DPJJPUEP:shared_process": [],
+    "2DN7VDD8E:shared_process": [],
+    "2DP583F4B:shared_process": [],
+    "2DN7TAJ65:shared_process": []
   },
   "config": {
-    "isZeppelinNotebookCronEnable": false
+    "looknfeel": "default",
+    "personalizedMode": "false"
   },
   "info": {}
 }
