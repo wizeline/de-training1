@@ -9,7 +9,7 @@ variable "location" {}
 
 # Buckets names
 variable "staging_prefix" {}
-variable "bucket_output_name_prefix" {}
+variable "output_bucket_name_prefix" {}
 variable "input_bucket_name" {}
 
 # Cluster information
@@ -54,7 +54,7 @@ resource "google_storage_bucket_iam_member" "input-bucket" {
 // Bucket for users to put their data/file
 resource "google_storage_bucket" "de-bucket-output" {
   project       = "${var.project_name}"
-  name          = "${var.bucket_output_name_prefix}-${count.index}"
+  name          = "${var.output_bucket_name_prefix}-${count.index}"
   location      = "${var.location}"
   force_destroy = "true"
   count         = "${var.num_users}"
@@ -62,7 +62,7 @@ resource "google_storage_bucket" "de-bucket-output" {
 
 // Access to users for buckets, the list in environment vars goes from index 0 to n-1 (same as the buckets)
 resource "google_storage_bucket_iam_member" "viewer" {
-  bucket     = "${var.bucket_output_name_prefix}-${count.index}"
+  bucket     = "${var.output_bucket_name_prefix}-${count.index}"
   role       = "roles/storage.objectViewer"
   member     = "user:${element(var.user_members, count.index)}"
   count      = "${var.num_users}"
@@ -70,7 +70,7 @@ resource "google_storage_bucket_iam_member" "viewer" {
 }
 
 resource "google_storage_bucket_iam_member" "create" {
-  bucket     = "${var.bucket_output_name_prefix}-${count.index}"
+  bucket     = "${var.output_bucket_name_prefix}-${count.index}"
   role       = "roles/storage.objectCreator"
   member     = "user:${element(var.user_members, count.index)}"
   count      = "${var.num_users}"
