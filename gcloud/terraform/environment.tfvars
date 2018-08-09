@@ -22,7 +22,7 @@ zeppelin_sh_path = "gs://dcb-initialization-actions/zeppelin.sh"
 
 cluster_prefix = "de-training"
 
-machine_type = "n1-standard-1"
+machine_type = "n1-standard-2"
 
 cluster_master_num_local_ssds = 0
 
