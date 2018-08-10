@@ -86,7 +86,20 @@ resource "google_storage_bucket" "de-staging" {
   count         = "${var.num_users}"
 }
 
-resource "google_project_iam_member" "add-user-project" {
+// Custom Student, Service Account User and OS Login roles that allows to work with dataprocs for users
+resource "google_project_iam_member" "student-role" {
+  project = "${var.project_name}"
+  role    = "projects/data-castle-bravo/roles/StudentRole"
+  member  = "user:${element(var.user_members, count.index)}"
+  count   = "${var.num_users}"
+}
+resource "google_project_iam_member" "service-account-user-role" {
+  project = "${var.project_name}"
+  role    = "roles/iam.serviceAccountUser"
+  member  = "user:${element(var.user_members, count.index)}"
+  count   = "${var.num_users}"
+}
+resource "google_project_iam_member" "os-login-role" {
   project = "${var.project_name}"
   role    = "roles/compute.osLogin"
   member  = "user:${element(var.user_members, count.index)}"
