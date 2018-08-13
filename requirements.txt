@@ -1,5 +1,6 @@
 mkdocs
 mkdocs-rtd-dropdown
 mdx_del_ins
+pre-commit
 
 -r alimazon/tools/requirements.txt

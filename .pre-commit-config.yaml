@@ -1,0 +1,18 @@
+exclude: '^$' # which files do you want to exclude from passing thru these hooks?
+fail_fast: false # if a hook fails, let the rest of the hooks run
+repos:
+-   repo: local
+    hooks:
+    -   id: remove-utf8-bom
+        name: UTF8 BOM remover
+        description: This hooks removes UTF8 BOM from files
+        entry: python -m pre_commit_hooks.remove_utf8_bom
+        language: python
+        types: [json]
+
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v1.2.3
+    hooks:
+    -   id: trailing-whitespace
+    -   id: pretty-format-json
+        args: [--autofix, --indent=3, --no-sort-keys]

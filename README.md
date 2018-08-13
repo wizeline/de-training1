@@ -7,8 +7,7 @@ To install run these commands in your terminal:
 ```bash
 git clone git@github.com:wizeline/de-training.git
 cd de-training/
-mkvirtualenv -p python3 training -a .
-pip install -r requirements.txt
+./setup.sh
 ```
 
 ## Run
