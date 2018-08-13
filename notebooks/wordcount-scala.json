@@ -1,8 +1,9 @@
-﻿{
+{
   "paragraphs": [
     {
-      "text": "%md\n## Welcome\nWelcome to Wizeline Data Engineering Academy! \n\nWe hope you have a great experience during the course and you end up with a solid grasp of the topics we'll be covering.\nIf you have any feedback about our courses, please feel free to send us an email to academy@wizeline.com.\n\n## Hello, World! -- Word Count (Scala Version)\nIn this exercise, your instructor will guide through the creation of an example program to count the number of words in a set of documents in Spark.\n\nAfterwards, you'll get a chance to complete a couple of exercises that extend that example and will help you solidify your understanding. \n\nPlease reach out to one of the tutors if you have any questions or run into trouble during the session.\n\nHave Fun!",
-      "dateUpdated": "2018-08-02T21:06:09+0000",
+      "text": "%md\n## Welcome\nWelcome to Wizeline Data Engineering Academy! \n\nWe hope you have a great experience during the course and you end up with a solid grasp of the topics we are covering.\n\nIf you have any feedback about our courses, email us at  academy@wizeline.com.\n\n## Hello, World! -- Word Count (Scala Version)\nIn this exercise, your instructor will guide through the creation of an example program in Spark to count the number of words in a set of documents .\n\nAfterwards, you\u0027ll get a chance to complete a couple of exercises that extend that example and help you solidify your understanding. \n\nPlease reach out to one of the tutors if you have any questions or run into trouble during the session.\n\nHave Fun!",
+      "user": "anonymous",
+      "dateUpdated": "2018-08-13 11:11:40.580",
       "config": {
         "tableHide": false,
         "editorSetting": {
@@ -11,9 +12,9 @@
           "completionKey": "TAB",
           "completionSupport": false
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/markdown",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "editorHide": true,
         "results": {},
         "enabled": true
@@ -27,23 +28,23 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<h2>Welcome</h2>\n<p>Welcome to Wizeline Data Engineering Academy! </p>\n<p>We hope you have a great experience during the course and you end up with a solid grasp of the topics we&rsquo;ll be covering.<br/>If you have any feedback about our courses, please feel free to send us an email to <a href=\"mailto:&#97;c&#97;&#x64;&#x65;&#x6d;&#x79;&#64;&#x77;&#x69;z&#101;&#x6c;&#105;n&#101;&#46;&#99;o&#109;\">&#97;c&#97;&#x64;&#x65;&#x6d;&#x79;&#64;&#x77;&#x69;z&#101;&#x6c;&#105;n&#101;&#46;&#99;o&#109;</a>.</p>\n<h2>Hello, World! &ndash; Word Count (Scala Version)</h2>\n<p>In this exercise, your instructor will guide through the creation of an example program to count the number of words in a set of documents in Spark.</p>\n<p>Afterwards, you&rsquo;ll get a chance to complete a couple of exercises that extend that example and will help you solidify your understanding. </p>\n<p>Please reach out to one of the tutors if you have any questions or run into trouble during the session.</p>\n<p>Have Fun!</p>\n</div>"
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eWelcome\u003c/h2\u003e\n\u003cp\u003eWelcome to Wizeline Data Engineering Academy! \u003c/p\u003e\n\u003cp\u003eWe hope you have a great experience during the course and you end up with a solid grasp of the topics we are covering.\u003c/p\u003e\n\u003cp\u003eIf you have any feedback about our courses, email us at \u003ca href\u003d\"mailto:a\u0026#x63;\u0026#97;\u0026#x64;\u0026#x65;\u0026#109;\u0026#121;@\u0026#x77;\u0026#x69;z\u0026#101;\u0026#x6c;\u0026#x69;\u0026#110;\u0026#101;\u0026#46;\u0026#99;\u0026#111;\u0026#x6d;\"\u003ea\u0026#x63;\u0026#97;\u0026#x64;\u0026#x65;\u0026#109;\u0026#121;@\u0026#x77;\u0026#x69;z\u0026#101;\u0026#x6c;\u0026#x69;\u0026#110;\u0026#101;\u0026#46;\u0026#99;\u0026#111;\u0026#x6d;\u003c/a\u003e.\u003c/p\u003e\n\u003ch2\u003eHello, World! \u0026ndash; Word Count (Scala Version)\u003c/h2\u003e\n\u003cp\u003eIn this exercise, your instructor will guide through the creation of an example program in Spark to count the number of words in a set of documents .\u003c/p\u003e\n\u003cp\u003eAfterwards, you\u0026rsquo;ll get a chance to complete a couple of exercises that extend that example and help you solidify your understanding. \u003c/p\u003e\n\u003cp\u003ePlease reach out to one of the tutors if you have any questions or run into trouble during the session.\u003c/p\u003e\n\u003cp\u003eHave Fun!\u003c/p\u003e\n\u003c/div\u003e"
           }
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1533243969520_825111289",
+      "jobName": "paragraph_1533929936444_754370571",
       "id": "20180713-170034_521067052",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "status": "READY",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500,
-      "focus": true,
-      "$$hashKey": "object:30590"
+      "dateCreated": "2018-08-10 14:38:56.444",
+      "dateStarted": "2018-08-13 11:11:40.607",
+      "dateFinished": "2018-08-13 11:11:40.620",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%md \n## Reading the dataset\nAs we mentioned before, we'll be using `Datasets` as our basic data structure, so let's import it:",
-      "dateUpdated": "2018-08-02T21:06:09+0000",
+      "text": "%md \n## Reading the dataset\nAs mentioned before, we use `Datasets` as our basic data structure. To import the dataset, execute the following command:",
+      "user": "anonymous",
+      "dateUpdated": "2018-08-13 11:11:40.708",
       "config": {
         "tableHide": false,
         "editorSetting": {
@@ -52,9 +53,9 @@
           "completionKey": "TAB",
           "completionSupport": false
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/markdown",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "editorHide": true,
         "results": {},
         "enabled": true
@@ -68,23 +69,23 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<h2>Reading the dataset</h2>\n<p>As we mentioned before, we&rsquo;ll be using <code>Datasets</code> as our basic data structure, so let&rsquo;s import it:</p>\n</div>"
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eReading the dataset\u003c/h2\u003e\n\u003cp\u003eAs mentioned before, we use \u003ccode\u003eDatasets\u003c/code\u003e as our basic data structure. To import the dataset, execute the following command:\u003c/p\u003e\n\u003c/div\u003e"
           }
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1533243969521_824726540",
+      "jobName": "paragraph_1533929936449_-1893304169",
       "id": "20180713-152515_1970095947",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "status": "READY",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30591"
+      "dateCreated": "2018-08-10 14:38:56.449",
+      "dateStarted": "2018-08-13 11:11:40.741",
+      "dateFinished": "2018-08-13 11:11:40.748",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
     },
     {
       "text": "import org.apache.spark.sql.Dataset",
       "user": "anonymous",
-      "dateUpdated": "2018-08-02T22:01:33+0000",
+      "dateUpdated": "2018-08-13 11:11:40.841",
       "config": {
         "tableHide": true,
         "editorSetting": {
@@ -93,9 +94,9 @@
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/scala",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "results": {},
         "enabled": true
       },
@@ -113,18 +114,18 @@
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1533243969521_824726540",
+      "jobName": "paragraph_1533929936449_1401148492",
       "id": "20180713-172417_1709710571",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "dateStarted": "2018-08-02T22:01:33+0000",
-      "dateFinished": "2018-08-02T22:01:34+0000",
+      "dateCreated": "2018-08-10 14:38:56.449",
+      "dateStarted": "2018-08-13 11:11:40.866",
+      "dateFinished": "2018-08-13 11:11:41.099",
       "status": "FINISHED",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30592"
+      "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%md To begin our example, let's pull a text file from a public bucket in Google Cloud:",
-      "dateUpdated": "2018-08-02T21:06:09+0000",
+      "text": "%md\nTo begin our example, pull a text file from a public bucket in Google Cloud with the following command:",
+      "user": "anonymous",
+      "dateUpdated": "2018-08-13 11:11:41.175",
       "config": {
         "tableHide": false,
         "editorSetting": {
@@ -133,9 +134,9 @@
           "completionKey": "TAB",
           "completionSupport": false
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/markdown",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "editorHide": true,
         "results": {},
         "enabled": true
@@ -149,23 +150,23 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<p>To begin our example, let&rsquo;s pull a text file from a public bucket in Google Cloud:</p>\n</div>"
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eTo begin our example, pull a text file from a public bucket in Google Cloud with the following command:\u003c/p\u003e\n\u003c/div\u003e"
           }
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1533243969521_824726540",
+      "jobName": "paragraph_1533929936449_2026070982",
       "id": "20180713-172521_1303216552",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "status": "READY",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30593"
+      "dateCreated": "2018-08-10 14:38:56.449",
+      "dateStarted": "2018-08-13 11:11:41.197",
+      "dateFinished": "2018-08-13 11:11:41.201",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
     },
     {
-      "text": "def loadFile(bucket_file_path: String) = {\n    sc.textFile(bucket_file_path)\n}",
+      "text": "def loadFile(bucket_file_path: String) \u003d {\n    sc.textFile(bucket_file_path)\n}",
       "user": "anonymous",
-      "dateUpdated": "2018-08-02T22:02:12+0000",
+      "dateUpdated": "2018-08-13 11:12:35.519",
       "config": {
         "editorSetting": {
           "language": "scala",
@@ -173,9 +174,9 @@
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/scala",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "results": {},
         "enabled": true
       },
@@ -193,19 +194,18 @@
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1533243969521_824726540",
+      "jobName": "paragraph_1533929936450_721679580",
       "id": "20180731-231058_192467631",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "dateStarted": "2018-08-02T22:02:12+0000",
-      "dateFinished": "2018-08-02T22:02:12+0000",
+      "dateCreated": "2018-08-10 14:38:56.450",
+      "dateStarted": "2018-08-13 11:12:35.538",
+      "dateFinished": "2018-08-13 11:12:35.732",
       "status": "FINISHED",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30594"
+      "progressUpdateIntervalMs": 500
     },
     {
-      "text": "val documents = loadFile(\"gs://de-training-input-bucket/words/big.txt\").toDS()\ndocuments.show()",
+      "text": "val documents \u003d loadFile(\"gs://de-training-input-bucket/words/big.txt\").toDS()\ndocuments.show()",
       "user": "anonymous",
-      "dateUpdated": "2018-08-02T22:02:14+0000",
+      "dateUpdated": "2018-08-13 11:14:39.647",
       "config": {
         "tableHide": false,
         "editorSetting": {
@@ -214,9 +214,9 @@
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/scala",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "editorHide": false,
         "results": {},
         "enabled": true
@@ -230,23 +230,23 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "documents: org.apache.spark.sql.Dataset[String] = [value: string]\n+--------------------+\n|               value|\n+--------------------+\n|The Project Guten...|\n|by Sir Arthur Con...|\n|(#15 in our serie...|\n|                    |\n|Copyright laws ar...|\n|copyright laws fo...|\n|this or any other...|\n|                    |\n|This header shoul...|\n|Gutenberg file.  ...|\n|header without wr...|\n|                    |\n|Please read the \"...|\n|eBook and Project...|\n|important informa...|\n|how the file may ...|\n|donation to Proje...|\n|                    |\n|                    |\n|**Welcome To The ...|\n+--------------------+\nonly showing top 20 rows\n\n"
+            "data": "documents: org.apache.spark.sql.Dataset[String] \u003d [value: string]\n+--------------------+\n|               value|\n+--------------------+\n|The Project Guten...|\n|by Sir Arthur Con...|\n|(#15 in our serie...|\n|                    |\n|Copyright laws ar...|\n|copyright laws fo...|\n|this or any other...|\n|                    |\n|This header shoul...|\n|Gutenberg file.  ...|\n|header without wr...|\n|                    |\n|Please read the \"...|\n|eBook and Project...|\n|important informa...|\n|how the file may ...|\n|donation to Proje...|\n|                    |\n|                    |\n|**Welcome To The ...|\n+--------------------+\nonly showing top 20 rows\n\n"
           }
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1533243969521_824726540",
+      "jobName": "paragraph_1533929936450_670113505",
       "id": "20180713-152523_768975449",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "dateStarted": "2018-08-02T22:02:14+0000",
-      "dateFinished": "2018-08-02T22:02:16+0000",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30596"
+      "dateCreated": "2018-08-10 14:38:56.450",
+      "dateStarted": "2018-08-13 11:14:25.853",
+      "dateFinished": "2018-08-13 11:14:26.541",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%md In this example, we will use only one document, but in practice you could extend this to use any number of documents in all sorts of formats, even if they couldn't fit in a single machine. That's the power of Spark!",
-      "dateUpdated": "2018-08-02T21:06:09+0000",
+      "text": "%md\nIn this example, we use only one document, but in practice you could extend this to use any number of documents in all sorts of formats, even if they cannot  fit in a single machine. That\u0027s the power of Spark!",
+      "user": "anonymous",
+      "dateUpdated": "2018-08-12 21:13:42.028",
       "config": {
         "tableHide": false,
         "editorSetting": {
@@ -255,9 +255,9 @@
           "completionKey": "TAB",
           "completionSupport": false
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/markdown",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "editorHide": true,
         "results": {},
         "enabled": true
@@ -266,27 +266,20 @@
         "params": {},
         "forms": {}
       },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<p>In this example, we will use only one document, but in practice you could extend this to use any number of documents in all sorts of formats, even if they couldn&rsquo;t fit in a single machine. That&rsquo;s the power of Spark!</p>\n</div>"
-          }
-        ]
-      },
       "apps": [],
-      "jobName": "paragraph_1533243969521_824726540",
+      "jobName": "paragraph_1533929936450_909041821",
       "id": "20180713-173145_1979252085",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "status": "READY",
+      "dateCreated": "2018-08-10 14:38:56.450",
+      "dateStarted": "2018-08-12 21:13:42.028",
+      "dateFinished": "2018-08-12 21:13:42.039",
+      "status": "FINISHED",
       "errorMessage": "",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30597"
+      "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%md\n## Converting documents to words\nThough it's not completely necessary to define a separate function to break the input documents into words, we'll define a function `toWords` that will come in handy to have it once we get to other exercises to avoid duplicating code.\n\nThe function allows you to customize the boundaries between words using a regular expression. By default, it uses whitespaces as the delimiter. It also removes any empty words (e.g. for the text `\"hello,,world\"` and a separator that includes whitespace and commas, it would produce `\"hello\"` and `\"world\"` only)",
-      "dateUpdated": "2018-08-02T21:06:09+0000",
+      "text": "%md\n## Converting documents to words\nThough it\u0027s not necessary to define a separate function to break the input documents into words, we\u0027ll define the function `toWords`. This function comes handy once we get to other exercises to avoid duplicating code.\n\nThe function allows you to customize the boundaries between words using a regular expression. By default, it uses whitespaces as the delimiter. It also removes any empty words (e.g. for the text `\"hello,,world\"` and a separator that includes whitespace and commas, it would produce `\"hello\"` and `\"world\"` only.)",
+      "user": "anonymous",
+      "dateUpdated": "2018-08-12 21:15:06.569",
       "config": {
         "tableHide": false,
         "editorSetting": {
@@ -295,9 +288,9 @@
           "completionKey": "TAB",
           "completionSupport": false
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/markdown",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "editorHide": true,
         "results": {},
         "enabled": true
@@ -306,28 +299,20 @@
         "params": {},
         "forms": {}
       },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<h2>Converting documents to words</h2>\n<p>Though it&rsquo;s not completely necessary to define a separate function to break the input documents into words, we&rsquo;ll define a function <code>toWords</code> that will come in handy to have it once we get to other exercises to avoid duplicating code.</p>\n<p>The function allows you to customize the boundaries between words using a regular expression. By default, it uses whitespaces as the delimiter. It also removes any empty words (e.g. for the text <code>&quot;hello,,world&quot;</code> and a separator that includes whitespace and commas, it would produce <code>&quot;hello&quot;</code> and <code>&quot;world&quot;</code> only)</p>\n</div>"
-          }
-        ]
-      },
       "apps": [],
-      "jobName": "paragraph_1533243969522_825880787",
+      "jobName": "paragraph_1533929936451_-357777432",
       "id": "20180713-185000_1281997520",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "status": "READY",
+      "dateCreated": "2018-08-10 14:38:56.451",
+      "dateStarted": "2018-08-12 21:15:06.570",
+      "dateFinished": "2018-08-12 21:15:06.577",
+      "status": "FINISHED",
       "errorMessage": "",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30598"
+      "progressUpdateIntervalMs": 500
     },
     {
-      "text": "def toWords(documents: Dataset[String], separatorsRegexp: String = \"\"\"\\s+\"\"\"): Dataset[String] = {\n    documents.flatMap(doc => doc.split(separatorsRegexp))\n        .map(word => word.toLowerCase)\n        .filter(word => !word.isEmpty)\n}",
+      "text": "def toWords(documents: Dataset[String], separatorsRegexp: String \u003d \"\"\"\\s+\"\"\"): Dataset[String] \u003d {\n    documents.flatMap(doc \u003d\u003e doc.split(separatorsRegexp))\n        .map(word \u003d\u003e word.toLowerCase)\n        .filter(word \u003d\u003e !word.isEmpty)\n}",
       "user": "anonymous",
-      "dateUpdated": "2018-08-02T22:02:26+0000",
+      "dateUpdated": "2018-08-10 14:38:56.451",
       "config": {
         "editorSetting": {
           "language": "scala",
@@ -335,9 +320,9 @@
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/scala",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "results": {},
         "enabled": true
       },
@@ -345,68 +330,18 @@
         "params": {},
         "forms": {}
       },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "TEXT",
-            "data": "toWords: (documents: org.apache.spark.sql.Dataset[String], separatorsRegexp: String)org.apache.spark.sql.Dataset[String]\n"
-          }
-        ]
-      },
       "apps": [],
-      "jobName": "paragraph_1533243969522_825880787",
+      "jobName": "paragraph_1533929936451_-564601726",
       "id": "20180713-162106_300537953",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "dateStarted": "2018-08-02T22:02:26+0000",
-      "dateFinished": "2018-08-02T22:02:27+0000",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30599"
+      "dateCreated": "2018-08-10 14:38:56.451",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
     },
     {
-      "text": "val words = toWords(documents)\nwords.show()",
-      "dateUpdated": "2018-08-02T22:02:32+0000",
-      "config": {
-        "editorSetting": {
-          "language": "scala",
-          "editOnDblClick": false,
-          "completionKey": "TAB",
-          "completionSupport": true
-        },
-        "colWidth": 12,
-        "editorMode": "ace/mode/scala",
-        "fontSize": 9,
-        "results": {},
-        "enabled": true
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "TEXT",
-            "data": "words: org.apache.spark.sql.Dataset[String] = [value: string]\n+----------+\n|     value|\n+----------+\n|       the|\n|   project|\n| gutenberg|\n|     ebook|\n|        of|\n|       the|\n|adventures|\n|        of|\n|  sherlock|\n|    holmes|\n|        by|\n|       sir|\n|    arthur|\n|     conan|\n|     doyle|\n|      (#15|\n|        in|\n|       our|\n|    series|\n|        by|\n+----------+\nonly showing top 20 rows\n\n"
-          }
-        ]
-      },
-      "apps": [],
-      "jobName": "paragraph_1533243969522_825880787",
-      "id": "20180802-113255_1998417436",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30600",
+      "text": "%md \nGiven that we\u0027re mostly interested in words without punctuation in this example, we\u0027ll use a more specific regular expression. If you\u0027re curious about how it works, check this [post](https://stackoverflow.com/questions/30074109/removing-punctuation-marks-form-text-in-scala-spark).",
       "user": "anonymous",
-      "dateFinished": "2018-08-02T22:02:33+0000",
-      "dateStarted": "2018-08-02T22:02:32+0000"
-    },
-    {
-      "text": "%md Given that we're mostly interested in words without punctuation in this example, we'll use a more specific regular expression. Don't worry too much about the details, though. If you're curious about how exactly it works, you can check this [post](https://stackoverflow.com/questions/30074109/removing-punctuation-marks-form-text-in-scala-spark)",
-      "dateUpdated": "2018-08-02T21:06:09+0000",
+      "dateUpdated": "2018-08-12 21:17:25.926",
       "config": {
         "tableHide": false,
         "editorSetting": {
@@ -415,9 +350,9 @@
           "completionKey": "TAB",
           "completionSupport": false
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/markdown",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "editorHide": true,
         "results": {},
         "enabled": true
@@ -426,27 +361,20 @@
         "params": {},
         "forms": {}
       },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<p>Given that we&rsquo;re mostly interested in words without punctuation in this example, we&rsquo;ll use a more specific regular expression. Don&rsquo;t worry too much about the details, though. If you&rsquo;re curious about how exactly it works, you can check this <a href=\"https://stackoverflow.com/questions/30074109/removing-punctuation-marks-form-text-in-scala-spark\">post</a></p>\n</div>"
-          }
-        ]
-      },
       "apps": [],
-      "jobName": "paragraph_1533243969522_825880787",
+      "jobName": "paragraph_1533929936452_1549744767",
       "id": "20180713-193952_1952995095",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "status": "READY",
+      "dateCreated": "2018-08-10 14:38:56.452",
+      "dateStarted": "2018-08-12 21:17:25.926",
+      "dateFinished": "2018-08-12 21:17:25.930",
+      "status": "FINISHED",
       "errorMessage": "",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30601"
+      "progressUpdateIntervalMs": 500
     },
     {
-      "text": "val punctuationRegexp = \"\"\"[\\p{Punct}\\s]\"\"\"",
-      "dateUpdated": "2018-08-02T22:02:37+0000",
+      "text": "val punctuationRegexp \u003d \"\"\"[\\p{Punct}\\s]\"\"\"",
+      "user": "anonymous",
+      "dateUpdated": "2018-08-10 14:38:56.452",
       "config": {
         "editorSetting": {
           "language": "scala",
@@ -454,9 +382,9 @@
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/scala",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "results": {},
         "enabled": true
       },
@@ -464,29 +392,18 @@
         "params": {},
         "forms": {}
       },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "TEXT",
-            "data": "punctuationRegexp: String = [\\p{Punct}\\s]\n"
-          }
-        ]
-      },
       "apps": [],
-      "jobName": "paragraph_1533243969522_825880787",
+      "jobName": "paragraph_1533929936452_1367832292",
       "id": "20180713-194312_424075201",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30602",
-      "user": "anonymous",
-      "dateFinished": "2018-08-02T22:02:37+0000",
-      "dateStarted": "2018-08-02T22:02:37+0000"
+      "dateCreated": "2018-08-10 14:38:56.452",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%md Let's make sure that our function `toWords` produces the expected output (i.e. a set of words):",
-      "dateUpdated": "2018-08-02T21:06:09+0000",
+      "text": "%md\nLet\u0027s verify that the function `toWords` produces the expected output (i.e. a set of words):",
+      "user": "anonymous",
+      "dateUpdated": "2018-08-12 21:17:27.773",
       "config": {
         "tableHide": false,
         "editorSetting": {
@@ -495,9 +412,9 @@
           "completionKey": "TAB",
           "completionSupport": false
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/markdown",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "editorHide": true,
         "results": {},
         "enabled": true
@@ -506,27 +423,20 @@
         "params": {},
         "forms": {}
       },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<p>Let&rsquo;s make sure that our function <code>toWords</code> produces the expected output (i.e. a set of words):</p>\n</div>"
-          }
-        ]
-      },
       "apps": [],
-      "jobName": "paragraph_1533243969522_825880787",
+      "jobName": "paragraph_1533929936452_1508328290",
       "id": "20180713-192314_2145515679",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "status": "READY",
+      "dateCreated": "2018-08-10 14:38:56.452",
+      "dateStarted": "2018-08-12 21:17:27.774",
+      "dateFinished": "2018-08-12 21:17:27.776",
+      "status": "FINISHED",
       "errorMessage": "",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30603"
+      "progressUpdateIntervalMs": 500
     },
     {
-      "text": "val words = toWords(documents)\nwords.show()",
-      "dateUpdated": "2018-08-02T22:02:44+0000",
+      "text": "val words \u003d toWords(documents, punctuationRegexp)\nwords.show()",
+      "user": "anonymous",
+      "dateUpdated": "2018-08-12 21:17:52.740",
       "config": {
         "tableHide": false,
         "editorSetting": {
@@ -535,9 +445,9 @@
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/scala",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "editorHide": false,
         "results": {},
         "enabled": true
@@ -546,29 +456,18 @@
         "params": {},
         "forms": {}
       },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "TEXT",
-            "data": "words: org.apache.spark.sql.Dataset[String] = [value: string]\n+----------+\n|     value|\n+----------+\n|       the|\n|   project|\n| gutenberg|\n|     ebook|\n|        of|\n|       the|\n|adventures|\n|        of|\n|  sherlock|\n|    holmes|\n|        by|\n|       sir|\n|    arthur|\n|     conan|\n|     doyle|\n|      (#15|\n|        in|\n|       our|\n|    series|\n|        by|\n+----------+\nonly showing top 20 rows\n\n"
-          }
-        ]
-      },
       "apps": [],
-      "jobName": "paragraph_1533243969522_825880787",
+      "jobName": "paragraph_1533929936453_-76878952",
       "id": "20180713-192337_1741363054",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30604",
-      "user": "anonymous",
-      "dateFinished": "2018-08-02T22:02:45+0000",
-      "dateStarted": "2018-08-02T22:02:44+0000"
+      "dateCreated": "2018-08-10 14:38:56.453",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%md\n### Incremental Development and Exploration\nThough it's convenient to have a function to reuse, when we're developing code for the first time it's usually a good idea to try individual function calls in isolation to make sure the data is flowing as expected.\n\nLet's go ahead and try a couple of those functions in isolation:",
-      "dateUpdated": "2018-08-02T21:06:09+0000",
+      "text": "%md\n### Incremental Development and Exploration\nThough it\u0027s convenient to have a reusable function, when we\u0027re developing code for the first time it\u0027s recommended to test the individual function calls in isolation. This to make sure the data is flowing as expected.\n\nLet\u0027s go ahead and try a couple of those functions in isolation:",
+      "user": "anonymous",
+      "dateUpdated": "2018-08-12 21:18:58.903",
       "config": {
         "tableHide": false,
         "editorSetting": {
@@ -577,9 +476,9 @@
           "completionKey": "TAB",
           "completionSupport": false
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/markdown",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "editorHide": true,
         "results": {},
         "enabled": true
@@ -588,27 +487,20 @@
         "params": {},
         "forms": {}
       },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<h3>Incremental Development and Exploration</h3>\n<p>Though it&rsquo;s convenient to have a function to reuse, when we&rsquo;re developing code for the first time it&rsquo;s usually a good idea to try individual function calls in isolation to make sure the data is flowing as expected.</p>\n<p>Let&rsquo;s go ahead and try a couple of those functions in isolation:</p>\n</div>"
-          }
-        ]
-      },
       "apps": [],
-      "jobName": "paragraph_1533243969522_825880787",
+      "jobName": "paragraph_1533929936453_136530809",
       "id": "20180713-190730_1897522264",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "status": "READY",
+      "dateCreated": "2018-08-10 14:38:56.453",
+      "dateStarted": "2018-08-12 21:18:58.903",
+      "dateFinished": "2018-08-12 21:18:58.908",
+      "status": "FINISHED",
       "errorMessage": "",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30605"
+      "progressUpdateIntervalMs": 500
     },
     {
-      "text": "val lowerCasedDocs = documents.map(doc => doc.toLowerCase)\nlowerCasedDocs.show()",
-      "dateUpdated": "2018-08-02T22:02:48+0000",
+      "text": "val lowercasedDocs \u003d documents.map(doc \u003d\u003e doc.toLowerCase)\nlowercasedDocs.show()",
+      "user": "anonymous",
+      "dateUpdated": "2018-08-12 21:19:32.859",
       "config": {
         "tableHide": false,
         "editorSetting": {
@@ -617,9 +509,9 @@
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/scala",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "editorHide": false,
         "results": {},
         "enabled": true
@@ -628,29 +520,18 @@
         "params": {},
         "forms": {}
       },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "TEXT",
-            "data": "lowerCasedDocs: org.apache.spark.sql.Dataset[String] = [value: string]\n+--------------------+\n|               value|\n+--------------------+\n|the project guten...|\n|by sir arthur con...|\n|(#15 in our serie...|\n|                    |\n|copyright laws ar...|\n|copyright laws fo...|\n|this or any other...|\n|                    |\n|this header shoul...|\n|gutenberg file.  ...|\n|header without wr...|\n|                    |\n|please read the \"...|\n|ebook and project...|\n|important informa...|\n|how the file may ...|\n|donation to proje...|\n|                    |\n|                    |\n|**welcome to the ...|\n+--------------------+\nonly showing top 20 rows\n\n"
-          }
-        ]
-      },
       "apps": [],
-      "jobName": "paragraph_1533243969522_825880787",
+      "jobName": "paragraph_1533929936453_-1907422571",
       "id": "20180713-191055_175413413",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30606",
-      "user": "anonymous",
-      "dateFinished": "2018-08-02T22:02:49+0000",
-      "dateStarted": "2018-08-02T22:02:48+0000"
+      "dateCreated": "2018-08-10 14:38:56.453",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
     },
     {
-      "text": "val filteredWords = (documents\n    .flatMap(doc => doc.split(punctuationRegexp))\n    .filter(word => word.size > 0 && word.size < 5))\n\nfilteredWords.show()",
-      "dateUpdated": "2018-08-02T22:02:53+0000",
+      "text": "val filteredWords \u003d (documents\n    .flatMap(doc \u003d\u003e doc.split(punctuationRegexp))\n    .filter(word \u003d\u003e word.size \u003e 0 \u0026\u0026 word.size \u003c 5))\n\nfilteredWords.show()",
+      "user": "anonymous",
+      "dateUpdated": "2018-08-10 14:38:56.454",
       "config": {
         "tableHide": false,
         "editorSetting": {
@@ -659,9 +540,9 @@
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/scala",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "editorHide": false,
         "results": {},
         "enabled": true
@@ -670,41 +551,30 @@
         "params": {},
         "forms": {}
       },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "TEXT",
-            "data": "filteredWords: org.apache.spark.sql.Dataset[String] = [value: string]\n+-----+\n|value|\n+-----+\n|  The|\n|   of|\n|  The|\n|   of|\n|   by|\n|  Sir|\n|   15|\n|   in|\n|  our|\n|   by|\n|  Sir|\n| laws|\n|  are|\n|  all|\n| over|\n|  the|\n|   Be|\n| sure|\n|   to|\n|  the|\n+-----+\nonly showing top 20 rows\n\n"
-          }
-        ]
-      },
       "apps": [],
-      "jobName": "paragraph_1533243969523_825496038",
+      "jobName": "paragraph_1533929936454_-120044424",
       "id": "20180713-191334_296049631",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30607",
+      "dateCreated": "2018-08-10 14:38:56.454",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\nTest and experiment with all sorts of expressions until you are comfortable with your understanding of how the data is transformed and flows from function to function.",
       "user": "anonymous",
-      "dateFinished": "2018-08-02T22:02:55+0000",
-      "dateStarted": "2018-08-02T22:02:53+0000"
-    },
-    {
-      "text": "%md\nFeel free to try and experiment with all sorts of expressions until you feel comfortable with your understanding of how the data is being transformed and flowing from function to function.",
-      "dateUpdated": "2018-08-02T21:06:09+0000",
+      "dateUpdated": "2018-08-12 21:19:36.681",
       "config": {
-        "tableHide": false,
+        "tableHide": true,
         "editorSetting": {
           "language": "markdown",
           "editOnDblClick": true,
           "completionKey": "TAB",
           "completionSupport": false
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/markdown",
-        "fontSize": 9,
-        "editorHide": true,
+        "fontSize": 9.0,
+        "editorHide": false,
         "results": {},
         "enabled": true
       },
@@ -712,27 +582,20 @@
         "params": {},
         "forms": {}
       },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<p>Feel free to try and experiment with all sorts of expressions until you feel comfortable with your understanding of how the data is being transformed and flowing from function to function.</p>\n</div>"
-          }
-        ]
-      },
       "apps": [],
-      "jobName": "paragraph_1533243969523_825496038",
+      "jobName": "paragraph_1533929936454_782057605",
       "id": "20180713-191737_182562044",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "status": "READY",
+      "dateCreated": "2018-08-10 14:38:56.454",
+      "dateStarted": "2018-08-10 14:58:08.351",
+      "dateFinished": "2018-08-10 14:58:08.358",
+      "status": "FINISHED",
       "errorMessage": "",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30608"
+      "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%md\n## Counting Words\nLet's now move on to solving the problem we started with! With the `toWords` function in our hands, our `countWords` function should be pretty short:",
-      "dateUpdated": "2018-08-02T21:06:09+0000",
+      "text": "%md\n## Counting Words\nLet\u0027s now move on to solving the problem we started with! With the `toWords` function in our hands, our `countWords` function should be pretty short:",
+      "user": "anonymous",
+      "dateUpdated": "2018-08-10 14:58:24.354",
       "config": {
         "tableHide": false,
         "editorSetting": {
@@ -741,9 +604,9 @@
           "completionKey": "TAB",
           "completionSupport": false
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/markdown",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "editorHide": true,
         "results": {},
         "enabled": true
@@ -752,27 +615,20 @@
         "params": {},
         "forms": {}
       },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<h2>Counting Words</h2>\n<p>Let&rsquo;s now move on to solving the problem we started with! With the <code>toWords</code> function in our hands, our <code>countWords</code> function should be pretty short:</p>\n</div>"
-          }
-        ]
-      },
       "apps": [],
-      "jobName": "paragraph_1533243969523_825496038",
+      "jobName": "paragraph_1533929936455_-602075190",
       "id": "20180713-192012_688996853",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "status": "READY",
+      "dateCreated": "2018-08-10 14:38:56.455",
+      "dateStarted": "2018-08-10 14:58:24.354",
+      "dateFinished": "2018-08-10 14:58:24.359",
+      "status": "FINISHED",
       "errorMessage": "",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30609"
+      "progressUpdateIntervalMs": 500
     },
     {
-      "text": "def countWords(documents: Dataset[String], separatorsRegexp: String = \"\"\"\\s+\"\"\") : Dataset[(String, Long)] = {\n    val words = toWords(documents, separatorsRegexp)\n    val counts = words.groupByKey(identity).count()\n    counts\n}",
-      "dateUpdated": "2018-08-02T22:02:58+0000",
+      "text": "def countWords(documents: Dataset[String], separatorsRegexp: String \u003d \"\"\"\\s+\"\"\") : Dataset[(String, Long)] \u003d {\n    val words \u003d toWords(documents, separatorsRegexp)\n    val counts \u003d words.groupByKey(identity).count()\n    counts\n}",
+      "user": "anonymous",
+      "dateUpdated": "2018-08-10 14:38:56.455",
       "config": {
         "tableHide": true,
         "editorSetting": {
@@ -781,9 +637,9 @@
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/scala",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "results": {},
         "enabled": true
       },
@@ -791,29 +647,18 @@
         "params": {},
         "forms": {}
       },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "TEXT",
-            "data": "countWords: (documents: org.apache.spark.sql.Dataset[String], separatorsRegexp: String)org.apache.spark.sql.Dataset[(String, Long)]\n"
-          }
-        ]
-      },
       "apps": [],
-      "jobName": "paragraph_1533243969523_825496038",
+      "jobName": "paragraph_1533929936455_609222891",
       "id": "20180713-165608_638775812",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30610",
-      "user": "anonymous",
-      "dateFinished": "2018-08-02T22:02:59+0000",
-      "dateStarted": "2018-08-02T22:02:58+0000"
+      "dateCreated": "2018-08-10 14:38:56.455",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%md Let's test it (if you need a refresher of what's going on with the `groupByKey` and `count` functions, please refer to the slides shown earlier in this session):",
-      "dateUpdated": "2018-08-02T21:06:09+0000",
+      "text": "%md\nNow, test the `countWords` function (for additional information on the  `groupByKey` and `count` functions, refer to the slides [`C1 - Data Engineering Academy`](goo.gl/g5ijp9\n)):",
+      "user": "anonymous",
+      "dateUpdated": "2018-08-12 22:07:41.052",
       "config": {
         "tableHide": false,
         "editorSetting": {
@@ -822,9 +667,9 @@
           "completionKey": "TAB",
           "completionSupport": false
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/markdown",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "editorHide": true,
         "results": {},
         "enabled": true
@@ -833,27 +678,20 @@
         "params": {},
         "forms": {}
       },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<p>Let&rsquo;s test it (if you need a refresher of what&rsquo;s going on with the <code>groupByKey</code> and <code>count</code> functions, please refer to the slides shown earlier in this session):</p>\n</div>"
-          }
-        ]
-      },
       "apps": [],
-      "jobName": "paragraph_1533243969527_823957042",
+      "jobName": "paragraph_1533929936455_293238332",
       "id": "20180713-192508_1130563054",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "status": "READY",
+      "dateCreated": "2018-08-10 14:38:56.455",
+      "dateStarted": "2018-08-12 22:07:41.052",
+      "dateFinished": "2018-08-12 22:07:41.056",
+      "status": "FINISHED",
       "errorMessage": "",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30611"
+      "progressUpdateIntervalMs": 500
     },
     {
-      "text": "val counts = countWords(words, punctuationRegexp)\ncounts.show()",
-      "dateUpdated": "2018-08-02T22:03:04+0000",
+      "text": "val counts \u003d countWords(words, punctuationRegexp)\ncounts.show()",
+      "user": "anonymous",
+      "dateUpdated": "2018-08-10 14:38:56.456",
       "config": {
         "editorSetting": {
           "language": "scala",
@@ -861,9 +699,9 @@
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/scala",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "results": {},
         "enabled": true
       },
@@ -871,29 +709,18 @@
         "params": {},
         "forms": {}
       },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "TEXT",
-            "data": "counts: org.apache.spark.sql.Dataset[(String, Long)] = [value: string, count(1): bigint]\n+------------+--------+\n|       value|count(1)|\n+------------+--------+\n|       still|     922|\n|       those|    1201|\n|        some|    1536|\n|         few|     458|\n|      doubts|      39|\n|       inner|      60|\n|        hope|     149|\n|    everyday|      14|\n|   connected|      52|\n| requirement|       3|\n|     flashed|      17|\n|      travel|      29|\n|  concluding|       3|\n|         fog|      23|\n|      spared|      12|\n|         art|      47|\n|accumulation|      25|\n|      waters|      30|\n|      poetry|      10|\n|    whishing|       1|\n+------------+--------+\nonly showing top 20 rows\n\n"
-          }
-        ]
-      },
       "apps": [],
-      "jobName": "paragraph_1533243969527_823957042",
+      "jobName": "paragraph_1533929936456_-1440624538",
       "id": "20180713-165720_1184054894",
-      "dateCreated": "2018-08-02T21:06:09+0000",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30612",
-      "user": "anonymous",
-      "dateFinished": "2018-08-02T22:03:08+0000",
-      "dateStarted": "2018-08-02T22:03:04+0000"
+      "dateCreated": "2018-08-10 14:38:56.456",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
     },
     {
       "text": "%md It works! Yay!",
-      "dateUpdated": "2018-08-02T21:06:09+0000",
+      "user": "anonymous",
+      "dateUpdated": "2018-08-10 14:38:56.456",
       "config": {
         "tableHide": false,
         "editorSetting": {
@@ -902,9 +729,9 @@
           "completionKey": "TAB",
           "completionSupport": false
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/markdown",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "editorHide": true,
         "results": {},
         "enabled": true
@@ -913,50 +740,25 @@
         "params": {},
         "forms": {}
       },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<p>It works! Yay!</p>\n</div>"
-          }
-        ]
-      },
       "apps": [],
-      "jobName": "paragraph_1533243969527_823957042",
+      "jobName": "paragraph_1533929936456_-685005372",
       "id": "20180713-194553_145958858",
-      "dateCreated": "2018-08-02T21:06:09+0000",
+      "dateCreated": "2018-08-10 14:38:56.456",
       "status": "READY",
       "errorMessage": "",
-      "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:30613"
+      "progressUpdateIntervalMs": 500
     }
   ],
   "name": "wordcount-scala.json",
-  "id": "2DNG2M2H7",
+  "id": "2DQBXRWEE",
+  "noteParams": {},
+  "noteForms": {},
   "angularObjects": {
-    "2DMMG5R5U:shared_process": [],
-    "2DMT86YGX:shared_process": [],
-    "2DPWEQ61Y:shared_process": [],
-    "2DMEHY72N:shared_process": [],
-    "2DM7364MX:shared_process": [],
-    "2DNAV2RDZ:shared_process": [],
-    "2DKPGN4BS:shared_process": [],
-    "2DM57QEWS:shared_process": [],
-    "2DNX77NXA:shared_process": [],
-    "2DPMYPEZB:shared_process": [],
-    "2DKSKB5FX:shared_process": [],
-    "2DN3AXQ6J:shared_process": [],
-    "2DK2ZKHE6:shared_process": [],
-    "2DPW1ZPP3:shared_process": [],
-    "2DPJJPUEP:shared_process": [],
-    "2DN7VDD8E:shared_process": [],
-    "2DP583F4B:shared_process": [],
-    "2DN7TAJ65:shared_process": []
+    "md:shared_process": [],
+    "spark:shared_process": []
   },
   "config": {
-    "looknfeel": "default",
-    "personalizedMode": "false"
+    "isZeppelinNotebookCronEnable": false
   },
   "info": {}
 }
