@@ -1,627 +1,701 @@
 {
-  "paragraphs": [
-    {
-      "text": "%md\n## Welcome\nWelcome to Wizeline Data Engineering Academy! \n\nWe hope you have a great experience during the course and you end up with a solid grasp of the topics we are covering.\n\nIf you have any feedback about our courses, email us at academy@wizeline.com.\n\n## Hello, World! -- Word Count (PySpark Version)\nIn this exercise, your instructor will guide through the creation of an example program in Spark to count the number of words in a set of documents .\n\nAfterwards, you\u0027ll get a chance to complete a couple of exercises that extend that example and help you solidify your understanding. \n\nPlease reach out to one of the tutors if you have any questions or run into trouble during the session.\n\nHave Fun!",
-      "user": "anonymous",
-      "dateUpdated": "2018-08-12 21:13:09.189",
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "markdown",
-          "editOnDblClick": true,
-          "completionKey": "TAB",
-          "completionSupport": false
-        },
-        "colWidth": 12.0,
-        "editorMode": "ace/mode/markdown",
-        "fontSize": 9.0,
-        "editorHide": true,
-        "results": {},
-        "enabled": true
+   "paragraphs": [
+      {
+         "text": "%md\n## Welcome\nWelcome to Wizeline Data Engineering Academy! \n\nWe hope you have a great experience during the course and you end up with a solid grasp of the topics we are covering.\n\nIf you have any feedback about our courses, email us at academy@wizeline.com.\n\n## Hello, World! -- Word Count (PySpark Version)\nIn this exercise, your instructor will guide through the creation of an example program in Spark to count the number of words in a set of documents .\n\nAfterwards, you'll get a chance to complete a couple of exercises that extend that example and help you solidify your understanding. \n\nPlease reach out to one of the tutors if you have any questions or run into trouble during the session.\n\nHave Fun!",
+         "user": "anonymous",
+         "dateUpdated": "2018-08-13T20:22:06+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1534191705263_803167881",
+         "id": "20180713-170034_521067052",
+         "dateCreated": "2018-08-13T20:21:45+0000",
+         "dateStarted": "2018-08-13T20:22:06+0000",
+         "dateFinished": "2018-08-13T20:22:06+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:11811"
       },
-      "settings": {
-        "params": {},
-        "forms": {}
+      {
+         "text": "%md \n## Reading the dataset\nPySpark uses `Dataframes` instead of `Datasets`. This changes the examples a bit, but we've tried to keep them conceptually as compatible as possible to minimize confusion.\n\nTo begin our example, pull a text file from a public bucket in Google Cloud with the following command:",
+         "user": "anonymous",
+         "dateUpdated": "2018-08-13T20:22:06+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1534191705271_812401855",
+         "id": "20180713-152515_1970095947",
+         "dateCreated": "2018-08-13T20:21:45+0000",
+         "dateStarted": "2018-08-13T20:22:06+0000",
+         "dateFinished": "2018-08-13T20:22:06+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:11812"
       },
-      "apps": [],
-      "jobName": "paragraph_1533931234344_483996404",
-      "id": "20180713-170034_521067052",
-      "dateCreated": "2018-08-10 15:00:34.344",
-      "dateStarted": "2018-08-12 21:13:09.190",
-      "dateFinished": "2018-08-12 21:13:09.200",
-      "status": "FINISHED",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%md \n## Reading the dataset\nPySpark uses `Dataframes` instead of `Datasets`. This changes the examples a bit, but we\u0027ve tried to keep them conceptually as compatible as possible to minimize confusion.\n\nTo begin our example, pull a text file from a public bucket in Google Cloud with the following command:",
-      "user": "anonymous",
-      "dateUpdated": "2018-08-12 21:13:11.402",
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "markdown",
-          "editOnDblClick": true,
-          "completionKey": "TAB",
-          "completionSupport": false
-        },
-        "colWidth": 12.0,
-        "editorMode": "ace/mode/markdown",
-        "fontSize": 9.0,
-        "editorHide": true,
-        "results": {},
-        "enabled": true
+      {
+         "text": "%pyspark\ndocuments = sqlContext.read.text(\"gs://de-training-input/words/big.txt\")\ndocuments.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-08-13T20:22:06+0000",
+         "config": {
+            "tableHide": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false,
+               "completionKey": "TAB",
+               "completionSupport": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "fontSize": 9,
+            "editorHide": false,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1534191705272_810478110",
+         "id": "20180713-152523_768975449",
+         "dateCreated": "2018-08-13T20:21:45+0000",
+         "dateStarted": "2018-08-13T20:22:06+0000",
+         "dateFinished": "2018-08-13T20:22:07+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:11813"
       },
-      "settings": {
-        "params": {},
-        "forms": {}
+      {
+         "text": "%md\nIn this example, we use only one document, but in practice you could extend this to use any number of documents in all sorts of formats, even if they cannot  fit in a single machine. That's the power of Spark!",
+         "user": "anonymous",
+         "dateUpdated": "2018-08-13T20:22:06+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1534191705272_810478110",
+         "id": "20180713-173145_1979252085",
+         "dateCreated": "2018-08-13T20:21:45+0000",
+         "dateStarted": "2018-08-13T20:22:06+0000",
+         "dateFinished": "2018-08-13T20:22:06+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:11814"
       },
-      "apps": [],
-      "jobName": "paragraph_1533931234344_109636439",
-      "id": "20180713-152515_1970095947",
-      "dateCreated": "2018-08-10 15:00:34.344",
-      "dateStarted": "2018-08-12 21:13:11.403",
-      "dateFinished": "2018-08-12 21:13:11.408",
-      "status": "FINISHED",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%pyspark\ndocuments \u003d sqlContext.read.text(\"gs://de-training-input-bucket/words/big.txt\")\ndocuments.show()",
-      "user": "anonymous",
-      "dateUpdated": "2018-08-12 21:12:56.735",
-      "config": {
-        "tableHide": true,
-        "editorSetting": {
-          "language": "python",
-          "editOnDblClick": false,
-          "completionKey": "TAB",
-          "completionSupport": true
-        },
-        "colWidth": 12.0,
-        "editorMode": "ace/mode/python",
-        "fontSize": 9.0,
-        "editorHide": false,
-        "results": {},
-        "enabled": true
+      {
+         "text": "%md\n## Converting documents to words\nThough it's not necessary to define a separate function to break the input documents into words, we'll define the function `to_words`. This function comes handy once we get to other exercises to avoid duplicating code.\n\nThe function allows you to customize the boundaries between words using a regular expression. By default, it uses whitespaces as the delimiter. It also removes any empty words (e.g. for the text `\"hello,,world\"` and a separator that includes whitespace and commas, it would produce `\"hello\"` and `\"world\"` only.)",
+         "user": "anonymous",
+         "dateUpdated": "2018-08-13T20:22:06+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1534191705274_811247608",
+         "id": "20180713-185000_1281997520",
+         "dateCreated": "2018-08-13T20:21:45+0000",
+         "dateStarted": "2018-08-13T20:22:06+0000",
+         "dateFinished": "2018-08-13T20:22:06+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:11815"
       },
-      "settings": {
-        "params": {},
-        "forms": {}
+      {
+         "text": "%pyspark\nfrom pyspark.sql.functions import split, explode, col, lower\n\ndef to_words(documents, separators_regexp=r'\\s+'):\n    words = (documents\n        .select(explode(split(documents.value, separators_regexp)).alias('word'))\n        .select(lower(col('word')).alias('word'))\n        .filter(col('word') != ''))\n    return words",
+         "user": "anonymous",
+         "dateUpdated": "2018-08-13T20:22:06+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false,
+               "completionKey": "TAB",
+               "completionSupport": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "fontSize": 9,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1534191705275_810862859",
+         "id": "20180713-162106_300537953",
+         "dateCreated": "2018-08-13T20:21:45+0000",
+         "dateStarted": "2018-08-13T20:22:06+0000",
+         "dateFinished": "2018-08-13T20:22:07+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:11816"
       },
-      "apps": [],
-      "jobName": "paragraph_1533931234345_-116925273",
-      "id": "20180713-152523_768975449",
-      "dateCreated": "2018-08-10 15:00:34.345",
-      "dateStarted": "2018-08-12 21:10:47.742",
-      "dateFinished": "2018-08-12 21:10:50.443",
-      "status": "ERROR",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%md\nIn this example, we use only one document, but in practice you could extend this to use any number of documents in all sorts of formats, even if they cannot  fit in a single machine. That\u0027s the power of Spark!",
-      "user": "anonymous",
-      "dateUpdated": "2018-08-12 21:13:17.555",
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "markdown",
-          "editOnDblClick": true,
-          "completionKey": "TAB",
-          "completionSupport": false
-        },
-        "colWidth": 12.0,
-        "editorMode": "ace/mode/markdown",
-        "fontSize": 9.0,
-        "editorHide": true,
-        "results": {},
-        "enabled": true
+      {
+         "text": "%md \nGiven that we're mostly interested in words without punctuation in this example, we'll use a more specific regular expression. If you're curious about how it works, check this [post](https://stackoverflow.com/questions/30074109/removing-punctuation-marks-form-text-in-scala-spark).",
+         "user": "anonymous",
+         "dateUpdated": "2018-08-13T20:22:06+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1534191705275_810862859",
+         "id": "20180713-193952_1952995095",
+         "dateCreated": "2018-08-13T20:21:45+0000",
+         "dateStarted": "2018-08-13T20:22:06+0000",
+         "dateFinished": "2018-08-13T20:22:06+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:11817"
       },
-      "settings": {
-        "params": {},
-        "forms": {}
+      {
+         "text": "%pyspark\npunctuation_regexp = r'\\W+'",
+         "user": "anonymous",
+         "dateUpdated": "2018-08-13T20:22:06+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false,
+               "completionKey": "TAB",
+               "completionSupport": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "fontSize": 9,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1534191705275_810862859",
+         "id": "20180713-194312_424075201",
+         "dateCreated": "2018-08-13T20:21:45+0000",
+         "dateStarted": "2018-08-13T20:22:07+0000",
+         "dateFinished": "2018-08-13T20:22:07+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:11818"
       },
-      "apps": [],
-      "jobName": "paragraph_1533931234345_1659434527",
-      "id": "20180713-173145_1979252085",
-      "dateCreated": "2018-08-10 15:00:34.345",
-      "dateStarted": "2018-08-12 21:13:17.556",
-      "dateFinished": "2018-08-12 21:13:17.562",
-      "status": "FINISHED",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%md\n## Converting documents to words\nThough it\u0027s not necessary to define a separate function to break the input documents into words, we\u0027ll define the function `to_words`. This function comes handy once we get to other exercises to avoid duplicating code.\n\nThe function allows you to customize the boundaries between words using a regular expression. By default, it uses whitespaces as the delimiter. It also removes any empty words (e.g. for the text `\"hello,,world\"` and a separator that includes whitespace and commas, it would produce `\"hello\"` and `\"world\"` only.)",
-      "user": "anonymous",
-      "dateUpdated": "2018-08-12 21:17:05.291",
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "markdown",
-          "editOnDblClick": true,
-          "completionKey": "TAB",
-          "completionSupport": false
-        },
-        "colWidth": 12.0,
-        "editorMode": "ace/mode/markdown",
-        "fontSize": 9.0,
-        "editorHide": true,
-        "results": {},
-        "enabled": true
+      {
+         "text": "%md\nLet's verify that the function `to_words` produces the expected output (i.e. a set of words):",
+         "user": "anonymous",
+         "dateUpdated": "2018-08-13T20:22:06+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1534191705275_810862859",
+         "id": "20180713-192314_2145515679",
+         "dateCreated": "2018-08-13T20:21:45+0000",
+         "dateStarted": "2018-08-13T20:22:06+0000",
+         "dateFinished": "2018-08-13T20:22:06+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:11819"
       },
-      "settings": {
-        "params": {},
-        "forms": {}
+      {
+         "text": "%pyspark\nwords = to_words(documents, punctuation_regexp)\nwords.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-08-13T20:22:06+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false,
+               "completionKey": "TAB",
+               "completionSupport": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "fontSize": 9,
+            "editorHide": false,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1534191705275_810862859",
+         "id": "20180713-192337_1741363054",
+         "dateCreated": "2018-08-13T20:21:45+0000",
+         "dateStarted": "2018-08-13T20:22:07+0000",
+         "dateFinished": "2018-08-13T20:22:08+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:11820"
       },
-      "apps": [],
-      "jobName": "paragraph_1533931234345_-1472372977",
-      "id": "20180713-185000_1281997520",
-      "dateCreated": "2018-08-10 15:00:34.345",
-      "dateStarted": "2018-08-12 21:17:05.292",
-      "dateFinished": "2018-08-12 21:17:05.307",
-      "status": "FINISHED",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%pyspark\nfrom pyspark.sql.functions import split, explode, col, lower\n\ndef to_words(documents, separators_regexp\u003dr\u0027\\s+\u0027):\n    words \u003d (documents\n        .select(explode(split(documents.value, separators_regexp)).alias(\u0027word\u0027))\n        .select(lower(col(\u0027word\u0027)).alias(\u0027word\u0027))\n        .filter(col(\u0027word\u0027) !\u003d \u0027\u0027))\n    return words",
-      "user": "anonymous",
-      "dateUpdated": "2018-08-12 21:17:03.190",
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "python",
-          "editOnDblClick": false,
-          "completionKey": "TAB",
-          "completionSupport": true
-        },
-        "colWidth": 12.0,
-        "editorMode": "ace/mode/python",
-        "fontSize": 9.0,
-        "results": {},
-        "enabled": true
+      {
+         "text": "%md\n### Incremental Development and Exploration\nThough it's convenient to have a reusable function, when we're developing code for the first time it's recommended to test the individual function calls in isolation. This to make sure the data is flowing as expected.\n\nLet's go ahead and try a couple of those functions in isolation:",
+         "user": "anonymous",
+         "dateUpdated": "2018-08-13T20:22:06+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1534191705276_808939115",
+         "id": "20180713-190730_1897522264",
+         "dateCreated": "2018-08-13T20:21:45+0000",
+         "dateStarted": "2018-08-13T20:22:06+0000",
+         "dateFinished": "2018-08-13T20:22:06+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:11821"
       },
-      "settings": {
-        "params": {},
-        "forms": {}
+      {
+         "text": "%pyspark\nlowercased_docs = documents.select(lower(col('value')).alias('value'))\nlowercased_docs.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-08-13T20:22:06+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false,
+               "completionKey": "TAB",
+               "completionSupport": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "fontSize": 9,
+            "editorHide": false,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1534191705276_808939115",
+         "id": "20180713-191055_175413413",
+         "dateCreated": "2018-08-13T20:21:45+0000",
+         "dateStarted": "2018-08-13T20:22:07+0000",
+         "dateFinished": "2018-08-13T20:22:08+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:11822"
       },
-      "apps": [],
-      "jobName": "paragraph_1533931234345_-1409287528",
-      "id": "20180713-162106_300537953",
-      "dateCreated": "2018-08-10 15:00:34.345",
-      "dateStarted": "2018-08-12 21:17:03.202",
-      "dateFinished": "2018-08-12 21:17:03.222",
-      "status": "FINISHED",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%md \nGiven that we\u0027re mostly interested in words without punctuation in this example, we\u0027ll use a more specific regular expression. If you\u0027re curious about how it works, check this [post](https://stackoverflow.com/questions/30074109/removing-punctuation-marks-form-text-in-scala-spark).",
-      "user": "anonymous",
-      "dateUpdated": "2018-08-12 21:17:20.180",
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "markdown",
-          "editOnDblClick": true,
-          "completionKey": "TAB",
-          "completionSupport": false
-        },
-        "colWidth": 12.0,
-        "editorMode": "ace/mode/markdown",
-        "fontSize": 9.0,
-        "editorHide": true,
-        "results": {},
-        "enabled": true
+      {
+         "text": "%pyspark\nfrom pyspark.sql.functions import length\n\nfiltered_words = (documents\n    .select(explode(split(documents.value, punctuation_regexp)).alias('word'))\n    .filter((length('word') > 0) & (length('word') < 5)))\n    \nfiltered_words.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-08-13T20:22:06+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false,
+               "completionKey": "TAB",
+               "completionSupport": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "fontSize": 9,
+            "editorHide": false,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1534191705276_808939115",
+         "id": "20180713-191334_296049631",
+         "dateCreated": "2018-08-13T20:21:45+0000",
+         "dateStarted": "2018-08-13T20:22:08+0000",
+         "dateFinished": "2018-08-13T20:22:09+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:11823"
       },
-      "settings": {
-        "params": {},
-        "forms": {}
+      {
+         "text": "%md\nTest and experiment with all sorts of expressions until you are comfortable with your understanding of how the data is transformed and flows from function to function.",
+         "user": "anonymous",
+         "dateUpdated": "2018-08-13T20:22:06+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1534191705276_808939115",
+         "id": "20180713-191737_182562044",
+         "dateCreated": "2018-08-13T20:21:45+0000",
+         "dateStarted": "2018-08-13T20:22:06+0000",
+         "dateFinished": "2018-08-13T20:22:06+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:11824"
       },
-      "apps": [],
-      "jobName": "paragraph_1533931234345_-2058394662",
-      "id": "20180713-193952_1952995095",
-      "dateCreated": "2018-08-10 15:00:34.345",
-      "dateStarted": "2018-08-12 21:17:20.180",
-      "dateFinished": "2018-08-12 21:17:20.184",
-      "status": "FINISHED",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%pyspark\npunctuation_regexp \u003d r\u0027\\W+\u0027",
-      "user": "anonymous",
-      "dateUpdated": "2018-08-10 15:00:34.345",
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "python",
-          "editOnDblClick": false,
-          "completionKey": "TAB",
-          "completionSupport": true
-        },
-        "colWidth": 12.0,
-        "editorMode": "ace/mode/python",
-        "fontSize": 9.0,
-        "results": {},
-        "enabled": true
+      {
+         "text": "%md\n## Counting Words\nLet's now move on to solving the problem we started with! With the `to_words` function in our hands, our `count_words` function should be pretty short:",
+         "user": "anonymous",
+         "dateUpdated": "2018-08-13T20:22:06+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1534191705276_808939115",
+         "id": "20180713-192012_688996853",
+         "dateCreated": "2018-08-13T20:21:45+0000",
+         "dateStarted": "2018-08-13T20:22:07+0000",
+         "dateFinished": "2018-08-13T20:22:07+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:11825"
       },
-      "settings": {
-        "params": {},
-        "forms": {}
+      {
+         "text": "%pyspark\ndef count_words(documents, separators_regexp=r'\\s+'):\n    words = to_words(documents, separators_regexp)\n    counts = words.groupBy(\"word\").count()\n    return counts",
+         "user": "anonymous",
+         "dateUpdated": "2018-08-13T20:22:07+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false,
+               "completionKey": "TAB",
+               "completionSupport": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "fontSize": 9,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1534191705277_808554366",
+         "id": "20180713-165608_638775812",
+         "dateCreated": "2018-08-13T20:21:45+0000",
+         "dateStarted": "2018-08-13T20:22:09+0000",
+         "dateFinished": "2018-08-13T20:22:09+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:11826"
       },
-      "apps": [],
-      "jobName": "paragraph_1533931234345_-246967200",
-      "id": "20180713-194312_424075201",
-      "dateCreated": "2018-08-10 15:00:34.345",
-      "status": "READY",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%md\nLet\u0027s verify that the function `to_words` produces the expected output (i.e. a set of words):",
-      "user": "anonymous",
-      "dateUpdated": "2018-08-12 21:16:53.538",
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "markdown",
-          "editOnDblClick": true,
-          "completionKey": "TAB",
-          "completionSupport": false
-        },
-        "colWidth": 12.0,
-        "editorMode": "ace/mode/markdown",
-        "fontSize": 9.0,
-        "editorHide": true,
-        "results": {},
-        "enabled": true
+      {
+         "text": "%md\nNow, test the `count_words` function (for additional information on the  `groupBy` and `count` functions, refer to the slides [`C1 - Data Engineering Academy`](goo.gl/g5ijp9\n)):",
+         "user": "anonymous",
+         "dateUpdated": "2018-08-13T20:22:07+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1534191705277_808554366",
+         "id": "20180713-192508_1130563054",
+         "dateCreated": "2018-08-13T20:21:45+0000",
+         "dateStarted": "2018-08-13T20:22:07+0000",
+         "dateFinished": "2018-08-13T20:22:07+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:11827"
       },
-      "settings": {
-        "params": {},
-        "forms": {}
+      {
+         "text": "%pyspark\ncounts = count_words(documents, punctuation_regexp)\ncounts.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-08-13T20:22:07+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false,
+               "completionKey": "TAB",
+               "completionSupport": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "fontSize": 9,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1534191705277_808554366",
+         "id": "20180713-165720_1184054894",
+         "dateCreated": "2018-08-13T20:21:45+0000",
+         "dateStarted": "2018-08-13T20:22:09+0000",
+         "dateFinished": "2018-08-13T20:22:12+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:11828"
       },
-      "apps": [],
-      "jobName": "paragraph_1533931234346_-1904999222",
-      "id": "20180713-192314_2145515679",
-      "dateCreated": "2018-08-10 15:00:34.346",
-      "dateStarted": "2018-08-12 21:16:53.538",
-      "dateFinished": "2018-08-12 21:16:53.541",
-      "status": "FINISHED",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%pyspark\nwords \u003d to_words(documents, punctuation_regexp)\nwords.show()",
-      "user": "anonymous",
-      "dateUpdated": "2018-08-10 15:00:34.346",
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "python",
-          "editOnDblClick": false,
-          "completionKey": "TAB",
-          "completionSupport": true
-        },
-        "colWidth": 12.0,
-        "editorMode": "ace/mode/python",
-        "fontSize": 9.0,
-        "editorHide": false,
-        "results": {},
-        "enabled": true
+      {
+         "text": "%md It works! Yay!",
+         "user": "anonymous",
+         "dateUpdated": "2018-08-13T20:22:07+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1534191705277_808554366",
+         "id": "20180713-194553_145958858",
+         "dateCreated": "2018-08-13T20:21:45+0000",
+         "dateStarted": "2018-08-13T20:22:07+0000",
+         "dateFinished": "2018-08-13T20:22:07+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:11829"
       },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "apps": [],
-      "jobName": "paragraph_1533931234346_1448080704",
-      "id": "20180713-192337_1741363054",
-      "dateCreated": "2018-08-10 15:00:34.346",
-      "status": "READY",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%md\n### Incremental Development and Exploration\nThough it\u0027s convenient to have a reusable function, when we\u0027re developing code for the first time it\u0027s recommended to test the individual function calls in isolation. This to make sure the data is flowing as expected.\n\nLet\u0027s go ahead and try a couple of those functions in isolation:",
-      "user": "anonymous",
-      "dateUpdated": "2018-08-12 21:18:56.985",
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "markdown",
-          "editOnDblClick": true,
-          "completionKey": "TAB",
-          "completionSupport": false
-        },
-        "colWidth": 12.0,
-        "editorMode": "ace/mode/markdown",
-        "fontSize": 9.0,
-        "editorHide": true,
-        "results": {},
-        "enabled": true
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "apps": [],
-      "jobName": "paragraph_1533931234346_1679457234",
-      "id": "20180713-190730_1897522264",
-      "dateCreated": "2018-08-10 15:00:34.346",
-      "dateStarted": "2018-08-12 21:18:56.986",
-      "dateFinished": "2018-08-12 21:18:56.989",
-      "status": "FINISHED",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%pyspark\nlowercased_docs \u003d documents.select(lower(col(\u0027value\u0027)).alias(\u0027value\u0027))\nlowercased_docs.show()",
-      "user": "anonymous",
-      "dateUpdated": "2018-08-10 15:00:34.346",
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "python",
-          "editOnDblClick": false,
-          "completionKey": "TAB",
-          "completionSupport": true
-        },
-        "colWidth": 12.0,
-        "editorMode": "ace/mode/python",
-        "fontSize": 9.0,
-        "editorHide": false,
-        "results": {},
-        "enabled": true
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "apps": [],
-      "jobName": "paragraph_1533931234346_-1296679245",
-      "id": "20180713-191055_175413413",
-      "dateCreated": "2018-08-10 15:00:34.346",
-      "status": "READY",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%pyspark\nfrom pyspark.sql.functions import length\n\nfiltered_words \u003d (documents\n    .select(explode(split(documents.value, punctuation_regexp)).alias(\u0027word\u0027))\n    .filter((length(\u0027word\u0027) \u003e 0) \u0026 (length(\u0027word\u0027) \u003c 5)))\n    \nfiltered_words.show()",
-      "user": "anonymous",
-      "dateUpdated": "2018-08-10 15:00:34.346",
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "python",
-          "editOnDblClick": false,
-          "completionKey": "TAB",
-          "completionSupport": true
-        },
-        "colWidth": 12.0,
-        "editorMode": "ace/mode/python",
-        "fontSize": 9.0,
-        "editorHide": false,
-        "results": {},
-        "enabled": true
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "apps": [],
-      "jobName": "paragraph_1533931234346_-1892665591",
-      "id": "20180713-191334_296049631",
-      "dateCreated": "2018-08-10 15:00:34.346",
-      "status": "READY",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%md\nTest and experiment with all sorts of expressions until you are comfortable with your understanding of how the data is transformed and flows from function to function.",
-      "user": "anonymous",
-      "dateUpdated": "2018-08-12 21:19:44.074",
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "markdown",
-          "editOnDblClick": true,
-          "completionKey": "TAB",
-          "completionSupport": false
-        },
-        "colWidth": 12.0,
-        "editorMode": "ace/mode/markdown",
-        "fontSize": 9.0,
-        "editorHide": true,
-        "results": {},
-        "enabled": true
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "apps": [],
-      "jobName": "paragraph_1533931234346_-1248093333",
-      "id": "20180713-191737_182562044",
-      "dateCreated": "2018-08-10 15:00:34.346",
-      "dateStarted": "2018-08-12 21:19:44.074",
-      "dateFinished": "2018-08-12 21:19:44.078",
-      "status": "FINISHED",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%md\n## Counting Words\nLet\u0027s now move on to solving the problem we started with! With the `to_words` function in our hands, our `count_words` function should be pretty short:",
-      "user": "anonymous",
-      "dateUpdated": "2018-08-12 21:19:48.359",
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "markdown",
-          "editOnDblClick": true,
-          "completionKey": "TAB",
-          "completionSupport": false
-        },
-        "colWidth": 12.0,
-        "editorMode": "ace/mode/markdown",
-        "fontSize": 9.0,
-        "editorHide": true,
-        "results": {},
-        "enabled": true
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "apps": [],
-      "jobName": "paragraph_1533931234346_1565691985",
-      "id": "20180713-192012_688996853",
-      "dateCreated": "2018-08-10 15:00:34.346",
-      "dateStarted": "2018-08-12 21:19:48.360",
-      "dateFinished": "2018-08-12 21:19:48.363",
-      "status": "FINISHED",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%pyspark\ndef count_words(documents, separators_regexp\u003dr\u0027\\s+\u0027):\n    words \u003d to_words(documents, separators_regexp)\n    counts \u003d words.groupBy(\"word\").count()\n    return counts",
-      "user": "anonymous",
-      "dateUpdated": "2018-08-10 15:00:34.347",
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "python",
-          "editOnDblClick": false,
-          "completionKey": "TAB",
-          "completionSupport": true
-        },
-        "colWidth": 12.0,
-        "editorMode": "ace/mode/python",
-        "fontSize": 9.0,
-        "results": {},
-        "enabled": true
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "apps": [],
-      "jobName": "paragraph_1533931234347_686694121",
-      "id": "20180713-165608_638775812",
-      "dateCreated": "2018-08-10 15:00:34.347",
-      "status": "READY",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%md\nNow, test the `count_words` function (for additional information on the  `groupBy` and `count` functions, refer to the slides [`C1 - Data Engineering Academy`](goo.gl/g5ijp9\n)):",
-      "user": "anonymous",
-      "dateUpdated": "2018-08-12 22:07:51.178",
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "markdown",
-          "editOnDblClick": true,
-          "completionKey": "TAB",
-          "completionSupport": false
-        },
-        "colWidth": 12.0,
-        "editorMode": "ace/mode/markdown",
-        "fontSize": 9.0,
-        "editorHide": true,
-        "results": {},
-        "enabled": true
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "apps": [],
-      "jobName": "paragraph_1533931234347_-1573525523",
-      "id": "20180713-192508_1130563054",
-      "dateCreated": "2018-08-10 15:00:34.347",
-      "dateStarted": "2018-08-12 22:07:51.179",
-      "dateFinished": "2018-08-12 22:07:51.182",
-      "status": "FINISHED",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%pyspark\ncounts \u003d count_words(documents, punctuation_regexp)\ncounts.show()",
-      "user": "anonymous",
-      "dateUpdated": "2018-08-10 15:00:34.347",
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "python",
-          "editOnDblClick": false,
-          "completionKey": "TAB",
-          "completionSupport": true
-        },
-        "colWidth": 12.0,
-        "editorMode": "ace/mode/python",
-        "fontSize": 9.0,
-        "results": {},
-        "enabled": true
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "apps": [],
-      "jobName": "paragraph_1533931234347_1814101672",
-      "id": "20180713-165720_1184054894",
-      "dateCreated": "2018-08-10 15:00:34.347",
-      "status": "READY",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%md It works! Yay!",
-      "user": "anonymous",
-      "dateUpdated": "2018-08-12 22:07:25.988",
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "markdown",
-          "editOnDblClick": true,
-          "completionKey": "TAB",
-          "completionSupport": false
-        },
-        "colWidth": 12.0,
-        "editorMode": "ace/mode/markdown",
-        "fontSize": 9.0,
-        "editorHide": true,
-        "results": {},
-        "enabled": true
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "apps": [],
-      "jobName": "paragraph_1533931234347_737420155",
-      "id": "20180713-194553_145958858",
-      "dateCreated": "2018-08-10 15:00:34.347",
-      "dateStarted": "2018-08-12 22:07:25.988",
-      "dateFinished": "2018-08-12 22:07:25.990",
-      "status": "FINISHED",
-      "errorMessage": "",
-      "progressUpdateIntervalMs": 500
-    }
-  ],
-  "name": "wordcount-python.json",
-  "id": "2DPUUMQUE",
-  "noteParams": {},
-  "noteForms": {},
-  "angularObjects": {
-    "md:shared_process": [],
-    "spark:shared_process": []
-  },
-  "config": {
-    "isZeppelinNotebookCronEnable": false
-  },
-  "info": {}
+      {
+         "text": "%md\n",
+         "user": "anonymous",
+         "dateUpdated": "2018-08-13T20:22:07+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1534191727549_-549578603",
+         "id": "20180813-202207_1588302646",
+         "dateCreated": "2018-08-13T20:22:07+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:11830"
+      }
+   ],
+   "name": "wordcount-python",
+   "id": "2DMF86NVD",
+   "angularObjects": {
+      "2DM1XB9DA:shared_process": [],
+      "2DPKGH9NF:shared_process": [],
+      "2DMW4PJTM:shared_process": [],
+      "2DMYE3FW7:shared_process": [],
+      "2DN1W9AMT:shared_process": [],
+      "2DQA5JUQU:shared_process": [],
+      "2DQ484HW1:shared_process": [],
+      "2DQ7K4ARC:shared_process": [],
+      "2DPJXA53H:shared_process": [],
+      "2DMW7H2N2:shared_process": [],
+      "2DMPWH2X1:shared_process": [],
+      "2DQBTHYT6:shared_process": [],
+      "2DQ4JJTWR:shared_process": [],
+      "2DQ575U25:shared_process": [],
+      "2DM4BTG1Z:shared_process": [],
+      "2DPZKUETW:shared_process": [],
+      "2DNYW9WR3:shared_process": [],
+      "2DQ9UQYP2:shared_process": []
+   },
+   "config": {
+      "looknfeel": "default",
+      "personalizedMode": "false"
+   },
+   "info": {}
 }
