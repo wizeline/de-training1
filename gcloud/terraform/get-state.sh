@@ -16,7 +16,7 @@ git pull origin master
 # Return to folder
 popd
 # Symlink tfstate
-if [ -L "terraform.tfstate" ] || [ ! -f "terraform.tfstate" ]
+if [ -L "terraform.tfstate" ] || [ ! -f "terraform.tfstate" ]
 then
     ln -sf state/terraform.tfstate
 else
