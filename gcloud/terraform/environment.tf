@@ -27,7 +27,7 @@ variable "cluster_worker_instances" {}
 variable "cluster_master_boot_disk_size" {}
 variable "cluster_worker_boot_disk_size" {}
 
-# Members
+# Varibles block
 variable "students" {
   type = "list"
 }
@@ -44,13 +44,12 @@ variable "testers" {
   type = "list"
 }
 
-# Local variables
 locals {
   "cluster-users"     = "${distinct(concat(var.students, var.mentors, var.testers))}"
   "num-cluster-users" = "${length(local.cluster-users)}"
   "users-list"        = "${formatlist("user:%s", local.cluster-users)}"
   "admins-list"       = "${formatlist("user:%s", distinct(var.admins))}"
-  "num-admins"        = "${length(var.admins)}"
+  "num-admins"        = "${length(local.admins-list)}"
 
   "service-accounts-students" = "${formatlist(
     "serviceAccount:%s",
