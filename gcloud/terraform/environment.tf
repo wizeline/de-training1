@@ -138,6 +138,7 @@ resource "google_project_iam_custom_role" "student-role" {
 }
 
 # Students role assignment
+# Basic set of permission for everyone
 resource "google_project_iam_binding" "student-role-members" {
   project = "${var.project_name}"
   role    = "${google_project_iam_custom_role.student-role.id}"
@@ -405,7 +406,6 @@ resource "google_dataproc_cluster" "spark-clusters" {
     # You can define multiple initialization_action blocks
     initialization_action {
       // Path to the bucket where the zeppelin.sh was copied
-      /* script      = "${google_storage_bucket.config-bucket.url}/${var.zeppelin_sh_path}" */
       script = "gs://dataproc-initialization-actions/zeppelin/zeppelin.sh"
 
       timeout_sec = "${var.cluster_init_timeout}"
