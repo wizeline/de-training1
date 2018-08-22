@@ -10,7 +10,7 @@ input_bucket_name = "de-training-input"
 staging_bucket_prefix = "de-training-staging"
 output_bucket_prefix = "de-training-output"
 
-# Clusters configuration
+# Dataproc clusters configuration parameters
 zeppelin_sh_path = "zeppelin/zeppelin.sh"
 
 cluster_prefix = "de-training"
@@ -23,7 +23,8 @@ cluster_worker_instances = 2
 cluster_master_boot_disk_size = 15
 cluster_worker_boot_disk_size = 10
 
-# Admins list
+# User groups
+# They will get Owner/Admin permissions on the project
 admins = [
   "abraham.alcantara@wizeline.com",
   "ana.gabriela@wizeline.com",
@@ -38,7 +39,9 @@ admins = [
   "willebaldo@wizeline.com",
 ]
 
-# Mentors list
+# All the people below will get their own clusters
+# and in the future the clusters will be provisioned
+# independently for each group
 mentors = [
   "abraham.alcantara@wizeline.com",
   "ana.gabriela@wizeline.com",
@@ -50,15 +53,10 @@ mentors = [
   "willebaldo@wizeline.com",
 ]
 
-# Testers list
 testers = [
   "matthew.ropp@wizeline.com",
 ]
 
-# Service Accounts list
-# The number of accounts should match with the number of users
-#
-# This is an example, update with the users gmail accounts. index 0 goes to bucket 0
 students = [
   "alberto.leal@wizeline.com",
   "alfre2x@gmail.com",
