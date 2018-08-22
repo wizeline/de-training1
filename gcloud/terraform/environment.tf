@@ -151,6 +151,10 @@ resource "google_project_iam_binding" "student-role-members" {
 resource "google_service_account" "student-service-accounts" {
   display_name = "student-${element(local.cluster-users, count.index)}"
 
+  # Creates a user id using only alphanumeric chars from the email
+  # (discarding everything after @)
+  # the size limit in google cloud.
+  # e.g. "john-doe@wizeline.com" => "johndoe"
   account_id = "student-${substr(
     replace(element(local.cluster-users, count.index), "/@.*|[^A-Za-z0-9]/", ""), 0,
     min(local.username_length, length(replace(element(local.cluster-users, count.index), "/@.*|[^A-Za-z0-9]/", "")))
