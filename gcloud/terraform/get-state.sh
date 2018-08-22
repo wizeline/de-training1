@@ -16,4 +16,10 @@ git pull origin master
 # Return to folder
 popd
 # Symlink tfstate
-ln -sf state/terraform.tfstate
+if [ -L "terraform.tfstate" ] || [ ! -f "terraform.tfstate" ]
+then
+    ln -sf state/terraform.tfstate
+else
+    echo "ERROR: You have a local terraform state that is not in synchronized"
+    exit 1
+fi
