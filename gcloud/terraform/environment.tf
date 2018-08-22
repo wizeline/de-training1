@@ -246,7 +246,7 @@ resource "google_storage_bucket" "output-buckets" {
   count    = "${local.num-cluster-users}"
 
   lifecycle {
-    prevent_destroy = "false"
+    prevent_destroy = "true"
   }
 }
 
