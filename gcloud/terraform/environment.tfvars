@@ -53,7 +53,6 @@ mentors = [
 # Testers list
 testers = [
   "matthew.ropp@wizeline.com",
-  "leobiwankenobi@gmail.com",
 ]
 
 # Service Accounts list
@@ -93,4 +92,6 @@ students = [
   "sjcmexr@gmail.com",
   "soysamygp@gmail.com",
   "topifloresl@gmail.com",
+  "leobiwankenobi@gmail.com",
+  "tania.mendoza@wizeline.com",
 ]
