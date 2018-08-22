@@ -19,7 +19,7 @@ case "$OSTYPE" in
   linux*)   # Linux
     gsettings set org.gnome.system.proxy.socks host 'localhost'
     gsettings set org.gnome.system.proxy.socks port $SSH_PORT
-    gsettings set org.gnome.system.proxy.mode 'manual'  
+    gsettings set org.gnome.system.proxy.mode 'manual'
     xdg-open http://localhost:8080 ;;
   bsd*)     echo "BSD";;
   msys*)    # Windows
