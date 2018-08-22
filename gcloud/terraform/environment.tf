@@ -55,6 +55,10 @@ locals {
     "serviceAccount:%s",
     google_service_account.student-service-accounts.*.email
   )}"
+
+  # Top username_length so we don't get to the limit of 32 characters with the
+  # resource prefixes
+  "username_length"   = 20
 }
 
 // -----------------------------------
@@ -149,7 +153,7 @@ resource "google_service_account" "student-service-accounts" {
 
   account_id = "student-${substr(
     replace(element(local.cluster-users, count.index), "/@.*|[^A-Za-z0-9]/", ""), 0,
-    min(20, length(replace(element(local.cluster-users, count.index), "/@.*|[^A-Za-z0-9]/", "")))
+    min(local.username_length, length(replace(element(local.cluster-users, count.index), "/@.*|[^A-Za-z0-9]/", "")))
   )}"
 
   count = "${local.num-cluster-users}"
@@ -231,7 +235,7 @@ resource "google_storage_bucket" "output-buckets" {
 
   name = "${var.output_bucket_prefix}-${substr(
     replace(element(local.cluster-users, count.index), "/@.*|[^A-Za-z0-9]/", ""), 0,
-    min(20, length(replace(element(local.cluster-users, count.index), "/@.*|[^A-Za-z0-9]/", "")))
+    min(local.username_length, length(replace(element(local.cluster-users, count.index), "/@.*|[^A-Za-z0-9]/", "")))
   )}"
 
   location = "${var.location}"
@@ -248,7 +252,7 @@ resource "google_storage_bucket" "staging-buckets" {
 
   name = "${var.staging_bucket_prefix}-${substr(
     replace(element(local.cluster-users, count.index), "/@.*|[^A-Za-z0-9]/", ""), 0,
-    min(20, length(replace(element(local.cluster-users, count.index), "/@.*|[^A-Za-z0-9]/", "")))
+    min(local.username_length, length(replace(element(local.cluster-users, count.index), "/@.*|[^A-Za-z0-9]/", "")))
   )}"
 
   location      = "${var.location}"
@@ -354,7 +358,7 @@ resource "google_storage_bucket_iam_binding" "staging-bucket-obj-admins" {
 resource "google_dataproc_cluster" "spark-clusters" {
   name = "${var.cluster_prefix}-${substr(
     replace(element(local.cluster-users, count.index), "/@.*|[^A-Za-z0-9]/", ""), 0,
-    min(20, length(replace(element(local.cluster-users, count.index), "/@.*|[^A-Za-z0-9]/", "")))
+    min(local.username_length, length(replace(element(local.cluster-users, count.index), "/@.*|[^A-Za-z0-9]/", "")))
   )}"
 
   region = "${var.region}"
