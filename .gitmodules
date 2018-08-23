@@ -1,0 +1,3 @@
+[submodule "gcloud/terraform/state"]
+	path = gcloud/terraform/state
+	url = keybase://team/datacartel.de_training/state
