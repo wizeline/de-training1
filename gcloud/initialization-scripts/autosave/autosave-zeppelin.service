@@ -1,0 +1,13 @@
+[Unit]
+Description=Zeppelin notebooks auto save to GCS
+StartLimitIntervalSec=60
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=10
+User=zeppelin
+ExecStart=/usr/bin/env bash /opt/autosave.sh
+
+[Install]
+Wanted:vs
