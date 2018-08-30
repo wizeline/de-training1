@@ -15,3 +15,4 @@ gsutil cp gs://de-training-config/zeppelin/autosave-zeppelin.sh /opt
 systemctl daemon-reload
 systemctl start autosave-zeppelin.service
 systemctl enable autosave-zeppelin.service
+systemctl restart zeppelin.service
