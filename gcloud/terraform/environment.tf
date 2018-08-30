@@ -381,6 +381,10 @@ resource "google_dataproc_cluster" "spark-clusters" {
     gce_cluster_config {
       zone            = "${var.zone}"
       service_account = "${element(google_service_account.student-service-accounts.*.email, count.index)}"
+      metadata {
+        // Pass the output bucket as the notebooks backup bucket
+        backup_bucket = "${element(google_storage_bucket.output-buckets.*.name, count.index)}"
+      }
     }
 
     master_config {
@@ -405,9 +409,14 @@ resource "google_dataproc_cluster" "spark-clusters" {
 
     # You can define multiple initialization_action blocks
     initialization_action {
-      // Path to the bucket where the zeppelin.sh was copied
+      // Initialize zeppelin
       script = "gs://dataproc-initialization-actions/zeppelin/zeppelin.sh"
+      timeout_sec = "${var.cluster_init_timeout}"
+    }
 
+    initialization_action {
+      // Initialize zeppelin notebook auto-saving
+      script = "${google_storage_bucket.config-bucket.url}/autosave/init-autosave-files.sh"
       timeout_sec = "${var.cluster_init_timeout}"
     }
   }
