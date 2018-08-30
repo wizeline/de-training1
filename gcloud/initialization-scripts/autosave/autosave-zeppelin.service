@@ -7,7 +7,8 @@ Type=simple
 Restart=always
 RestartSec=10
 User=zeppelin
-ExecStart=/usr/bin/env bash /opt/autosave.sh
+Group=zeppelin
+ExecStart=/usr/bin/env bash /opt/autosave-zeppelin.sh
 
 [Install]
-Wanted:vs
+WantedBy=multi-user.target
