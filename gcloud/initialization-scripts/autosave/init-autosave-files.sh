@@ -4,7 +4,7 @@ readonly ROLE="$(/usr/share/google/get_metadata_value attributes/dataproc-role)"
 
 function main() {
   if [[ "${ROLE}" == 'Master' ]]; then
-    BUCKET=`curl "http://metadata.google.internal/computeMetadata/v1/instance/attributes/backup" -H "Metadata-Flavor: Google"`
+    BUCKET=`curl "http://metadata.google.internal/computeMetadata/v1/instance/attributes/backup_bucket" -H "Metadata-Flavor: Google"`
     LOCAL_PATH="/var/lib/zeppelin/notebook"
     GCS_PATH="gs://${BUCKET}/backup/zeppelin/notebook"
     if gsutil ls ${GCS_PATH} &>/dev/null
