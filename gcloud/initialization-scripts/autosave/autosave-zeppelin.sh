@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 
-BUCKET=`curl "http://metadata.google.internal/computeMetadata/v1/instance/attributes/backup_bucket" -H "Metadata-Flavor: Google"`
+BUCKET="$(/usr/share/google/get_metadata_value attributes/backup_bucket)"
 LOCAL_PATH="/var/lib/zeppelin/notebook"
 GCS_PATH="gs://${BUCKET}/backup/zeppelin/notebook"
 
