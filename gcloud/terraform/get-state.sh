@@ -1,12 +1,9 @@
 #!/usr/bin/env bash -xe
 
 # Clone state if none exists
-if [ ! -f "state/.git" ]
+if [ ! -d "state/.git" ]
 then
-    git submodule update --init
-    pushd state
-    git checkout master
-    popd
+    git clone -b master keybase://team/datacartel.de_training/state
 fi
 
 # Change folder
