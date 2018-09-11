@@ -1,0 +1,1635 @@
+{
+   "paragraphs": [
+      {
+         "text": "%md\n## Welcome\nWelcome to Wizeline Data Engineering Academy! \n\nWe hope you have a great experience during the course and you end up with a solid grasp of the topics we are covering.\n\nIf you have any feedback about our courses, email us at  academy@wizeline.com.\n\n## Hello, World! -- Word Count\nIn this exercise, your instructor will guide through the creation of an example program in Spark to count the number of words in a set of documents .\n\nAfterwards, you'll get a chance to complete a couple of exercises that extend that example and help you solidify your understanding. \n\nPlease reach out to one of the tutors if you have any questions or run into trouble during the session.\n\nHave Fun!",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:47:47+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h2>Welcome</h2>\n<p>Welcome to Wizeline Data Engineering Academy! </p>\n<p>We hope you have a great experience during the course and you end up with a solid grasp of the topics we are covering.</p>\n<p>If you have any feedback about our courses, email us at <a href=\"mailto:&#x61;&#x63;&#97;&#100;e&#109;&#121;&#x40;w&#105;&#122;&#101;&#x6c;&#105;n&#101;.co&#109;\">&#x61;&#x63;&#97;&#100;e&#109;&#121;&#x40;w&#105;&#122;&#101;&#x6c;&#105;n&#101;.co&#109;</a>.</p>\n<h2>Hello, World! &ndash; Word Count</h2>\n<p>In this exercise, your instructor will guide through the creation of an example program in Spark to count the number of words in a set of documents .</p>\n<p>Afterwards, you&rsquo;ll get a chance to complete a couple of exercises that extend that example and help you solidify your understanding. </p>\n<p>Please reach out to one of the tutors if you have any questions or run into trouble during the session.</p>\n<p>Have Fun!</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607431153_445593956",
+         "id": "20180713-170034_521067052",
+         "dateCreated": "2018-09-10T19:23:51+0000",
+         "dateStarted": "2018-09-10T19:47:47+0000",
+         "dateFinished": "2018-09-10T19:47:47+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:898"
+      },
+      {
+         "text": "%md \n## Reading the dataset\nAs mentioned before, we use `Datasets` as our basic data structure. To import the dataset, execute the following command:",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:47:50+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h2>Reading the dataset</h2>\n<p>As mentioned before, we use <code>Datasets</code> as our basic data structure. To import the dataset, execute the following command:</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607431166_442131215",
+         "id": "20180713-152515_1970095947",
+         "dateCreated": "2018-09-10T19:23:51+0000",
+         "dateStarted": "2018-09-10T19:47:50+0000",
+         "dateFinished": "2018-09-10T19:47:50+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:899"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:47:52+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607580886_2126408658",
+         "id": "20180910-192620_1404856108",
+         "dateCreated": "2018-09-10T19:26:20+0000",
+         "dateStarted": "2018-09-10T19:47:52+0000",
+         "dateFinished": "2018-09-10T19:47:52+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:900"
+      },
+      {
+         "text": "import org.apache.spark.sql.Dataset\n\nval documents: Dataset[String] = sc.textFile(\"gs://de-training-input/words/big.txt\").toDS()\ndocuments.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:45:59+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false,
+               "completionKey": "TAB",
+               "completionSupport": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "fontSize": 9,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607431169_131638853",
+         "id": "20180713-172417_1709710571",
+         "dateCreated": "2018-09-10T19:23:51+0000",
+         "dateStarted": "2018-09-10T19:46:00+0000",
+         "dateFinished": "2018-09-10T19:46:02+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:901"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:47:55+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607675609_-892225587",
+         "id": "20180910-192755_871568990",
+         "dateCreated": "2018-09-10T19:27:55+0000",
+         "dateStarted": "2018-09-10T19:47:55+0000",
+         "dateFinished": "2018-09-10T19:47:55+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:902"
+      },
+      {
+         "text": "%md \nPySpark uses `Dataframes` instead of `Datasets`. This changes the examples a bit, but we've tried to keep them conceptually as compatible as possible to minimize confusion.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:47:58+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>PySpark uses <code>Dataframes</code> instead of <code>Datasets</code>. This changes the examples a bit, but we&rsquo;ve tried to keep them conceptually as compatible as possible to minimize confusion.</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607623936_-1001353068",
+         "id": "20180910-192703_2099130113",
+         "dateCreated": "2018-09-10T19:27:03+0000",
+         "dateStarted": "2018-09-10T19:47:58+0000",
+         "dateFinished": "2018-09-10T19:47:58+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:903"
+      },
+      {
+         "text": "%pyspark\ndocuments = spark.read.text(\"gs://de-training-input/words/big.txt\")\ndocuments.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:46:00+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607677767_-58859470",
+         "id": "20180910-192757_1152636494",
+         "dateCreated": "2018-09-10T19:27:57+0000",
+         "dateStarted": "2018-09-10T19:46:00+0000",
+         "dateFinished": "2018-09-10T19:46:01+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:904"
+      },
+      {
+         "text": "%md\nIn this example, we use only one document, but in practice you could extend this to use any number of documents in all sorts of formats, even if they cannot  fit in a single machine. That's the power of Spark!",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:48:00+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>In this example, we use only one document, but in practice you could extend this to use any number of documents in all sorts of formats, even if they cannot fit in a single machine. That&rsquo;s the power of Spark!</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607431175_130869355",
+         "id": "20180713-173145_1979252085",
+         "dateCreated": "2018-09-10T19:23:51+0000",
+         "dateStarted": "2018-09-10T19:48:00+0000",
+         "dateFinished": "2018-09-10T19:48:01+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:905"
+      },
+      {
+         "text": "%md\n## Converting documents to words\nThough it's not necessary to define a separate function to break the input documents into words, we'll define the function `toWords`. This function comes handy once we get to other exercises to avoid duplicating code.\n\nThe function allows you to customize the boundaries between words using a regular expression. By default, it uses whitespaces as the delimiter. It also removes any empty words (e.g. for the text `\"hello,,world\"` and a separator that includes whitespace and commas, it would produce `\"hello\"` and `\"world\"` only.)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:48:03+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h2>Converting documents to words</h2>\n<p>Though it&rsquo;s not necessary to define a separate function to break the input documents into words, we&rsquo;ll define the function <code>toWords</code>. This function comes handy once we get to other exercises to avoid duplicating code.</p>\n<p>The function allows you to customize the boundaries between words using a regular expression. By default, it uses whitespaces as the delimiter. It also removes any empty words (e.g. for the text <code>&quot;hello,,world&quot;</code> and a separator that includes whitespace and commas, it would produce <code>&quot;hello&quot;</code> and <code>&quot;world&quot;</code> only.)</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607431176_128945611",
+         "id": "20180713-185000_1281997520",
+         "dateCreated": "2018-09-10T19:23:51+0000",
+         "dateStarted": "2018-09-10T19:48:03+0000",
+         "dateFinished": "2018-09-10T19:48:03+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:906"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:48:05+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607995032_-345621638",
+         "id": "20180910-193315_532047698",
+         "dateCreated": "2018-09-10T19:33:15+0000",
+         "dateStarted": "2018-09-10T19:48:05+0000",
+         "dateFinished": "2018-09-10T19:48:05+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:907"
+      },
+      {
+         "text": "def toWords(documents: Dataset[String], separatorsRegexp: String = \"\"\"\\s+\"\"\"): Dataset[String] = {\n    documents.flatMap(doc => doc.split(separatorsRegexp))\n        .map(word => word.toLowerCase)\n        .filter(word => !word.isEmpty)\n}",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:46:01+0000",
+         "config": {
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false,
+               "completionKey": "TAB",
+               "completionSupport": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "fontSize": 9,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607431176_128945611",
+         "id": "20180713-162106_300537953",
+         "dateCreated": "2018-09-10T19:23:51+0000",
+         "dateStarted": "2018-09-10T19:46:02+0000",
+         "dateFinished": "2018-09-10T19:46:04+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:908"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:48:08+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536608057156_-644678803",
+         "id": "20180910-193417_1558424469",
+         "dateCreated": "2018-09-10T19:34:17+0000",
+         "dateStarted": "2018-09-10T19:48:08+0000",
+         "dateFinished": "2018-09-10T19:48:08+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:909"
+      },
+      {
+         "text": "%pyspark\nfrom pyspark.sql.functions import split, explode, col, lower\n\ndef to_words(documents, separators_regexp=r'\\s+'):\n    words = (documents\n        .select(explode(split(documents.value, separators_regexp)).alias('word'))\n        .select(lower(col('word')).alias('word'))\n        .filter(col('word') != ''))\n    return words",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:46:03+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536608062713_-149876393",
+         "id": "20180910-193422_1814967947",
+         "dateCreated": "2018-09-10T19:34:22+0000",
+         "dateStarted": "2018-09-10T19:46:03+0000",
+         "dateFinished": "2018-09-10T19:46:03+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:910"
+      },
+      {
+         "text": "%md \nGiven that we're mostly interested in words without punctuation in this example, we'll use a more specific regular expression. If you're curious about how it works, check this [post](https://stackoverflow.com/questions/30074109/removing-punctuation-marks-form-text-in-scala-spark).",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:48:13+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Given that we&rsquo;re mostly interested in words without punctuation in this example, we&rsquo;ll use a more specific regular expression. If you&rsquo;re curious about how it works, check this <a href=\"https://stackoverflow.com/questions/30074109/removing-punctuation-marks-form-text-in-scala-spark\">post</a>.</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607431177_128560862",
+         "id": "20180713-193952_1952995095",
+         "dateCreated": "2018-09-10T19:23:51+0000",
+         "dateStarted": "2018-09-10T19:48:13+0000",
+         "dateFinished": "2018-09-10T19:48:13+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:911"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:48:15+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536608175550_228083300",
+         "id": "20180910-193615_812001677",
+         "dateCreated": "2018-09-10T19:36:15+0000",
+         "dateStarted": "2018-09-10T19:48:15+0000",
+         "dateFinished": "2018-09-10T19:48:15+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:912"
+      },
+      {
+         "text": "val punctuationRegexp = \"\"\"[\\p{Punct}\\s]\"\"\"",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:46:03+0000",
+         "config": {
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false,
+               "completionKey": "TAB",
+               "completionSupport": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "fontSize": 9,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607431179_129330360",
+         "id": "20180713-194312_424075201",
+         "dateCreated": "2018-09-10T19:23:51+0000",
+         "dateStarted": "2018-09-10T19:46:03+0000",
+         "dateFinished": "2018-09-10T19:46:05+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:913"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:48:18+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536608186987_-1328226001",
+         "id": "20180910-193626_465632353",
+         "dateCreated": "2018-09-10T19:36:26+0000",
+         "dateStarted": "2018-09-10T19:48:18+0000",
+         "dateFinished": "2018-09-10T19:48:18+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:914"
+      },
+      {
+         "text": "%pyspark\npunctuation_regexp = r'\\W+'",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:46:04+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python"
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536608167936_1094755651",
+         "id": "20180910-193607_1020964863",
+         "dateCreated": "2018-09-10T19:36:07+0000",
+         "dateStarted": "2018-09-10T19:46:04+0000",
+         "dateFinished": "2018-09-10T19:46:04+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:915"
+      },
+      {
+         "text": "%md\nLet's verify that the function `toWords` produces the expected output (i.e. a set of words):",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:48:21+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Let&rsquo;s verify that the function <code>toWords</code> produces the expected output (i.e. a set of words):</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607431180_127406615",
+         "id": "20180713-192314_2145515679",
+         "dateCreated": "2018-09-10T19:23:51+0000",
+         "dateStarted": "2018-09-10T19:48:21+0000",
+         "dateFinished": "2018-09-10T19:48:21+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:916"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:48:23+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536608222122_-90058068",
+         "id": "20180910-193702_2002134575",
+         "dateCreated": "2018-09-10T19:37:02+0000",
+         "dateStarted": "2018-09-10T19:48:23+0000",
+         "dateFinished": "2018-09-10T19:48:23+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:917"
+      },
+      {
+         "text": "val words = toWords(documents, punctuationRegexp)\nwords.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:46:04+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false,
+               "completionKey": "TAB",
+               "completionSupport": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "fontSize": 9,
+            "editorHide": false,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607431180_127406615",
+         "id": "20180713-192337_1741363054",
+         "dateCreated": "2018-09-10T19:23:51+0000",
+         "dateStarted": "2018-09-10T19:46:05+0000",
+         "dateFinished": "2018-09-10T19:46:07+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:918"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:48:26+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536608235496_200842749",
+         "id": "20180910-193715_1105529782",
+         "dateCreated": "2018-09-10T19:37:15+0000",
+         "dateStarted": "2018-09-10T19:48:26+0000",
+         "dateFinished": "2018-09-10T19:48:26+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:919"
+      },
+      {
+         "text": "%pyspark\nwords = to_words(documents, punctuation_regexp)\nwords.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:46:05+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python"
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536608267683_-406428933",
+         "id": "20180910-193747_926360830",
+         "dateCreated": "2018-09-10T19:37:47+0000",
+         "dateStarted": "2018-09-10T19:46:05+0000",
+         "dateFinished": "2018-09-10T19:46:06+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:920"
+      },
+      {
+         "text": "%md\n### Incremental Development and Exploration\nThough it's convenient to have a reusable function, when we're developing code for the first time it's recommended to test the individual function calls in isolation. This to make sure the data is flowing as expected.\n\nLet's go ahead and try a couple of those functions in isolation:",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:48:28+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h3>Incremental Development and Exploration</h3>\n<p>Though it&rsquo;s convenient to have a reusable function, when we&rsquo;re developing code for the first time it&rsquo;s recommended to test the individual function calls in isolation. This to make sure the data is flowing as expected.</p>\n<p>Let&rsquo;s go ahead and try a couple of those functions in isolation:</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607431181_127021866",
+         "id": "20180713-190730_1897522264",
+         "dateCreated": "2018-09-10T19:23:51+0000",
+         "dateStarted": "2018-09-10T19:48:28+0000",
+         "dateFinished": "2018-09-10T19:48:28+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:921"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:48:31+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536608321965_1791164839",
+         "id": "20180910-193841_1989010542",
+         "dateCreated": "2018-09-10T19:38:41+0000",
+         "dateStarted": "2018-09-10T19:48:31+0000",
+         "dateFinished": "2018-09-10T19:48:31+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:922"
+      },
+      {
+         "text": "val lowercasedDocs = documents.map(doc => doc.toLowerCase)\nlowercasedDocs.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:46:06+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false,
+               "completionKey": "TAB",
+               "completionSupport": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "fontSize": 9,
+            "editorHide": false,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607431182_128176113",
+         "id": "20180713-191055_175413413",
+         "dateCreated": "2018-09-10T19:23:51+0000",
+         "dateStarted": "2018-09-10T19:46:06+0000",
+         "dateFinished": "2018-09-10T19:46:10+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:923"
+      },
+      {
+         "text": "val filteredWords = (documents\n    .flatMap(doc => doc.split(punctuationRegexp))\n    .filter(word => word.size > 0 && word.size < 5))\n\nfilteredWords.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:46:06+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false,
+               "completionKey": "TAB",
+               "completionSupport": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "fontSize": 9,
+            "editorHide": false,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607431182_128176113",
+         "id": "20180713-191334_296049631",
+         "dateCreated": "2018-09-10T19:23:51+0000",
+         "dateStarted": "2018-09-10T19:46:08+0000",
+         "dateFinished": "2018-09-10T19:46:13+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:924"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:48:34+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536608346436_867413379",
+         "id": "20180910-193906_1003154682",
+         "dateCreated": "2018-09-10T19:39:06+0000",
+         "dateStarted": "2018-09-10T19:48:34+0000",
+         "dateFinished": "2018-09-10T19:48:34+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:925"
+      },
+      {
+         "text": "%pyspark\nlowercased_docs = documents.select(lower(col('value')).alias('value'))\nlowercased_docs.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:46:10+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python"
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536608374910_360930584",
+         "id": "20180910-193934_1706781134",
+         "dateCreated": "2018-09-10T19:39:34+0000",
+         "dateStarted": "2018-09-10T19:46:10+0000",
+         "dateFinished": "2018-09-10T19:46:11+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:926"
+      },
+      {
+         "text": "%pyspark\nfrom pyspark.sql.functions import length\n\nfiltered_words = (documents\n    .select(explode(split(documents.value, punctuation_regexp)).alias('word'))\n    .filter((length('word') > 0) & (length('word') < 5)))\n    \nfiltered_words.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:46:11+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python"
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536608398976_-1799788590",
+         "id": "20180910-193958_422895771",
+         "dateCreated": "2018-09-10T19:39:58+0000",
+         "dateStarted": "2018-09-10T19:46:11+0000",
+         "dateFinished": "2018-09-10T19:46:12+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:927"
+      },
+      {
+         "text": "%md\nTest and experiment with all sorts of expressions until you are comfortable with your understanding of how the data is transformed and flows from function to function.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:48:50+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Test and experiment with all sorts of expressions until you are comfortable with your understanding of how the data is transformed and flows from function to function.</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607431183_127791364",
+         "id": "20180713-191737_182562044",
+         "dateCreated": "2018-09-10T19:23:51+0000",
+         "dateStarted": "2018-09-10T19:48:50+0000",
+         "dateFinished": "2018-09-10T19:48:50+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:928"
+      },
+      {
+         "text": "%md\n## Counting Words\nLet's now move on to solving the problem we started with! With the `toWords` function in our hands, our `countWords` function should be pretty short:",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:48:52+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h2>Counting Words</h2>\n<p>Let&rsquo;s now move on to solving the problem we started with! With the <code>toWords</code> function in our hands, our <code>countWords</code> function should be pretty short:</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607431184_138179584",
+         "id": "20180713-192012_688996853",
+         "dateCreated": "2018-09-10T19:23:51+0000",
+         "dateStarted": "2018-09-10T19:48:52+0000",
+         "dateFinished": "2018-09-10T19:48:52+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:929"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:48:55+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536608466610_-1491837578",
+         "id": "20180910-194106_429995214",
+         "dateCreated": "2018-09-10T19:41:06+0000",
+         "dateStarted": "2018-09-10T19:48:55+0000",
+         "dateFinished": "2018-09-10T19:48:55+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:930"
+      },
+      {
+         "text": "def countWords(documents: Dataset[String], separatorsRegexp: String = \"\"\"\\s+\"\"\") : Dataset[(String, Long)] = {\n    val words = toWords(documents, separatorsRegexp)\n    val counts = words.groupByKey(identity).count()\n    counts\n}",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:46:08+0000",
+         "config": {
+            "tableHide": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false,
+               "completionKey": "TAB",
+               "completionSupport": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "fontSize": 9,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607431185_137794835",
+         "id": "20180713-165608_638775812",
+         "dateCreated": "2018-09-10T19:23:51+0000",
+         "dateStarted": "2018-09-10T19:46:11+0000",
+         "dateFinished": "2018-09-10T19:46:13+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:931"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:48:58+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536608511728_-1639303676",
+         "id": "20180910-194151_1036683887",
+         "dateCreated": "2018-09-10T19:41:51+0000",
+         "dateStarted": "2018-09-10T19:48:58+0000",
+         "dateFinished": "2018-09-10T19:48:58+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:932"
+      },
+      {
+         "text": "%pyspark\ndef count_words(documents, separators_regexp=r'\\s+'):\n    words = to_words(documents, separators_regexp)\n    counts = words.groupBy(\"word\").count()\n    return counts",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:46:13+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536608531834_-1828200062",
+         "id": "20180910-194211_665125713",
+         "dateCreated": "2018-09-10T19:42:11+0000",
+         "dateStarted": "2018-09-10T19:46:13+0000",
+         "dateFinished": "2018-09-10T19:46:13+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:933"
+      },
+      {
+         "text": "%md\nNow, test the `countWords` function (for additional information on the  `groupByKey` and `count` functions, refer to the slides [`C1 - Data Engineering Academy`](https://docs.google.com/presentation/d/1Ur0ZmcGrHVVEZz7fWJnaK6rKXyRRL6DJ8U4Nn1ZW4Gw/edit?usp=sharing)):",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-11T19:47:31+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Now, test the <code>countWords</code> function (for additional information on the <code>groupByKey</code> and <code>count</code> functions, refer to the slides <a href=\"https://docs.google.com/presentation/d/1Ur0ZmcGrHVVEZz7fWJnaK6rKXyRRL6DJ8U4Nn1ZW4Gw/edit?usp=sharing\"><code>C1 - Data Engineering Academy</code></a>):</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607431185_137794835",
+         "id": "20180713-192508_1130563054",
+         "dateCreated": "2018-09-10T19:23:51+0000",
+         "dateStarted": "2018-09-11T19:47:31+0000",
+         "dateFinished": "2018-09-11T19:47:31+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:934"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:49:03+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536608556660_1306395199",
+         "id": "20180910-194236_2141311284",
+         "dateCreated": "2018-09-10T19:42:36+0000",
+         "dateStarted": "2018-09-10T19:49:03+0000",
+         "dateFinished": "2018-09-10T19:49:03+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:935"
+      },
+      {
+         "text": "val counts = countWords(words, punctuationRegexp)\ncounts.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:46:10+0000",
+         "config": {
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false,
+               "completionKey": "TAB",
+               "completionSupport": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "fontSize": 9,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607431186_138949082",
+         "id": "20180713-165720_1184054894",
+         "dateCreated": "2018-09-10T19:23:51+0000",
+         "dateStarted": "2018-09-10T19:46:13+0000",
+         "dateFinished": "2018-09-10T19:46:18+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:936"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:49:07+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536608643870_-1484818509",
+         "id": "20180910-194403_1720153626",
+         "dateCreated": "2018-09-10T19:44:03+0000",
+         "dateStarted": "2018-09-10T19:49:07+0000",
+         "dateFinished": "2018-09-10T19:49:07+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:937"
+      },
+      {
+         "text": "%pyspark\ncounts = count_words(documents, punctuation_regexp)\ncounts.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:46:14+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python"
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536608691660_111581299",
+         "id": "20180910-194451_575097564",
+         "dateCreated": "2018-09-10T19:44:51+0000",
+         "dateStarted": "2018-09-10T19:46:14+0000",
+         "dateFinished": "2018-09-10T19:46:17+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:938"
+      },
+      {
+         "text": "%md It works! Yay!",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T19:49:10+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true,
+               "completionKey": "TAB",
+               "completionSupport": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "fontSize": 9,
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>It works! Yay!</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607431187_138564333",
+         "id": "20180713-194553_145958858",
+         "dateCreated": "2018-09-10T19:23:51+0000",
+         "dateStarted": "2018-09-10T19:49:10+0000",
+         "dateFinished": "2018-09-10T19:49:10+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:939"
+      },
+      {
+         "text": "%md\n## Exercises\n\nUsing the same dataset as in the example:\n\n1. `Count Characters`: **Can you count the number of characters in the set of documents?**\n2. `Longest Words`: **Can you find the top 10 longest words and how many of each there are in the dataset?**\n3. `Anagram Sets`: **Can you find all anagram sets with at least two words?** \n\nRemember that _two words are anagrams of each if they contain the same number of occurrences of each letter_. \n\nConsider the set of documents: `documents = [\"car art\", \"rat arc\"]`. In this case, there are two such sets: `[\"rat\", \"art\"]` and `[\"car\", \"arc\"]` because they contain at least two elements.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T20:25:51+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h2>Exercises</h2>\n<p>Using the same dataset as in the example:</p>\n<ol>\n  <li><code>Count Characters</code>: <strong>Can you count the number of characters in the set of documents?</strong></li>\n  <li><code>Longest Words</code>: <strong>Can you find the top 10 longest words and how many of each there are in the dataset?</strong></li>\n  <li><code>Anagram Sets</code>: <strong>Can you find all anagram sets with at least two words?</strong></li>\n</ol>\n<p>Remember that <em>two words are anagrams of each if they contain the same number of occurrences of each letter</em>. </p>\n<p>Consider the set of documents: <code>documents = [&quot;car art&quot;, &quot;rat arc&quot;]</code>. In this case, there are two such sets: <code>[&quot;rat&quot;, &quot;art&quot;]</code> and <code>[&quot;car&quot;, &quot;arc&quot;]</code> because they contain at least two elements.</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536607431187_138564333",
+         "id": "20180813-202233_328414315",
+         "dateCreated": "2018-09-10T19:23:51+0000",
+         "dateStarted": "2018-09-10T20:25:51+0000",
+         "dateFinished": "2018-09-10T20:25:51+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:940"
+      },
+      {
+         "text": "%md\n",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-10T20:15:39+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536610539738_1314293204",
+         "id": "20180910-201539_366390777",
+         "dateCreated": "2018-09-10T20:15:39+0000",
+         "status": "READY",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:941"
+      }
+   ],
+   "name": "c1-examples-exercises",
+   "id": "2DQJAUVDQ",
+   "angularObjects": {
+      "2DQ9EDMWJ:shared_process": [],
+      "2DRNBQQAQ:shared_process": [],
+      "2DS86GKDE:shared_process": [],
+      "2DRFJKZS4:shared_process": [],
+      "2DS5V8M44:shared_process": [],
+      "2DP73WA8E:shared_process": [],
+      "2DRKA6B15:shared_process": [],
+      "2DP9F3RJD:shared_process": [],
+      "2DRXXJ6SB:shared_process": [],
+      "2DRDPZV2W:shared_process": [],
+      "2DQ7XQ6PM:shared_process": [],
+      "2DSMJR9YW:shared_process": [],
+      "2DQUCR39Z:shared_process": [],
+      "2DS3DWX2D:shared_process": [],
+      "2DSYPPZAP:shared_process": [],
+      "2DSM8AVPF:shared_process": [],
+      "2DPXRW1XQ:shared_process": [],
+      "2DR32RZ8C:shared_process": []
+   },
+   "config": {
+      "looknfeel": "default",
+      "personalizedMode": "false"
+   },
+   "info": {}
+}
