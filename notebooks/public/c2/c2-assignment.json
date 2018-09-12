@@ -1,0 +1,1396 @@
+{
+   "paragraphs": [
+      {
+         "text": "%md\n# Iterations and matrix multiplication\n\nWelcome to the notebook with the assignment for the second session. You\u2019re well on your way to obtain the Wizeline Certification for Big Data Engineering with Spark!\n\nIf you have any feedback about our courses, email us at academy@wizeline.com or use the Academy Slack channel.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:35:47+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774355262_-473333580",
+         "id": "20180815-184319_767984790",
+         "dateCreated": "2018-09-12T17:45:55+0000",
+         "dateStarted": "2018-09-12T20:35:47+0000",
+         "dateFinished": "2018-09-12T20:35:47+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:35269",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h1>Iterations and matrix multiplication</h1>\n<p>Welcome to the notebook with the assignment for the second session. You\u2019re well on your way to obtain the Wizeline Certification for Big Data Engineering with Spark!</p>\n<p>If you have any feedback about our courses, email us at <a href=\"mailto:a&#99;&#x61;&#x64;&#101;&#x6d;y@&#119;i&#x7a;&#101;&#x6c;&#x69;&#x6e;e&#46;c&#x6f;&#x6d;\">a&#99;&#x61;&#x64;&#101;&#x6d;y@&#119;i&#x7a;&#101;&#x6c;&#x69;&#x6e;e&#46;c&#x6f;&#x6d;</a> or use the Academy Slack channel.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n## Matrix Multiplication Assignment\n\nIn this assignment, you will be implementing a matrix multiplication on a larger dataset than the one you\u2019ve used so far. \n\nYou will be challenged to work with two datasets, transform them into `CoordinateMatrix` objects, and ultimately convert each to a `BlockMatrix`.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:35:50+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774355264_-487954039",
+         "id": "20180816-044039_285868597",
+         "dateCreated": "2018-09-12T17:45:55+0000",
+         "dateStarted": "2018-09-12T20:35:50+0000",
+         "dateFinished": "2018-09-12T20:35:50+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35270",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h2>Matrix Multiplication Assignment</h2>\n<p>In this assignment, you will be implementing a matrix multiplication on a larger dataset than the one you\u2019ve used so far. </p>\n<p>You will be challenged to work with two datasets, transform them into <code>CoordinateMatrix</code> objects, and ultimately convert each to a <code>BlockMatrix</code>.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n**File Format**:\n\n+ Each line in the text file is a row in the matrix. \n+ They are comma-separated values. \n+ The first value is the row index starting at zero; the remaining values are the matrix values for that row.\n\nFirst, import the libraries to use during the session with the following command:",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:35:52+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774355264_-487954039",
+         "id": "20180816-050807_2103207409",
+         "dateCreated": "2018-09-12T17:45:55+0000",
+         "dateStarted": "2018-09-12T20:35:52+0000",
+         "dateFinished": "2018-09-12T20:35:52+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35271",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p><strong>File Format</strong>:</p>\n<ul>\n  <li>Each line in the text file is a row in the matrix.</li>\n  <li>They are comma-separated values.</li>\n  <li>The first value is the row index starting at zero; the remaining values are the matrix values for that row.</li>\n</ul>\n<p>First, import the libraries to use during the session with the following command:</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:35:55+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774492552_-1027589824",
+         "id": "20180912-174812_373351691",
+         "dateCreated": "2018-09-12T17:48:12+0000",
+         "dateStarted": "2018-09-12T20:35:55+0000",
+         "dateFinished": "2018-09-12T20:35:55+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35272",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "import org.apache.spark.sql.Dataset\nimport org.apache.spark.mllib.linalg.distributed.{BlockMatrix, CoordinateMatrix, MatrixEntry}",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T17:48:08+0000",
+         "config": {
+            "tableHide": true,
+            "editorSetting": {
+               "language": "scala"
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "editorHide": false,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774355265_-488338787",
+         "id": "20180816-051038_545285622",
+         "dateCreated": "2018-09-12T17:45:55+0000",
+         "dateStarted": "2018-09-12T17:48:08+0000",
+         "dateFinished": "2018-09-12T17:48:08+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35273"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:35:59+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774532680_2026824425",
+         "id": "20180912-174852_2088222499",
+         "dateCreated": "2018-09-12T17:48:52+0000",
+         "dateStarted": "2018-09-12T20:35:59+0000",
+         "dateFinished": "2018-09-12T20:35:59+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35274",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\nfrom pyspark.sql.functions import array, posexplode\nfrom pyspark.mllib.linalg.distributed import CoordinateMatrix, BlockMatrix",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T17:49:14+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python"
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774547310_-684485750",
+         "id": "20180912-174907_554714232",
+         "dateCreated": "2018-09-12T17:49:07+0000",
+         "dateStarted": "2018-09-12T17:49:14+0000",
+         "dateFinished": "2018-09-12T17:49:14+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35275"
+      },
+      {
+         "text": "%md\nNext, use the function `spark.read.csv` to read the two matrices (`matrix1.txt` and `matrix2.txt`) on the bucket URI: \n`gs://de-training-input/matrices/`\n\nBecause there are two matrices, make a read call for each and store them in separate variables `m1s` and `m2s`. \n\nThe `spark.read.csv` function already takes into account the commas, so there is no need to split the values manually while reading the files. The resulting objects are `DataFrames`.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:36:01+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774355266_-487184541",
+         "id": "20180816-051039_1898536718",
+         "dateCreated": "2018-09-12T17:45:55+0000",
+         "dateStarted": "2018-09-12T20:36:02+0000",
+         "dateFinished": "2018-09-12T20:36:02+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35276",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Next, use the function <code>spark.read.csv</code> to read the two matrices (<code>matrix1.txt</code> and <code>matrix2.txt</code>) on the bucket URI:<br/><code>gs://de-training-input/matrices/</code></p>\n<p>Because there are two matrices, make a read call for each and store them in separate variables <code>m1s</code> and <code>m2s</code>. </p>\n<p>The <code>spark.read.csv</code> function already takes into account the commas, so there is no need to split the values manually while reading the files. The resulting objects are <code>DataFrames</code>.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:36:04+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774667597_-1364216108",
+         "id": "20180912-175107_434540268",
+         "dateCreated": "2018-09-12T17:51:07+0000",
+         "dateStarted": "2018-09-12T20:36:04+0000",
+         "dateFinished": "2018-09-12T20:36:04+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35277",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "// Your code goes here ...\nval m1 = spark.read.format(\"csv\")\n    .option(\"inferSchema\", \"true\")\n    .load(\"gs://de-training-input/matrices/matrix1.txt\")\nm1.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:20:37+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774355266_-487184541",
+         "id": "20180816-070420_1766932377",
+         "dateCreated": "2018-09-12T17:45:55+0000",
+         "dateStarted": "2018-09-12T20:20:37+0000",
+         "dateFinished": "2018-09-12T20:20:45+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35278"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:36:07+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774682172_-142607702",
+         "id": "20180912-175122_1761276494",
+         "dateCreated": "2018-09-12T17:51:22+0000",
+         "dateStarted": "2018-09-12T20:36:07+0000",
+         "dateFinished": "2018-09-12T20:36:07+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35279",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\n# Your code goes here ...\npass",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T19:06:52+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python"
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536779198513_1054333265",
+         "id": "20180912-190638_1973223261",
+         "dateCreated": "2018-09-12T19:06:38+0000",
+         "dateStarted": "2018-09-12T19:06:52+0000",
+         "dateFinished": "2018-09-12T19:06:52+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35280"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:36:10+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536779340451_1722473539",
+         "id": "20180912-190900_563666375",
+         "dateCreated": "2018-09-12T19:09:00+0000",
+         "dateStarted": "2018-09-12T20:36:10+0000",
+         "dateFinished": "2018-09-12T20:36:10+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35281",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\nNow that we have loaded the data into Spark, we need to transform them into a collection of `MatrixEntry` instances. \n\nThere is no single way to accomplish this. We encourage to do some web research and find a way that is simple and understandable for you.\n\nNotice that you may need to \"cross\" to the world of `RDD`s in order to achieve the transformation.\n\nBe sure to store the resulting `Dataset` of `MatrixEntry` objects in variables `entries1` and `entries2` (we'll use them later on)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:36:12+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774355267_-487569290",
+         "id": "20180816-203508_664801339",
+         "dateCreated": "2018-09-12T17:45:55+0000",
+         "dateStarted": "2018-09-12T20:36:12+0000",
+         "dateFinished": "2018-09-12T20:36:12+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35282",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Now that we have loaded the data into Spark, we need to transform them into a collection of <code>MatrixEntry</code> instances. </p>\n<p>There is no single way to accomplish this. We encourage to do some web research and find a way that is simple and understandable for you.</p>\n<p>Notice that you may need to &ldquo;cross&rdquo; to the world of <code>RDD</code>s in order to achieve the transformation.</p>\n<p>Be sure to store the resulting <code>Dataset</code> of <code>MatrixEntry</code> objects in variables <code>entries1</code> and <code>entries2</code> (we&rsquo;ll use them later on)</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "// Your code goes here ...",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:32:28+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "scala"
+            },
+            "editorMode": "ace/mode/scala"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536779454951_-1836905290",
+         "id": "20180912-191054_566409356",
+         "dateCreated": "2018-09-12T19:10:54+0000",
+         "dateStarted": "2018-09-12T20:32:28+0000",
+         "dateFinished": "2018-09-12T20:32:28+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35283"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:36:16+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536775114344_460739871",
+         "id": "20180912-175834_2032916129",
+         "dateCreated": "2018-09-12T17:58:34+0000",
+         "dateStarted": "2018-09-12T20:36:16+0000",
+         "dateFinished": "2018-09-12T20:36:16+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35284",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "// Your code goes here ...",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T17:57:32+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774355267_-487569290",
+         "id": "20180816-070426_2002522120",
+         "dateCreated": "2018-09-12T17:45:55+0000",
+         "dateStarted": "2018-09-12T17:57:32+0000",
+         "dateFinished": "2018-09-12T17:57:32+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35285"
+      },
+      {
+         "text": "%md\nNow that we have converted all of our lines into `MatrixEntry` objects (or `tuple`s in Python) we need to put them all inside a `BlockMatrix`. \n\nDefine a function called `createBlockMatrix` that receives one of the previous objects and uses a `CoordinateMatrix` to output a `BlockMatrix`.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:36:19+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774355268_-489493034",
+         "id": "20180816-052746_2109723812",
+         "dateCreated": "2018-09-12T17:45:55+0000",
+         "dateStarted": "2018-09-12T20:36:19+0000",
+         "dateFinished": "2018-09-12T20:36:20+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35286",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Now that we have converted all of our lines into <code>MatrixEntry</code> objects (or <code>tuple</code>s in Python) we need to put them all inside a <code>BlockMatrix</code>. </p>\n<p>Define a function called <code>createBlockMatrix</code> that receives one of the previous objects and uses a <code>CoordinateMatrix</code> to output a <code>BlockMatrix</code>.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:36:21+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536779503773_-442297796",
+         "id": "20180912-191143_1249646987",
+         "dateCreated": "2018-09-12T19:11:43+0000",
+         "dateStarted": "2018-09-12T20:36:21+0000",
+         "dateFinished": "2018-09-12T20:36:22+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35287",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "// Your code goes here ...",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T19:13:55+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774355268_-489493034",
+         "id": "20180816-051640_149771352",
+         "dateCreated": "2018-09-12T17:45:55+0000",
+         "dateStarted": "2018-09-12T19:13:55+0000",
+         "dateFinished": "2018-09-12T19:13:55+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35288"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:36:24+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536779519135_662731693",
+         "id": "20180912-191159_743844057",
+         "dateCreated": "2018-09-12T19:11:59+0000",
+         "dateStarted": "2018-09-12T20:36:24+0000",
+         "dateFinished": "2018-09-12T20:36:24+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35289",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n# Your code goes here ...\npass",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:34:37+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536784467899_-501270600",
+         "id": "20180912-203427_1201888832",
+         "dateCreated": "2018-09-12T20:34:27+0000",
+         "dateStarted": "2018-09-12T20:34:37+0000",
+         "dateFinished": "2018-09-12T20:34:37+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35290"
+      },
+      {
+         "text": "%md\nNow, we convert each dataset into a `BlockMatrix`:",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:36:27+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774355269_-489877783",
+         "id": "20180816-051434_624669525",
+         "dateCreated": "2018-09-12T17:45:55+0000",
+         "dateStarted": "2018-09-12T20:36:27+0000",
+         "dateFinished": "2018-09-12T20:36:27+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35291",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Now, we convert each dataset into a <code>BlockMatrix</code>:</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:36:30+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536779578766_-154582240",
+         "id": "20180912-191258_1730191807",
+         "dateCreated": "2018-09-12T19:12:58+0000",
+         "dateStarted": "2018-09-12T20:36:30+0000",
+         "dateFinished": "2018-09-12T20:36:30+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35292",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val matrix1 = createBlockMatrix(entries1)\nval matrix2 = createBlockMatrix(entries2)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T19:14:11+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774355269_-489877783",
+         "id": "20180816-053544_199438445",
+         "dateCreated": "2018-09-12T17:45:55+0000",
+         "dateStarted": "2018-09-12T19:14:11+0000",
+         "dateFinished": "2018-09-12T19:14:11+0000",
+         "status": "ERROR",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35293"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:36:32+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536779698817_1345705319",
+         "id": "20180912-191458_610975735",
+         "dateCreated": "2018-09-12T19:14:58+0000",
+         "dateStarted": "2018-09-12T20:36:32+0000",
+         "dateFinished": "2018-09-12T20:36:32+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35294",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\nmatrix1 = create_block_matrix(entries1)\nmatrix2 = create_block_matrix(entries2)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T19:15:26+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536779705690_-753500004",
+         "id": "20180912-191505_674775715",
+         "dateCreated": "2018-09-12T19:15:05+0000",
+         "dateStarted": "2018-09-12T19:15:26+0000",
+         "dateFinished": "2018-09-12T19:15:26+0000",
+         "status": "ERROR",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35295"
+      },
+      {
+         "text": "%md\nFinally, to perform the optimized multiplication use the `multiply` method of the `BlockMatrix` on the `matrix1` and `matrix2` matrices. Store the result in a variable.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:36:35+0000",
+         "config": {
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774355270_-488723536",
+         "id": "20180816-053542_76914317",
+         "dateCreated": "2018-09-12T17:45:55+0000",
+         "dateStarted": "2018-09-12T20:36:35+0000",
+         "dateFinished": "2018-09-12T20:36:35+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35296",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Finally, to perform the optimized multiplication use the <code>multiply</code> method of the <code>BlockMatrix</code> on the <code>matrix1</code> and <code>matrix2</code> matrices. Store the result in a variable.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:36:38+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536780289597_481033334",
+         "id": "20180912-192449_976763031",
+         "dateCreated": "2018-09-12T19:24:49+0000",
+         "dateStarted": "2018-09-12T20:36:38+0000",
+         "dateFinished": "2018-09-12T20:36:38+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35297",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "// Your code goes here ...",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T19:14:55+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774355270_-488723536",
+         "id": "20180816-054044_1121238451",
+         "dateCreated": "2018-09-12T17:45:55+0000",
+         "dateStarted": "2018-09-12T19:14:55+0000",
+         "dateFinished": "2018-09-12T19:14:55+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35298"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:36:41+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536780301347_-898676222",
+         "id": "20180912-192501_1286949227",
+         "dateCreated": "2018-09-12T19:25:01+0000",
+         "dateStarted": "2018-09-12T20:36:41+0000",
+         "dateFinished": "2018-09-12T20:36:41+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35299",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\n# Your code goes here ...\npass",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T19:25:21+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536780312737_254062131",
+         "id": "20180912-192512_761521978",
+         "dateCreated": "2018-09-12T19:25:12+0000",
+         "dateStarted": "2018-09-12T19:25:21+0000",
+         "dateFinished": "2018-09-12T19:25:21+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35300"
+      },
+      {
+         "text": "%md\nOnce the computation is over, save the results to your output bucket. To do so, you need to transform the `result` object into a `CoordinateMatrix`, then point to its `entries` attribute, using the `saveAsTextFile` method. \n\nBe sure to follow the format defined in the \"General Assignment Instructions\" document (see your \"Survival Kit\"). Also, make sure to replace `<user-name>` with your personal username ID.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:38:15+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774355271_-489108285",
+         "id": "20180816-051040_524958004",
+         "dateCreated": "2018-09-12T17:45:55+0000",
+         "dateStarted": "2018-09-12T20:38:15+0000",
+         "dateFinished": "2018-09-12T20:38:15+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35301",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Once the computation is over, save the results to your output bucket. To do so, you need to transform the <code>result</code> object into a <code>CoordinateMatrix</code>, then point to its <code>entries</code> attribute, using the <code>saveAsTextFile</code> method. </p>\n<p>Be sure to follow the format defined in the &ldquo;General Assignment Instructions&rdquo; document (see your &ldquo;Survival Kit&rdquo;). Also, make sure to replace <code>&lt;user-name&gt;</code> with your personal username ID.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n**Note:** You will need to convert the `BlockMatrix` back to `CoordinateMatrix` for writing purposes.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:36:47+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774355272_-491032030",
+         "id": "20180816-055549_596649276",
+         "dateCreated": "2018-09-12T17:45:55+0000",
+         "dateStarted": "2018-09-12T20:36:47+0000",
+         "dateFinished": "2018-09-12T20:36:47+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35302",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p><strong>Note:</strong> You will need to convert the <code>BlockMatrix</code> back to <code>CoordinateMatrix</code> for writing purposes.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:36:49+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "results": {},
+            "enabled": true,
+            "editorHide": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774355272_-491032030",
+         "id": "20180816-055550_1811176051",
+         "dateCreated": "2018-09-12T17:45:55+0000",
+         "dateStarted": "2018-09-12T20:36:49+0000",
+         "dateFinished": "2018-09-12T20:36:49+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35303",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "// Your code goes here ...",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:36:52+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "scala"
+            },
+            "editorMode": "ace/mode/scala"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536781650590_1392650142",
+         "id": "20180912-194730_1462850480",
+         "dateCreated": "2018-09-12T19:47:30+0000",
+         "dateStarted": "2018-09-12T20:36:52+0000",
+         "dateFinished": "2018-09-12T20:36:52+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35304",
+         "results": {
+            "code": "SUCCESS",
+            "msg": []
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T20:36:55+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536781658463_-1537982230",
+         "id": "20180912-194738_1632517754",
+         "dateCreated": "2018-09-12T19:47:38+0000",
+         "dateStarted": "2018-09-12T20:36:55+0000",
+         "dateFinished": "2018-09-12T20:36:55+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35305",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n# Your code goes here ...\npass",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-12T19:51:18+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536781707162_-277468213",
+         "id": "20180912-194827_368743553",
+         "dateCreated": "2018-09-12T19:48:27+0000",
+         "dateStarted": "2018-09-12T19:51:18+0000",
+         "dateFinished": "2018-09-12T19:51:18+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35306"
+      },
+      {
+         "text": "%md\n",
+         "dateUpdated": "2018-09-12T17:45:55+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536774355273_-491416779",
+         "id": "20180816-204005_1297364994",
+         "dateCreated": "2018-09-12T17:45:55+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35307"
+      }
+   ],
+   "name": "c2-assignment",
+   "id": "2DQ41AAXH",
+   "angularObjects": {
+      "2DQ9EDMWJ:shared_process": [],
+      "2DRNBQQAQ:shared_process": [],
+      "2DS86GKDE:shared_process": [],
+      "2DRFJKZS4:shared_process": [],
+      "2DS5V8M44:shared_process": [],
+      "2DP73WA8E:shared_process": [],
+      "2DRKA6B15:shared_process": [],
+      "2DP9F3RJD:shared_process": [],
+      "2DRXXJ6SB:shared_process": [],
+      "2DRDPZV2W:shared_process": [],
+      "2DQ7XQ6PM:shared_process": [],
+      "2DSMJR9YW:shared_process": [],
+      "2DQUCR39Z:shared_process": [],
+      "2DS3DWX2D:shared_process": [],
+      "2DSYPPZAP:shared_process": [],
+      "2DSM8AVPF:shared_process": [],
+      "2DPXRW1XQ:shared_process": [],
+      "2DR32RZ8C:shared_process": []
+   },
+   "config": {
+      "looknfeel": "default",
+      "personalizedMode": "false"
+   },
+   "info": {}
+}
