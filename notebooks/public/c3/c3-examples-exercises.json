@@ -1,0 +1,1841 @@
+{
+   "paragraphs": [
+      {
+         "text": "%md\n# Matrix multiplication and caching\n\nWelcome to the notebook with the asasignment for the third session. You\u2019re well on your way to obtain the Wizeline Certification for Big Data Engineering with Spark!\n\nIf you have any feedback about our courses, email us at academy@wizeline.com or use the Academy Slack channel.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:04:48+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536784980866_1810977224",
+         "id": "20180815-184319_767984790",
+         "dateCreated": "2018-09-12T20:43:00+0000",
+         "dateStarted": "2018-09-13T16:04:48+0000",
+         "dateFinished": "2018-09-13T16:04:48+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:4800",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h1>Matrix multiplication and caching</h1>\n<p>Welcome to the notebook with the asasignment for the third session. You\u2019re well on your way to obtain the Wizeline Certification for Big Data Engineering with Spark!</p>\n<p>If you have any feedback about our courses, email us at <a href=\"mailto:&#97;c&#97;&#x64;&#x65;&#x6d;&#x79;&#64;&#x77;&#x69;z&#101;&#x6c;&#105;n&#101;&#46;&#99;o&#109;\">&#97;c&#97;&#x64;&#x65;&#x6d;&#x79;&#64;&#x77;&#x69;z&#101;&#x6c;&#105;n&#101;&#46;&#99;o&#109;</a> or use the Academy Slack channel.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n## Example: Big Matrix Multiplication\n\nIn this example, you will be able to compare matrix multiplication with and without caching on a larger dataset than the ones you have used so far.\n\nYou will be challenged to work with one big dataset, and as in the previous session you will transform it into a `CoordinateMatrix` object, convert it to a `BlockMatrix`, and calculate a polynomial with that matrix.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:04:50+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536784980866_1810977224",
+         "id": "20180816-044039_285868597",
+         "dateCreated": "2018-09-12T20:43:00+0000",
+         "dateStarted": "2018-09-13T16:04:50+0000",
+         "dateFinished": "2018-09-13T16:04:50+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4801",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h2>Example: Big Matrix Multiplication</h2>\n<p>In this example, you will be able to compare matrix multiplication with and without caching on a larger dataset than the ones you have used so far.</p>\n<p>You will be challenged to work with one big dataset, and as in the previous session you will transform it into a <code>CoordinateMatrix</code> object, convert it to a <code>BlockMatrix</code>, and calculate a polynomial with that matrix.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\nThe file is formatted with the following characteristics:\n\n+ Each line in the text file is a row in the matrix. \n+ They are comma-separated values. \n+ The first value is the row index starting at one, the remaining values are the matrix values.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:04:53+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536784980867_1810592475",
+         "id": "20180816-050807_2103207409",
+         "dateCreated": "2018-09-12T20:43:00+0000",
+         "dateStarted": "2018-09-13T16:04:53+0000",
+         "dateFinished": "2018-09-13T16:04:53+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4802",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>The file is formatted with the following characteristics:</p>\n<ul>\n  <li>Each line in the text file is a row in the matrix.</li>\n  <li>They are comma-separated values.</li>\n  <li>The first value is the row index starting at one, the remaining values are the matrix values.</li>\n</ul>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n\nFirst, import the libraries to use during the session with the following command:",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:04:55+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536784980867_1810592475",
+         "id": "20180820-195656_1562598246",
+         "dateCreated": "2018-09-12T20:43:00+0000",
+         "dateStarted": "2018-09-13T16:04:55+0000",
+         "dateFinished": "2018-09-13T16:04:55+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4803",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>First, import the libraries to use during the session with the following command:</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:04:57+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536785404338_1635528436",
+         "id": "20180912-205004_981743385",
+         "dateCreated": "2018-09-12T20:50:04+0000",
+         "dateStarted": "2018-09-13T16:04:57+0000",
+         "dateFinished": "2018-09-13T16:04:57+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4804",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "import org.apache.spark.sql.Dataset\nimport org.apache.spark.mllib.linalg.distributed.{BlockMatrix, CoordinateMatrix, MatrixEntry}",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T15:42:55+0000",
+         "config": {
+            "tableHide": true,
+            "editorSetting": {
+               "language": "scala"
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "editorHide": false,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536784980873_1806744986",
+         "id": "20180816-051038_545285622",
+         "dateCreated": "2018-09-12T20:43:00+0000",
+         "dateStarted": "2018-09-13T15:42:56+0000",
+         "dateFinished": "2018-09-13T15:43:32+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4805"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:05:00+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536785425185_-1059606961",
+         "id": "20180912-205025_1037095651",
+         "dateCreated": "2018-09-12T20:50:25+0000",
+         "dateStarted": "2018-09-13T16:05:00+0000",
+         "dateFinished": "2018-09-13T16:05:00+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4806",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark \n\nfrom pyspark.mllib.linalg.distributed import CoordinateMatrix, BlockMatrix",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T15:43:58+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            },
+            "editorMode": "ace/mode/python",
+            "editorHide": false,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536785441974_986133589",
+         "id": "20180912-205041_523551470",
+         "dateCreated": "2018-09-12T20:50:41+0000",
+         "dateStarted": "2018-09-13T15:43:58+0000",
+         "dateFinished": "2018-09-13T15:44:00+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4807"
+      },
+      {
+         "text": "%md\nNext use `spark.read.csv` to read the big matrix on the bucket URI: `gs://de-training-input/matrices/matrixbig1a/*.csv.gz`",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:05:02+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536784980873_1806744986",
+         "id": "20180816-051039_1898536718",
+         "dateCreated": "2018-09-12T20:43:00+0000",
+         "dateStarted": "2018-09-13T16:05:02+0000",
+         "dateFinished": "2018-09-13T16:05:02+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4808",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Next use <code>spark.read.csv</code> to read the big matrix on the bucket URI: <code>gs://de-training-input/matrices/matrixbig1a/*.csv.gz</code></p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:05:05+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536785556348_2102860432",
+         "id": "20180912-205236_934756841",
+         "dateCreated": "2018-09-12T20:52:36+0000",
+         "dateStarted": "2018-09-13T16:05:05+0000",
+         "dateFinished": "2018-09-13T16:05:05+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4809",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val dataframe  = spark.read.format(\"csv\")\n    .option(\"inferSchema\", \"true\")\n    .load(\"gs://de-training-input/matrices/matrixbig1a/*.csv.gz\")\n    \nval matrixEntries = dataframe.map(row => MatrixEntry(row.getInt(0), row.getInt(1), row.getDouble(2)))\n\nmatrixEntries.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T15:44:04+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536784980874_1807899232",
+         "id": "20180816-070420_1766932377",
+         "dateCreated": "2018-09-12T20:43:00+0000",
+         "dateStarted": "2018-09-13T15:44:04+0000",
+         "dateFinished": "2018-09-13T15:44:31+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4810"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:05:09+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536785674714_110948623",
+         "id": "20180912-205434_1479981195",
+         "dateCreated": "2018-09-12T20:54:34+0000",
+         "dateStarted": "2018-09-13T16:05:09+0000",
+         "dateFinished": "2018-09-13T16:05:09+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4811",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\nfrom pyspark.sql.functions import col\n\ndataframe = spark.read.format(\"csv\") \\\n    .option(\"inferSchema\", \"true\") \\\n    .load(\"gs://de-training-input/matrices/matrixbig1a/*.csv.gz\")\n    \nmatrix_entries = dataframe.select(col('_c0').alias(\"i\"), col(\"_c1\").alias(\"j\"), col(\"_c2\").alias(\"value\"))\n\nmatrix_entries.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T15:44:55+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536785731001_1537120850",
+         "id": "20180912-205531_472777345",
+         "dateCreated": "2018-09-12T20:55:31+0000",
+         "dateStarted": "2018-09-13T15:44:55+0000",
+         "dateFinished": "2018-09-13T15:45:01+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4812"
+      },
+      {
+         "text": "%md\nNow that we have converted all of our lines into `MatrixEntry` objects (or `tuples` in Python) we need to put them all inside a `BlockMatrix`. \n\nDefine a function called `createBlockMatrix` that receives one of the previous objects and uses a `CoordinateMatrix` to output a `BlockMatrix`. When you're done, use it to create a `BlockMatrix` from the set of individual entries.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:05:11+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536784980874_1807899232",
+         "id": "20180816-052746_2109723812",
+         "dateCreated": "2018-09-12T20:43:00+0000",
+         "dateStarted": "2018-09-13T16:05:11+0000",
+         "dateFinished": "2018-09-13T16:05:11+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4813",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Now that we have converted all of our lines into <code>MatrixEntry</code> objects (or <code>tuples</code> in Python) we need to put them all inside a <code>BlockMatrix</code>. </p>\n<p>Define a function called <code>createBlockMatrix</code> that receives one of the previous objects and uses a <code>CoordinateMatrix</code> to output a <code>BlockMatrix</code>. When you&rsquo;re done, use it to create a <code>BlockMatrix</code> from the set of individual entries.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:05:13+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536786171560_-1139180464",
+         "id": "20180912-210251_259883411",
+         "dateCreated": "2018-09-12T21:02:51+0000",
+         "dateStarted": "2018-09-13T16:05:13+0000",
+         "dateFinished": "2018-09-13T16:05:13+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4814",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "def createBlockMatrix(MatrixEntries: Dataset[MatrixEntry]) = {\n    new CoordinateMatrix(MatrixEntries.rdd).toBlockMatrix()\n}",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T15:45:05+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536784980880_1816363708",
+         "id": "20180816-051640_149771352",
+         "dateCreated": "2018-09-12T20:43:00+0000",
+         "dateStarted": "2018-09-13T15:45:05+0000",
+         "dateFinished": "2018-09-13T15:45:06+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4815"
+      },
+      {
+         "text": "val blockMatrix = createBlockMatrix(matrixEntries)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T15:45:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536784980881_1815978959",
+         "id": "20180816-053544_199438445",
+         "dateCreated": "2018-09-12T20:43:00+0000",
+         "dateStarted": "2018-09-13T15:45:08+0000",
+         "dateFinished": "2018-09-13T15:45:14+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4816"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:05:19+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536786168911_1181457980",
+         "id": "20180912-210248_1331380195",
+         "dateCreated": "2018-09-12T21:02:48+0000",
+         "dateStarted": "2018-09-13T16:05:19+0000",
+         "dateFinished": "2018-09-13T16:05:19+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4817",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\ndef create_block_matrix(triplets):\n    return CoordinateMatrix(triplets.rdd.map(tuple)).toBlockMatrix()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T15:45:18+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python"
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536786197366_-789797814",
+         "id": "20180912-210317_6395463",
+         "dateCreated": "2018-09-12T21:03:17+0000",
+         "dateStarted": "2018-09-13T15:45:19+0000",
+         "dateFinished": "2018-09-13T15:45:19+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4818"
+      },
+      {
+         "text": "%pyspark\nblock_matrix = create_block_matrix(matrix_entries)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T15:45:21+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python"
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536786368145_1512248445",
+         "id": "20180912-210608_1060862510",
+         "dateCreated": "2018-09-12T21:06:08+0000",
+         "dateStarted": "2018-09-13T15:45:21+0000",
+         "dateFinished": "2018-09-13T15:45:51+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4819"
+      },
+      {
+         "text": "%md\nNow imagine that you have this polynomials where `x` is our big matrix and we need to save the result of each operation on a file\n\n$$ 3x^5 + 2x^2 + x $$",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:05:24+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536784980882_1817133206",
+         "id": "20180820-012707_1436435390",
+         "dateCreated": "2018-09-12T20:43:00+0000",
+         "dateStarted": "2018-09-13T16:05:24+0000",
+         "dateFinished": "2018-09-13T16:05:24+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4820",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Now imagine that you have this polynomials where <code>x</code> is our big matrix and we need to save the result of each operation on a file</p>\n<p>$$ 3x^5 + 2x^2 + x $$</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\nThe easiest way to solve this problem is to simply implement the multiplications and additions in the most straightforward way. However, this simple approach is likely to be very slow, since we're running the same computations (e.g. \\\\(x^2\\\\) more than once with quite a large matrix.\n\nWe can improve the computation by reusing some of the computation (e.g. by using \\\\(x^2\\\\) to compute \\\\(x^5\\\\))",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:05:27+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536784980884_1814824713",
+         "id": "20180816-051040_524958004",
+         "dateCreated": "2018-09-12T20:43:00+0000",
+         "dateStarted": "2018-09-13T16:05:27+0000",
+         "dateFinished": "2018-09-13T16:05:27+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4821",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>The easiest way to solve this problem is to simply implement the multiplications and additions in the most straightforward way. However, this simple approach is likely to be very slow, since we&rsquo;re running the same computations (e.g. \\(x^2\\) more than once with quite a large matrix.</p>\n<p>We can improve the computation by reusing some of the computation (e.g. by using \\(x^2\\) to compute \\(x^5\\))</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\nLet's begin by defining \\\\(x\\\\), \\\\(x^2\\\\), and \\\\(x^5\\\\):",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:05:30+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536784980884_1814824713",
+         "id": "20180820-200731_991980151",
+         "dateCreated": "2018-09-12T20:43:00+0000",
+         "dateStarted": "2018-09-13T16:05:30+0000",
+         "dateFinished": "2018-09-13T16:05:30+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4822",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Let&rsquo;s begin by defining \\(x\\), \\(x^2\\), and \\(x^5\\):</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:05:32+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536787013991_1830894389",
+         "id": "20180912-211653_1882957756",
+         "dateCreated": "2018-09-12T21:16:53+0000",
+         "dateStarted": "2018-09-13T16:05:32+0000",
+         "dateFinished": "2018-09-13T16:05:32+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4823",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val x = blockMatrix\nval x2 = x.multiply(x)\nval x5 = x2.multiply(x2).multiply(x)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T15:55:40+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "scala"
+            },
+            "editorMode": "ace/mode/scala",
+            "tableHide": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536786955278_-147743321",
+         "id": "20180912-211555_1813494334",
+         "dateCreated": "2018-09-12T21:15:55+0000",
+         "dateStarted": "2018-09-13T15:48:36+0000",
+         "dateFinished": "2018-09-13T15:49:33+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4824"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:05:35+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536790155779_-1999794831",
+         "id": "20180912-220915_1739678960",
+         "dateCreated": "2018-09-12T22:09:15+0000",
+         "dateStarted": "2018-09-13T16:05:35+0000",
+         "dateFinished": "2018-09-13T16:05:35+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4825",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\nx = block_matrix\nx2 = x.multiply(x)\nx5 = x2.multiply(x2).multiply(x)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T15:55:34+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/python",
+            "editorHide": false,
+            "tableHide": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536790170749_-1844509517",
+         "id": "20180912-220930_469996052",
+         "dateCreated": "2018-09-12T22:09:30+0000",
+         "dateStarted": "2018-09-13T15:50:14+0000",
+         "dateFinished": "2018-09-13T15:51:10+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4826"
+      },
+      {
+         "text": "%md\nAs a first test to see the performance, let's invoke an action and save \\\\(x^2\\\\) and \\\\(x^5\\\\):",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:05:38+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536784980889_1812900968",
+         "id": "20180820-200926_2048452326",
+         "dateCreated": "2018-09-12T20:43:00+0000",
+         "dateStarted": "2018-09-13T16:05:38+0000",
+         "dateFinished": "2018-09-13T16:05:38+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4827",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>As a first test to see the performance, let&rsquo;s invoke an action and save \\(x^2\\) and \\(x^5\\):</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:05:40+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536790232066_-820231325",
+         "id": "20180912-221032_2135898282",
+         "dateCreated": "2018-09-12T22:10:32+0000",
+         "dateStarted": "2018-09-13T16:05:40+0000",
+         "dateFinished": "2018-09-13T16:05:40+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4828",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val username = \"willebaldo\"\n\ndef saveMatrix(matrix: BlockMatrix, relativePath: String) = {\n    matrix.toCoordinateMatrix().entries.saveAsTextFile(s\"gs://de-training-output-$username/$relativePath\")\n}",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:05:42+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/scala",
+            "editorHide": true,
+            "tableHide": false,
+            "lineNumbers": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536791069835_-1895590297",
+         "id": "20180912-222429_997166367",
+         "dateCreated": "2018-09-12T22:24:29+0000",
+         "dateStarted": "2018-09-13T16:05:42+0000",
+         "dateFinished": "2018-09-13T16:05:43+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4829",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "TEXT",
+                  "data": "username: String = willebaldo\nsaveMatrix: (matrix: org.apache.spark.mllib.linalg.distributed.BlockMatrix, relativePath: String)Unit\n"
+               }
+            ]
+         }
+      },
+      {
+         "text": "saveMatrix(x2, \"exercises/c3/x2.txt\")\nsaveMatrix(x5, \"exercises/c3/x5.txt\")",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T15:51:53+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            },
+            "editorMode": "ace/mode/scala"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536787126986_-579402583",
+         "id": "20180912-211846_222983397",
+         "dateCreated": "2018-09-12T21:18:46+0000",
+         "dateStarted": "2018-09-13T15:51:53+0000",
+         "dateFinished": "2018-09-13T15:52:25+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4830"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:05:46+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536790253764_1127614439",
+         "id": "20180912-221053_769169556",
+         "dateCreated": "2018-09-12T22:10:53+0000",
+         "dateStarted": "2018-09-13T16:05:46+0000",
+         "dateFinished": "2018-09-13T16:05:46+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4831",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\nusername = \"willebaldo\"\n\ndef save_matrix(matrix, relative_path):\n    matrix.toCoordinateMatrix().entries.saveAsTextFile(\n    \"gs://de-training-output-{0}/{1}\".format(username, relative_path))",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T15:56:34+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536792078979_1678394787",
+         "id": "20180912-224118_1740095430",
+         "dateCreated": "2018-09-12T22:41:18+0000",
+         "dateStarted": "2018-09-13T15:56:34+0000",
+         "dateFinished": "2018-09-13T15:56:34+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4832"
+      },
+      {
+         "text": "%pyspark\n\nsave_matrix(x2, \"exercises/c3/x2.txt\")\nsave_matrix(x5, \"exercises/c3/x5.txt\")",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T15:56:38+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536790344202_-515324661",
+         "id": "20180912-221224_567706502",
+         "dateCreated": "2018-09-12T22:12:24+0000",
+         "dateStarted": "2018-09-13T15:56:38+0000",
+         "dateFinished": "2018-09-13T15:57:48+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4833"
+      },
+      {
+         "text": "%md\nLet's now compute the original polynomial expressions:\n\n**NOTE**: we redefine the `x`, `x2` and `x5` variables because we want to avoid being mislead in our performance measurements by Zeppelin's internal caching of variables across cells.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:05:50+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536784980890_1814055215",
+         "id": "20180820-201016_24118965",
+         "dateCreated": "2018-09-12T20:43:00+0000",
+         "dateStarted": "2018-09-13T16:05:50+0000",
+         "dateFinished": "2018-09-13T16:05:50+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4834",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Let&rsquo;s now compute the original polynomial expressions:</p>\n<p><strong>NOTE</strong>: we redefine the <code>x</code>, <code>x2</code> and <code>x5</code> variables because we want to avoid being mislead in our performance measurements by Zeppelin&rsquo;s internal caching of variables across cells.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:06:02+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536790695739_-1771841237",
+         "id": "20180912-221815_1784261392",
+         "dateCreated": "2018-09-12T22:18:15+0000",
+         "dateStarted": "2018-09-13T16:06:02+0000",
+         "dateFinished": "2018-09-13T16:06:02+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4835",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val x = blockMatrix\nval x2 = x.multiply(x)\nval x5 = x2.multiply(x2).multiply(x)\n\nval result1 = x5.add(x5).add(x5).add(x2).add(x2).add(x)\n\nsaveMatrix(result1, \"exercises/c3/result1.txt\")",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T15:58:29+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "scala"
+            },
+            "editorMode": "ace/mode/scala"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536787327293_2024283524",
+         "id": "20180912-212207_2101639166",
+         "dateCreated": "2018-09-12T21:22:07+0000",
+         "dateStarted": "2018-09-13T15:58:29+0000",
+         "dateFinished": "2018-09-13T15:59:14+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4836"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:06:05+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536790089007_1802450330",
+         "id": "20180912-220809_1873310408",
+         "dateCreated": "2018-09-12T22:08:09+0000",
+         "dateStarted": "2018-09-13T16:06:05+0000",
+         "dateFinished": "2018-09-13T16:06:05+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4837",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\nx = block_matrix\nx2 = x.multiply(x)\nx5 = x2.multiply(x2).multiply(x)\n\nresult1 = x5.add(x5).add(x5).add(x2).add(x2).add(x)\n\nsave_matrix(result1, \"exercises/c3/result1.txt\")",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T15:59:26+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536790759153_1108697157",
+         "id": "20180912-221919_1982771359",
+         "dateCreated": "2018-09-12T22:19:19+0000",
+         "dateStarted": "2018-09-13T15:59:26+0000",
+         "dateFinished": "2018-09-13T16:00:31+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4838"
+      },
+      {
+         "text": "%md\n### Can we be more efficient?\nAs you can see, computing nontrivial polynomials of matrices takes more than a few seconds. The reason for this has to do with the lazy nature of transformations in Spark, and how certain computations get repeated in the final \"DAG\".\n\nHowever, it is always possible to add caching to key points in the computation to speed things up. Let's see now how this can be accomplished.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:06:33+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536792779550_-390251741",
+         "id": "20180912-225259_1788867343",
+         "dateCreated": "2018-09-12T22:52:59+0000",
+         "dateStarted": "2018-09-13T16:06:33+0000",
+         "dateFinished": "2018-09-13T16:06:33+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4839",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h3>Can we be more efficient?</h3>\n<p>As you can see, computing nontrivial polynomials of matrices takes more than a few seconds. The reason for this has to do with the lazy nature of transformations in Spark, and how certain computations get repeated in the final &ldquo;DAG&rdquo;.</p>\n<p>However, it is always possible to add caching to key points in the computation to speed things up. Let&rsquo;s see now how this can be accomplished.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:06:35+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536792973753_1686362311",
+         "id": "20180912-225613_544832021",
+         "dateCreated": "2018-09-12T22:56:13+0000",
+         "dateStarted": "2018-09-13T16:06:35+0000",
+         "dateFinished": "2018-09-13T16:06:35+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4840",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "import org.apache.spark.storage.StorageLevel\n\nval x = blockMatrix.cache()\nval x2 = x.multiply(x).cache()\nval x5 = x2.multiply(x2).multiply(x)\nval resultCached = x5.add(x5).add(x5).add(x2).add(x2).add(x)\n\nsaveMatrix(resultCached, \"exercises/c3/result_cached.txt\")",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:01:12+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            },
+            "editorMode": "ace/mode/scala",
+            "editorHide": false,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536792996906_-261741567",
+         "id": "20180912-225636_547937992",
+         "dateCreated": "2018-09-12T22:56:36+0000",
+         "dateStarted": "2018-09-13T16:01:12+0000",
+         "dateFinished": "2018-09-13T16:01:43+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4841"
+      },
+      {
+         "text": "%md As you can see, we managed to reduce the runtime by about 100%. Your mileage may vary, of course, depending on the configuration of the cluster where you're running your Spark program.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:06:38+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536800661599_-1851756126",
+         "id": "20180913-010421_528482262",
+         "dateCreated": "2018-09-13T01:04:21+0000",
+         "dateStarted": "2018-09-13T16:06:38+0000",
+         "dateFinished": "2018-09-13T16:06:38+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4842",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>As you can see, we managed to reduce the runtime by about 100%. Your mileage may vary, of course, depending on the configuration of the cluster where you&rsquo;re running your Spark program.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:06:41+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536784980891_1813670466",
+         "id": "20180820-201238_1078406723",
+         "dateCreated": "2018-09-12T20:43:00+0000",
+         "dateStarted": "2018-09-13T16:06:41+0000",
+         "dateFinished": "2018-09-13T16:06:41+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4843",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\nfrom pyspark.storagelevel import StorageLevel\n\nx = block_matrix.cache()\nx2 = x.multiply(x).cache()\nx5 = x2.multiply(x2).multiply(x)\nresult_cached = x5.add(x5).add(x5).add(x2).add(x2).add(x)\n\nsave_matrix(result_cached, \"exercises/c3/result_cached.txt\")",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:02:02+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536794067672_-1964511027",
+         "id": "20180912-231427_366600116",
+         "dateCreated": "2018-09-12T23:14:27+0000",
+         "dateStarted": "2018-09-13T16:02:03+0000",
+         "dateFinished": "2018-09-13T16:02:51+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4844"
+      },
+      {
+         "text": "%md\nCan you see the difference in running time? Can you think of other ways to further improve performance in this example?",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:06:43+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536794211667_-499555781",
+         "id": "20180912-231651_88215071",
+         "dateCreated": "2018-09-12T23:16:51+0000",
+         "dateStarted": "2018-09-13T16:06:43+0000",
+         "dateFinished": "2018-09-13T16:06:43+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4845",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Can you see the difference in running time? Can you think of other ways to further improve performance in this example?</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n## Exercises",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:06:46+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536794183402_-1477233385",
+         "id": "20180912-231623_635621656",
+         "dateCreated": "2018-09-12T23:16:23+0000",
+         "dateStarted": "2018-09-13T16:06:46+0000",
+         "dateFinished": "2018-09-13T16:06:46+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4846",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h2>Exercises</h2>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n+ **Different Caching Strategies**: Using the same dataset as in the example, experiment with different caching strategies: Is there any difference in the resulting execution times? Can you explain the observed behavior?",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:06:47+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536800962496_1776070257",
+         "id": "20180913-010922_142814667",
+         "dateCreated": "2018-09-13T01:09:22+0000",
+         "dateStarted": "2018-09-13T16:06:47+0000",
+         "dateFinished": "2018-09-13T16:06:47+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4847",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<ul>\n  <li><strong>Different Caching Strategies</strong>: Using the same dataset as in the example, experiment with different caching strategies: Is there any difference in the resulting execution times? Can you explain the observed behavior?</li>\n</ul>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n+ **Looking at the Computation Graph**: Using the same dataset as in the example, can you get the logical and physical execution plans of the final computation? Is there anything that draws your attention? Discuss with your classmates and instructor(s)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:06:49+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536801042867_-177761279",
+         "id": "20180913-011042_1811133748",
+         "dateCreated": "2018-09-13T01:10:42+0000",
+         "dateStarted": "2018-09-13T16:06:49+0000",
+         "dateFinished": "2018-09-13T16:06:49+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4848",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<ul>\n  <li><strong>Looking at the Computation Graph</strong>: Using the same dataset as in the example, can you get the logical and physical execution plans of the final computation? Is there anything that draws your attention? Discuss with your classmates and instructor(s)</li>\n</ul>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n+ **Dealing with more Complicated Polynomials**: Consider the following matrix polynomial:\n\n$$ x ^{11} + x^9 + x^7 + x^5 + x^4 + x^3 + x^2 + x $$\n\n1. How would you partition and cache your evaluation so as to minimize computation?\n2. How would you partition and cache your evaluation so as to minimize computation while keeping the amount of memory/disk footprint as small as possible?",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:06:51+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536800933871_1049248936",
+         "id": "20180913-010853_1805743510",
+         "dateCreated": "2018-09-13T01:08:53+0000",
+         "dateStarted": "2018-09-13T16:06:51+0000",
+         "dateFinished": "2018-09-13T16:06:51+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4849",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<ul>\n  <li><strong>Dealing with more Complicated Polynomials</strong>: Consider the following matrix polynomial:</li>\n</ul>\n<p>$$ x ^{11} + x^9 + x^7 + x^5 + x^4 + x^3 + x^2 + x $$</p>\n<ol>\n  <li>How would you partition and cache your evaluation so as to minimize computation?</li>\n  <li>How would you partition and cache your evaluation so as to minimize computation while keeping the amount of memory/disk footprint as small as possible?</li>\n</ol>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n",
+         "dateUpdated": "2018-09-12T20:43:00+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536784980900_1796356765",
+         "id": "20180816-204005_1297364994",
+         "dateCreated": "2018-09-12T20:43:00+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:4850"
+      }
+   ],
+   "name": "c3-examples-exercises",
+   "id": "2DQJC85NR",
+   "angularObjects": {
+      "2DQ8Z25M4:shared_process": [],
+      "2DSQRVJFF:shared_process": [],
+      "2DPPE4C8J:shared_process": [],
+      "2DR4D5PBY:shared_process": [],
+      "2DPVZHJA3:shared_process": [],
+      "2DPMNM22A:shared_process": [],
+      "2DRD6N5YM:shared_process": [],
+      "2DRF3NFQ5:shared_process": [],
+      "2DRRDUNVE:shared_process": [],
+      "2DRT74HFR:shared_process": [],
+      "2DRNBXRHR:shared_process": [],
+      "2DQTZTN2X:shared_process": [],
+      "2DT6UZNJV:shared_process": [],
+      "2DQ42BKMU:shared_process": [],
+      "2DT6PTPDM:shared_process": [],
+      "2DSD8RKMP:shared_process": [],
+      "2DS52QHW5:shared_process": [],
+      "2DRAMEKXJ:shared_process": []
+   },
+   "config": {
+      "looknfeel": "default",
+      "personalizedMode": "false"
+   },
+   "info": {}
+}
