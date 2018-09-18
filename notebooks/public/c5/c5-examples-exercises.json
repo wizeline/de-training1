@@ -1,0 +1,2284 @@
+{
+   "paragraphs": [
+      {
+         "text": "%md\n# Spark Data Partitioning\n\nWelcome to the notebook with the exercises for the fifth session. You\u2019re halfway on the path to obtain the Wizeline Certification for Big Data Engineering with Spark!\n\nIf you have any feedback about our courses, email us at academy@wizeline.com or use the Academy Slack channel.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:28:48+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h1>Spark Data Partitioning</h1>\n<p>Welcome to the notebook with the exercises for the fifth session. You\u2019re halfway on the path to obtain the Wizeline Certification for Big Data Engineering with Spark!</p>\n<p>If you have any feedback about our courses, email us at <a href=\"mailto:&#97;&#99;a&#100;&#x65;&#x6d;y&#x40;&#119;&#105;&#122;&#x65;&#108;i&#x6e;&#101;&#46;&#x63;&#111;&#x6d;\">&#97;&#99;a&#100;&#x65;&#x6d;y&#x40;&#119;&#105;&#122;&#x65;&#108;i&#x6e;&#101;&#46;&#x63;&#111;&#x6d;</a> or use the Academy Slack channel.</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556244_-1510608834",
+         "id": "20180824-154704_999864938",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:28:48+0000",
+         "dateFinished": "2018-09-13T19:28:48+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:34804"
+      },
+      {
+         "text": "%md\n## Overview\nIn this notebook you will be doing four examples/exercises aimed at:\n\n+ Looking at the data distribution of the partitions stored in your cluster.\n+ Using different partitioning approaches to understand which is the best approach.\n+ Understanding the impact of the partitioning on the I/O functions.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:28:53+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h2>Overview</h2>\n<p>In this notebook you will be doing four examples/exercises aimed at:</p>\n<ul>\n  <li>Looking at the data distribution of the partitions stored in your cluster.</li>\n  <li>Using different partitioning approaches to understand which is the best approach.</li>\n  <li>Understanding the impact of the partitioning on the I/O functions.</li>\n</ul>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855667864_-430112974",
+         "id": "20180913-162107_1481179539",
+         "dateCreated": "2018-09-13T16:21:07+0000",
+         "dateStarted": "2018-09-13T19:28:53+0000",
+         "dateFinished": "2018-09-13T19:28:53+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34805"
+      },
+      {
+         "title": "",
+         "text": "%md\n# Example 1 - Partitions and Data Distribution\n\nIn this exercise, you will look at the the data contained in different partitions. Pay attention to how the data is distributed between the partitions depending on how they are created.\n\nYou will use the sample `Dataset` named `transactions`, which contains monetary transactions for users in the world.\n",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:28:55+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "title": false,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h1>Example 1 - Partitions and Data Distribution</h1>\n<p>In this exercise, you will look at the the data contained in different partitions. Pay attention to how the data is distributed between the partitions depending on how they are created.</p>\n<p>You will use the sample <code>Dataset</code> named <code>transactions</code>, which contains monetary transactions for users in the world.</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556246_-1509839336",
+         "id": "20180824-160322_654860629",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:28:55+0000",
+         "dateFinished": "2018-09-13T19:28:56+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34806"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:31:10+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536867054995_-1552855034",
+         "id": "20180913-193054_1221171060",
+         "dateCreated": "2018-09-13T19:30:54+0000",
+         "dateStarted": "2018-09-13T19:31:09+0000",
+         "dateFinished": "2018-09-13T19:31:10+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34807"
+      },
+      {
+         "text": "case class Transactions(name:String, amount:Long, country:String)\n\nval transactions = List(\n    Transactions(\"Bob\", 25, \"MX\"),\n    Transactions(\"James\", 15, \"United Kingdom\"),\n    Transactions(\"Marek\", 51, \"Poland\"),\n    Transactions(\"Johannes\", 200,\"Germany\"),\n    Transactions(\"Paul\", 75, \"Poland\"),\n    Transactions(\"Bob\", 35, \"Mexico\"),\n    Transactions(\"James\", 21, \"Germany\")\n)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:24:29+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556247_-1510224085",
+         "id": "20180827-172331_1658203493",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T16:24:29+0000",
+         "dateFinished": "2018-09-13T16:24:31+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34808"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:31:33+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536867072569_1554407732",
+         "id": "20180913-193112_889574352",
+         "dateCreated": "2018-09-13T19:31:12+0000",
+         "dateStarted": "2018-09-13T19:31:33+0000",
+         "dateFinished": "2018-09-13T19:31:33+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34809"
+      },
+      {
+         "text": "%pyspark\n\ntransaction_schema = ['name', 'amount', 'country']\n\ntransactions = [\n    ('Bob', 100, 'United Kingdom'),\n    ('James', 15, 'United Kingdom'),\n    ('Marek', 51, 'Poland'),\n    ('Johannes', 200, 'Germany'),\n    ('Paul', 75, 'Poland'),\n    ('Bob', 35, 'Mexico'),\n    ('James', 21, 'Germany')\n]",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T16:25:27+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556246_-1509839336",
+         "id": "20180824-160727_1105840180",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T16:25:27+0000",
+         "dateFinished": "2018-09-13T16:25:27+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34810"
+      },
+      {
+         "text": "%md\n\nThe following snippets define a function to print the number of partitions, the kind of partitioner being used and the partition structure in a `Dataframe`. We'll use it in many examples and exercises in this notebook:",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:40:39+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>The following snippets define a function to print the number of partitions, the kind of partitioner being used and the partition structure in a <code>Dataframe</code>. We&rsquo;ll use it in many examples and exercises in this notebook:</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556247_-1510224085",
+         "id": "20180824-161222_1775895785",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:40:39+0000",
+         "dateFinished": "2018-09-13T19:40:39+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34811",
+         "focus": true
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:32:27+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536867138816_910630877",
+         "id": "20180913-193218_437502423",
+         "dateCreated": "2018-09-13T19:32:18+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:37478",
+         "dateFinished": "2018-09-13T19:32:27+0000",
+         "dateStarted": "2018-09-13T19:32:27+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "import org.apache.spark.sql.{DataFrame, Row}\n\ndef printPartitionsInfo(dataframe: DataFrame, skipEmpty: Boolean = true) = {\n    val partitions = dataframe.rdd.mapPartitionsWithIndex((index: Int, iter: Iterator[Row]) => {\n        List((index, iter.toList)).toIterator\n    }).collect\n    val displayablePartitions = \n        if (!skipEmpty) partitions \n        else partitions.filter(partition => partition._2.length > 0)\n    \n    println(\"--------------------------------------------------------------------\")\n    println(s\"Number of partitions: ${dataframe.rdd.getNumPartitions}\")\n    println(s\"Partitioner: ${dataframe.rdd.partitioner.toString}\")\n    println(s\"Partitions structure: \")\n    println(displayablePartitions.mkString(\"\\n\"))\n    println(\"--------------------------------------------------------------------\")\n}",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T18:42:13+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            },
+            "editorMode": "ace/mode/scala"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536856846377_-348640917",
+         "id": "20180913-164046_1992179228",
+         "dateCreated": "2018-09-13T16:40:46+0000",
+         "dateStarted": "2018-09-13T18:42:13+0000",
+         "dateFinished": "2018-09-13T18:42:14+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34814",
+         "focus": true
+      },
+      {
+         "text": "import org.apache.spark.sql.Row\n\nval df = spark.createDataFrame(transactions)\nprintPartitionsInfo(df)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T18:42:18+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556249_-1512532579",
+         "id": "20180827-182233_1620123781",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T18:42:18+0000",
+         "dateFinished": "2018-09-13T18:42:19+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34815",
+         "focus": true
+      },
+      {
+         "user": "anonymous",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536867149683_605555647",
+         "id": "20180913-193229_1542503448",
+         "dateCreated": "2018-09-13T19:32:29+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:37552",
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-13T19:32:34+0000",
+         "dateFinished": "2018-09-13T19:32:34+0000",
+         "dateStarted": "2018-09-13T19:32:34+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\ndef print_partitions_info(dataframe, skip_empty=False):\n    partitions = \\\n        dataframe.rdd \\\n            .mapPartitionsWithIndex(lambda index, iterator: [(index, list(iterator))]) \\\n            .collect()\n    if skip_empty:\n        partitions = (partition for partition in partitions if len(partition[1]) > 0)\n\n    partitions = '\\n'.join(map(str, partitions))\n    print(\"Number of partitions: {}\".format(dataframe.rdd.getNumPartitions()))\n    print(\"Partitioner: {}\".format(dataframe.rdd.partitioner))\n    print(\"Partitions structure: \")\n    print(partitions)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T18:33:39+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            },
+            "editorMode": "ace/mode/python"
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536856790746_802635061",
+         "id": "20180913-163950_1113232990",
+         "dateCreated": "2018-09-13T16:39:50+0000",
+         "dateStarted": "2018-09-13T18:33:39+0000",
+         "dateFinished": "2018-09-13T18:33:39+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34813",
+         "focus": true
+      },
+      {
+         "text": "%pyspark\n\nfrom pyspark.sql import SparkSession, Row\n\ndf = spark.createDataFrame(transactions, transaction_schema)\nprint_partitions_info(df)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:32:49+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556248_-1512147830",
+         "id": "20180824-161021_1826354548",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T18:33:41+0000",
+         "dateFinished": "2018-09-13T18:33:41+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34812"
+      },
+      {
+         "text": "%md\n## Exercise\n\nLook at the output from the previous example and answer the following questions:\n\n+ Which names ended up on partition 1?\n+ Which amounts ended up on partition 2\n+ Why is the partitioner `None`? Do some research online and discuss with your classmates and instructor(s)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:29:10+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h2>Exercise</h2>\n<p>Look at the output from the previous example and answer the following questions:</p>\n<ul>\n  <li>Which names ended up on partition 1?</li>\n  <li>Which amounts ended up on partition 2</li>\n  <li>Why is the partitioner <code>None</code>? Do some research online and discuss with your classmates and instructor(s)</li>\n</ul>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556249_-1512532579",
+         "id": "20180824-161209_564012877",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:29:10+0000",
+         "dateFinished": "2018-09-13T19:29:10+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34816"
+      },
+      {
+         "text": "%md\n**REPARTITIONING:** The following code repartitions the original `DataFrame` and outputs the same information. ",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:29:14+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p><strong>REPARTITIONING:</strong> The following code repartitions the original <code>DataFrame</code> and outputs the same information.</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556250_-1511378332",
+         "id": "20180824-161118_605198725",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:29:14+0000",
+         "dateFinished": "2018-09-13T19:29:14+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34817"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:33:06+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536867178191_302555760",
+         "id": "20180913-193258_912953345",
+         "dateCreated": "2018-09-13T19:32:58+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:37621",
+         "dateFinished": "2018-09-13T19:33:07+0000",
+         "dateStarted": "2018-09-13T19:33:06+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val dfByCountry = df.repartition($\"country\")\nprintPartitionsInfo(dfByCountry, skipEmpty=true)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T18:42:25+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {
+               "0": {
+                  "graph": {
+                     "mode": "table",
+                     "height": 125,
+                     "optionOpen": false
+                  }
+               }
+            },
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556251_-1511763081",
+         "id": "20180827-191139_22040351",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T18:42:25+0000",
+         "dateFinished": "2018-09-13T18:42:26+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34819",
+         "focus": true
+      },
+      {
+         "user": "anonymous",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536867189857_1152111979",
+         "id": "20180913-193309_1085062117",
+         "dateCreated": "2018-09-13T19:33:09+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:37695",
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-13T19:33:19+0000",
+         "dateFinished": "2018-09-13T19:33:19+0000",
+         "dateStarted": "2018-09-13T19:33:19+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\ndf_by_country = df.repartition(\"country\")\nprint_partitions_info(df_by_country, skip_empty=True)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:33:29+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556251_-1511763081",
+         "id": "20180824-161919_1765365187",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T18:33:45+0000",
+         "dateFinished": "2018-09-13T18:33:49+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34818"
+      },
+      {
+         "text": "%md\nRemember more `partitions != uniform partition distribution`. So more partitions is not necessarily the answer. In fact, if you end up having too many partitions you may bump into a problem with very small files.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:29:20+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Remember more <code>partitions != uniform partition distribution</code>. So more partitions is not necessarily the answer. In fact, if you end up having too many partitions you may bump into a problem with very small files.</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556252_-1513686825",
+         "id": "20180824-163234_318434487",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:29:20+0000",
+         "dateFinished": "2018-09-13T19:29:20+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34820"
+      },
+      {
+         "text": "%md\n## Exercise\n\nLook at the output from the previous example and answer the following questions:\n\n+ Which names ended up on partition 1?\n+ Which amounts ended up on partition 2\n+ What differences do you notice here compared to the previous exercise?\n\nDiscuss with your classmates or your mentor and instructor(s) if necessary.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:29:22+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h2>Exercise</h2>\n<p>Look at the output from the previous example and answer the following questions:</p>\n<ul>\n  <li>Which names ended up on partition 1?</li>\n  <li>Which amounts ended up on partition 2</li>\n  <li>What differences do you notice here compared to the previous exercise?</li>\n</ul>\n<p>Discuss with your classmates or your mentor and instructor(s) if necessary.</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536856640556_-1154380091",
+         "id": "20180913-163720_1416505055",
+         "dateCreated": "2018-09-13T16:37:20+0000",
+         "dateStarted": "2018-09-13T19:29:22+0000",
+         "dateFinished": "2018-09-13T19:29:22+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34821"
+      },
+      {
+         "text": "%md\n# Example 2 - Partitioning Approaches\n\nUsing the same dataset, create new datasets by partitioning using each one of the columns. This means you will end with 4 distinct datasets.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:29:25+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h1>Example 2 - Partitioning Approaches</h1>\n<p>Using the same dataset, create new datasets by partitioning using each one of the columns. This means you will end with 4 distinct datasets.</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556253_-1514071574",
+         "id": "20180824-163253_580541449",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:29:25+0000",
+         "dateFinished": "2018-09-13T19:29:25+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34822"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:33:41+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536867212311_1549572917",
+         "id": "20180913-193332_1003160714",
+         "dateCreated": "2018-09-13T19:33:32+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:37776",
+         "dateFinished": "2018-09-13T19:33:41+0000",
+         "dateStarted": "2018-09-13T19:33:41+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val dfByName = df.repartition($\"name\")\nprintPartitionsInfo(dfByName, skipEmpty=true)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T18:43:13+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556254_-1512917328",
+         "id": "20180827-192209_233833264",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T18:43:13+0000",
+         "dateFinished": "2018-09-13T18:43:14+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34824",
+         "focus": true
+      },
+      {
+         "user": "anonymous",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536867223011_1578074984",
+         "id": "20180913-193343_1919682855",
+         "dateCreated": "2018-09-13T19:33:43+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:37850",
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-13T19:33:48+0000",
+         "dateFinished": "2018-09-13T19:33:48+0000",
+         "dateStarted": "2018-09-13T19:33:48+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\ndf_by_name = df.repartition(\"name\")\nprint_partitions_info(df_by_name, skip_empty=True)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:33:55+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556254_-1512917328",
+         "id": "20180824-163321_450981945",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T18:42:41+0000",
+         "dateFinished": "2018-09-13T18:42:45+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34823"
+      },
+      {
+         "text": "%md\nAfter printing the number of partitions, partitioner and partitions structure, answer the following question:\n\n+ In this case, what is the best approach?\n+ How can you determine that?",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:29:31+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>After printing the number of partitions, partitioner and partitions structure, answer the following question:</p>\n<ul>\n  <li>In this case, what is the best approach?</li>\n  <li>How can you determine that?</li>\n</ul>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556255_-1513302076",
+         "id": "20180824-163507_1092132855",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:29:31+0000",
+         "dateFinished": "2018-09-13T19:29:31+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34825"
+      },
+      {
+         "text": "%md\nAs you can see, repartitioning has a direct effect on the distribution of the information, and using the correct column is essential. To understand which is the most appropriate column for a given dataset, you need to be familiar with the data and analyze its characteristics. There is no \"golden\" rule that we can give you here.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:29:35+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>As you can see, repartitioning has a direct effect on the distribution of the information, and using the correct column is essential. To understand which is the most appropriate column for a given dataset, you need to be familiar with the data and analyze its characteristics. There is no &ldquo;golden&rdquo; rule that we can give you here.</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556255_-1513302076",
+         "id": "20180824-163550_767573207",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:29:35+0000",
+         "dateFinished": "2018-09-13T19:29:35+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34826"
+      },
+      {
+         "text": "%md\n# Example 3 - I/O with single and multiple files\n\nLet's now focus our attention on reading and writing. You already know I/O is costly. Regardless, there are strategies for improving I/O performance. This exercise requires you to read and write a `DataSet` in a single file and multiple files to compare performance.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:29:37+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h1>Example 3 - I/O with single and multiple files</h1>\n<p>Let&rsquo;s now focus our attention on reading and writing. You already know I/O is costly. Regardless, there are strategies for improving I/O performance. This exercise requires you to read and write a <code>DataSet</code> in a single file and multiple files to compare performance.</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556256_-1527537786",
+         "id": "20180824-163615_1064210426",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:29:37+0000",
+         "dateFinished": "2018-09-13T19:29:37+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34827"
+      },
+      {
+         "text": "%md First, let's read the data. The dataset is quite big, so let's take a small sample instead:",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:29:40+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>First, let&rsquo;s read the data. The dataset is quite big, so let&rsquo;s take a small sample instead:</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556257_-1527922535",
+         "id": "20180827-165943_350742125",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:29:40+0000",
+         "dateFinished": "2018-09-13T19:29:40+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34828"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:34:06+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536867239066_-1598580501",
+         "id": "20180913-193359_1065759895",
+         "dateCreated": "2018-09-13T19:33:59+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:37919",
+         "dateFinished": "2018-09-13T19:34:06+0000",
+         "dateStarted": "2018-09-13T19:34:06+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val df = spark.read.json(\"gs://de-training-input/alimazon/50000/client-orders/*.gz\")\n    .sample(false, 0.2) // take 20% of the data without replacement\ndf.count()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T18:49:17+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556258_-1526768288",
+         "id": "20180827-170048_1570856632",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T18:49:17+0000",
+         "dateFinished": "2018-09-13T18:49:22+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34830",
+         "focus": true
+      },
+      {
+         "user": "anonymous",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536867248659_482926373",
+         "id": "20180913-193408_1073902466",
+         "dateCreated": "2018-09-13T19:34:08+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:37993",
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-13T19:34:13+0000",
+         "dateFinished": "2018-09-13T19:34:13+0000",
+         "dateStarted": "2018-09-13T19:34:13+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\ndf = spark.read.json(\"gs://de-training-input/alimazon/50000/client-orders/*.gz\") \\\n    .sample(False, 0.2)  # take 20% of the data without replacement\ndf.count()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T18:49:00+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556257_-1527922535",
+         "id": "20180827-172725_2084099563",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T18:49:00+0000",
+         "dateFinished": "2018-09-13T18:49:07+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34829"
+      },
+      {
+         "text": "%md **`NOTE:`** Do not forget to set your username here. You will need it to write to your output bucket.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:29:45+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p><strong><code>NOTE:</code></strong> Do not forget to set your username here. You will need it to write to your output bucket.</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556259_-1527153037",
+         "id": "20180827-171324_1624649057",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:29:45+0000",
+         "dateFinished": "2018-09-13T19:29:45+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34831"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:36:03+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536867350514_710651749",
+         "id": "20180913-193550_1933496446",
+         "dateCreated": "2018-09-13T19:35:50+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:38067",
+         "dateFinished": "2018-09-13T19:36:03+0000",
+         "dateStarted": "2018-09-13T19:36:03+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val username = \"...\"",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:29:54+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556260_-1529076781",
+         "id": "20180827-171640_353868380",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T18:49:56+0000",
+         "dateFinished": "2018-09-13T18:49:57+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34833",
+         "focus": true
+      },
+      {
+         "user": "anonymous",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536867365221_-765229708",
+         "id": "20180913-193605_699867062",
+         "dateCreated": "2018-09-13T19:36:05+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:38136",
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-13T19:36:17+0000",
+         "dateFinished": "2018-09-13T19:36:17+0000",
+         "dateStarted": "2018-09-13T19:36:17+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\nusername = \"...\"",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:29:50+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556259_-1527153037",
+         "id": "20180827-173600_941913882",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T18:49:52+0000",
+         "dateFinished": "2018-09-13T18:49:52+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34832"
+      },
+      {
+         "text": "%md Let's write our data using different partitions. Run the code below and confirm in GCP that the dataset was written in the number of specified partitions.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:29:54+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Let&rsquo;s write our data using different partitions. Run the code below and confirm in GCP that the dataset was written in the number of specified partitions.</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556261_-1529461530",
+         "id": "20180827-170049_2139323805",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:29:54+0000",
+         "dateFinished": "2018-09-13T19:29:54+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34834"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:36:29+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536867382224_283827301",
+         "id": "20180913-193622_1360243425",
+         "dateCreated": "2018-09-13T19:36:22+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:38205",
+         "dateFinished": "2018-09-13T19:36:29+0000",
+         "dateStarted": "2018-09-13T19:36:29+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "df.repartition(1).write.json(s\"gs://de-training-output-$username/exercises/c5/client-orders-1-part/\")\ndf.repartition(6).write.json(s\"gs://de-training-output-$username/exercises/c5/client-orders-6-part/\")",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:01:58+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556262_-1528307284",
+         "id": "20180827-173626_223417974",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:01:59+0000",
+         "dateFinished": "2018-09-13T19:02:16+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34836",
+         "focus": true
+      },
+      {
+         "user": "anonymous",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536867392438_-2068527474",
+         "id": "20180913-193632_352366408",
+         "dateCreated": "2018-09-13T19:36:32+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:38279",
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-13T19:36:39+0000",
+         "dateFinished": "2018-09-13T19:36:39+0000",
+         "dateStarted": "2018-09-13T19:36:39+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\ndf.repartition(1).write.json(\"gs://de-training-output-{}/exercises/c5/client-orders-1-part/\".format(username))\ndf.repartition(6).write.json(\"gs://de-training-output-{}/exercises/c5/client-orders-6-part/\".format(username))",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T18:51:55+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556262_-1528307284",
+         "id": "20180827-171201_1462543897",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T18:51:55+0000",
+         "dateFinished": "2018-09-13T18:52:10+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34835"
+      },
+      {
+         "text": "%md Let's experiment a bit more reading and writing using different numbers of partitions. Let's try writing using just one partition:",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:29:57+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Let&rsquo;s experiment a bit more reading and writing using different numbers of partitions. Let&rsquo;s try writing using just one partition:</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556263_-1528692032",
+         "id": "20180827-192903_1248488032",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:29:57+0000",
+         "dateFinished": "2018-09-13T19:29:57+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34837"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:36:59+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536867404089_-1213200021",
+         "id": "20180913-193644_1303454298",
+         "dateCreated": "2018-09-13T19:36:44+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:38348",
+         "dateFinished": "2018-09-13T19:36:59+0000",
+         "dateStarted": "2018-09-13T19:36:59+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val df1 = spark.read.json(s\"gs://de-training-output-$username/exercises/c5/client-orders-1-part/\")\ndf1.repartition(1).write.csv(s\"gs://de-training-output-$username/exercises/c5/client-orders-1-in-1out/\")",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:01:37+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556265_-1531000526",
+         "id": "20180827-171820_27449283",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:01:37+0000",
+         "dateFinished": "2018-09-13T19:01:38+0000",
+         "status": "ERROR",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34839",
+         "focus": true
+      },
+      {
+         "user": "anonymous",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536867421539_652093295",
+         "id": "20180913-193701_1652114558",
+         "dateCreated": "2018-09-13T19:37:01+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:38440",
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-13T19:37:16+0000",
+         "dateFinished": "2018-09-13T19:37:16+0000",
+         "dateStarted": "2018-09-13T19:37:16+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\ndf1 = sqlContext.read.json(\"gs://de-training-output-{}/exercises/c5/client-orders-1-part/\".format(username))\ndf1.repartition(1).write.csv(\"gs://de-training-output-{}/exercises/c5/client-orders-1-in-1out/\".format(username))",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T18:58:24+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556264_-1530615777",
+         "id": "20180827-173824_1583828117",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T18:58:24+0000",
+         "dateFinished": "2018-09-13T18:58:31+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34838"
+      },
+      {
+         "text": "%md Here is the example for reading from multiple files and writing to multiple files",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:30:03+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Here is the example for reading from multiple files and writing to multiple files</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556266_-1529846279",
+         "id": "20180827-171903_233529514",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:30:03+0000",
+         "dateFinished": "2018-09-13T19:30:03+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34840"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:37:31+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536867444424_1513555950",
+         "id": "20180913-193724_732049143",
+         "dateCreated": "2018-09-13T19:37:24+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:38518",
+         "dateFinished": "2018-09-13T19:37:31+0000",
+         "dateStarted": "2018-09-13T19:37:31+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val df6 = spark.read.json(s\"gs://de-training-output-$username/exercises/c5/client-orders-6-part/\")\ndf6.repartition(6).write.csv(s\"gs://de-training-output-$username/exercises/c5/client-orders-6-in-6-out/\")",
+         "dateUpdated": "2018-09-13T19:03:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556267_-1530231028",
+         "id": "20180827-172046_737696731",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34842",
+         "focus": true
+      },
+      {
+         "user": "anonymous",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536867453223_-195883413",
+         "id": "20180913-193733_1564941392",
+         "dateCreated": "2018-09-13T19:37:33+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:38587",
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-13T19:37:38+0000",
+         "dateFinished": "2018-09-13T19:37:38+0000",
+         "dateStarted": "2018-09-13T19:37:38+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\ndf6 = sqlContext.read.json(\"gs://de-training-output-{}/exercises/c5/client-orders-6-part/\".format(username))\ndf6.repartition(6).write.csv(\"gs://de-training-output-{}/exercises/c5/client-orders-6-in-6-out/\".format(username))",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:02:46+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556266_-1529846279",
+         "id": "20180827-174103_2146116059",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:02:46+0000",
+         "dateFinished": "2018-09-13T19:02:54+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34841"
+      },
+      {
+         "text": "%md \n### Exercise\nExplore using different number of partitions, reading from 1 file and writing to 4 files. Which option is faster? Can you think why?",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:30:14+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h3>Exercise</h3>\n<p>Explore using different number of partitions, reading from 1 file and writing to 4 files. Which option is faster? Can you think why?</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556268_-1532154773",
+         "id": "20180827-172131_750013194",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:30:14+0000",
+         "dateFinished": "2018-09-13T19:30:14+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34843"
+      },
+      {
+         "text": "%md\n# Example 4 - Looking at Partitions Size\n\nThe following snippet of code helps you display the size of each partition",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:30:21+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h1>Example 4 - Looking at Partitions Size</h1>\n<p>The following snippet of code helps you display the size of each partition</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556268_-1532154773",
+         "id": "20180824-163816_107227786",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:30:21+0000",
+         "dateFinished": "2018-09-13T19:30:21+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34844"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:38:00+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536867473022_-2127307568",
+         "id": "20180913-193753_181791138",
+         "dateCreated": "2018-09-13T19:37:53+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:38656",
+         "dateFinished": "2018-09-13T19:38:00+0000",
+         "dateStarted": "2018-09-13T19:38:00+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "import org.apache.spark.sql.Row\nimport org.apache.spark.sql.types.{IntegerType, StructField, StructType}\n\nval sampleDataSet = ((1 to 100000).map((_,0))++(1 to 100).flatMap(i => (1 to 100).map((_,i)))).toDS.cache\nprintln(\"Number of partitions: ${sampleDataSet.rdd.getNumPartitions}\")\n\nval schema = new StructType()\n  .add(StructField(\"index\", IntegerType, /* nullable: */ false))\n  .add(StructField(\"value\", IntegerType, /* nullable: */ false))\n  \nval partitions = sampleDataSet.rdd.mapPartitionsWithIndex(\n    (index, partition) => List(Row(index, partition.size)).toIterator)\n\nspark.createDataFrame(partitions, schema).show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:28:37+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556270_-1531385275",
+         "id": "20180824-163856_1912329826",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:28:11+0000",
+         "dateFinished": "2018-09-13T19:28:14+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34846",
+         "focus": true
+      },
+      {
+         "user": "anonymous",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536867482793_68854478",
+         "id": "20180913-193802_601181425",
+         "dateCreated": "2018-09-13T19:38:02+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:38725",
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-13T19:38:11+0000",
+         "dateFinished": "2018-09-13T19:38:11+0000",
+         "dateStarted": "2018-09-13T19:38:11+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\nfrom itertools import chain\nfrom pyspark.sql import Row\n\nsample_dataset = spark.createDataFrame(chain([(i, 0) for i in range(1, 100001)], [(i, j) for i in range(1, 101) for j in range(1, 101)])).cache()\nprint(\"Number of partitions: {}\".format(sample_dataset.rdd.getNumPartitions()))\n\npartitions = sample_dataset.rdd.mapPartitionsWithIndex(lambda index, partition: [Row(index=index, value=len(list(partition)))])\nspark.createDataFrame(partitions).show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:17:04+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556269_-1532539522",
+         "id": "20180827-174300_1370563640",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:17:04+0000",
+         "dateFinished": "2018-09-13T19:17:09+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34845"
+      },
+      {
+         "text": "%md\n### Exercise\nUsing what you learned in former sessions and previous examples and exercises:\n\n+ Load the flights dataset and display the size of each partition. \n+ Can you find a way to repartition the dataset so as to achieve an even distribution of the data?",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-13T19:30:30+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h3>Exercise</h3>\n<p>Using what you learned in former sessions and previous examples and exercises:</p>\n<ul>\n  <li>Load the flights dataset and display the size of each partition.</li>\n  <li>Can you find a way to repartition the dataset so as to achieve an even distribution of the data?</li>\n</ul>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556271_-1531770024",
+         "id": "20180824-163919_2039405814",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "dateStarted": "2018-09-13T19:30:30+0000",
+         "dateFinished": "2018-09-13T19:30:30+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34847"
+      },
+      {
+         "text": "",
+         "dateUpdated": "2018-09-13T16:19:16+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536855556272_-1521381803",
+         "id": "20180824-163954_1813225578",
+         "dateCreated": "2018-09-13T16:19:16+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:34848"
+      }
+   ],
+   "name": "c5-examples-exercises",
+   "id": "2DST1F1E2",
+   "angularObjects": {
+      "2DQ8Z25M4:shared_process": [],
+      "2DSQRVJFF:shared_process": [],
+      "2DPPE4C8J:shared_process": [],
+      "2DR4D5PBY:shared_process": [],
+      "2DPVZHJA3:shared_process": [],
+      "2DPMNM22A:shared_process": [],
+      "2DRD6N5YM:shared_process": [],
+      "2DRF3NFQ5:shared_process": [],
+      "2DRRDUNVE:shared_process": [],
+      "2DRT74HFR:shared_process": [],
+      "2DRNBXRHR:shared_process": [],
+      "2DQTZTN2X:shared_process": [],
+      "2DT6UZNJV:shared_process": [],
+      "2DQ42BKMU:shared_process": [],
+      "2DT6PTPDM:shared_process": [],
+      "2DSD8RKMP:shared_process": [],
+      "2DS52QHW5:shared_process": [],
+      "2DRAMEKXJ:shared_process": []
+   },
+   "config": {
+      "looknfeel": "default",
+      "personalizedMode": "false"
+   },
+   "info": {}
+}
