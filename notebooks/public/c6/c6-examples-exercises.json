@@ -1,0 +1,3144 @@
+{
+   "paragraphs": [
+      {
+         "text": "%md\n#  Spark Optimization Scenarios\nWelcome to the sixth session notebook. You\u2019re very close to finishing the Wizeline Certification for Big Data Engineering with Spark!\nIf you have any feedback about our courses, email us at academy@wizeline.com or use the Academy Slack channel.",
+         "dateUpdated": "2018-09-19T21:26:28+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153509_1785016818",
+         "id": "20180829-222909_1145138508",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:7908",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T21:26:28+0000",
+         "dateStarted": "2018-09-19T21:26:28+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h1>Spark Optimization Scenarios</h1>\n<p>Welcome to the sixth session notebook. You\u2019re very close to finishing the Wizeline Certification for Big Data Engineering with Spark!<br/>If you have any feedback about our courses, email us at <a href=\"mailto:&#97;c&#97;&#x64;&#x65;&#x6d;&#x79;&#64;&#x77;&#x69;z&#101;&#x6c;&#105;n&#101;&#46;&#99;o&#109;\">&#97;c&#97;&#x64;&#x65;&#x6d;&#x79;&#64;&#x77;&#x69;z&#101;&#x6c;&#105;n&#101;&#46;&#99;o&#109;</a> or use the Academy Slack channel.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n# About this Notebook\nToday there are no exercises on this notebook.\n \nYou will find code that solves a specific request and was later optimized with Spark features. Scala and PySpark versions are intercalated, each with or without `%pyspark` header. \n \nWe encourage you to read through the code explanations. Feel free to experiment and try to further optimize the code pieces. Remember, there is always room for improvement.",
+         "dateUpdated": "2018-09-19T21:26:30+0000",
+         "config": {
+            "editorSetting": {
+               "language": "scala"
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153510_1786171065",
+         "id": "20180829-223008_1634680293",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7909",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T21:26:30+0000",
+         "dateStarted": "2018-09-19T21:26:30+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h1>About this Notebook</h1>\n<p>Today there are no exercises on this notebook.</p>\n<p>You will find code that solves a specific request and was later optimized with Spark features. Scala and PySpark versions are intercalated, each with or without <code>%pyspark</code> header. </p>\n<p>We encourage you to read through the code explanations. Feel free to experiment and try to further optimize the code pieces. Remember, there is always room for improvement.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n# Before We Begin\nLet\u2019s only load up the required libraries where they make sense. We do not want to measure that as part of each cell execution.",
+         "dateUpdated": "2018-09-19T21:26:32+0000",
+         "config": {
+            "editorSetting": {
+               "language": "scala"
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153511_1785786316",
+         "id": "20180829-223052_2122433210",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7910",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T21:26:33+0000",
+         "dateStarted": "2018-09-19T21:26:33+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h1>Before We Begin</h1>\n<p>Let\u2019s only load up the required libraries where they make sense. We do not want to measure that as part of each cell execution.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:26:34+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868257056_-233639712",
+         "id": "20180913-195057_1814517280",
+         "dateCreated": "2018-09-13T19:50:57+0000",
+         "dateStarted": "2018-09-19T21:26:34+0000",
+         "dateFinished": "2018-09-19T21:26:34+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7911",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "def checkPartitions(df: org.apache.spark.sql.DataFrame) = {\n    println(\"Number of partitions used: \" + df.rdd.getNumPartitions)\n    println(\"Sample of objects per partitions\")\n    df.mapPartitions(partition => Seq(partition.size).iterator).show(20)\n}\n",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:06:26+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153513_1783477823",
+         "id": "20180829-223307_2068370091",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:06:26+0000",
+         "dateFinished": "2018-09-19T21:06:26+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7912"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:26:38+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537293783241_-413700726",
+         "id": "20180918-180303_1800577945",
+         "dateCreated": "2018-09-18T18:03:03+0000",
+         "dateStarted": "2018-09-19T21:26:38+0000",
+         "dateFinished": "2018-09-19T21:26:38+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7913",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\nimport pyspark.sql.functions as fun\nfrom pyspark.sql.functions import month\nfrom pyspark.sql import Row\nfrom operator import add\n\ndef check_partitions(df):\n    print(\"Number of partitions used: {}\".format(df.rdd.getNumPartitions()))\n    print(\"Sample of objects per partitions\")\n    print(df.rdd.mapPartitions(lambda partition: [Row(value=sum(1 for _ in partition))]).take(20))",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:06:28+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153512_1783862572",
+         "id": "20180829-223101_538753799",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:06:29+0000",
+         "dateFinished": "2018-09-19T21:06:29+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7914"
+      },
+      {
+         "text": "%md Let\u2019s also load up the base file:",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:26:41+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153513_1783477823",
+         "id": "20180829-223526_208873282",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:26:41+0000",
+         "dateFinished": "2018-09-19T21:26:41+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7915",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Let\u2019s also load up the base file:</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:26:43+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537373484542_1516625038",
+         "id": "20180919-161124_1226365757",
+         "dateCreated": "2018-09-19T16:11:24+0000",
+         "dateStarted": "2018-09-19T21:26:43+0000",
+         "dateFinished": "2018-09-19T21:26:43+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7916",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val orders  = spark.read.json(\"gs://de-training-input/alimazon/50000/client-orders/\")\nval ordersSample = orders.sample(false, 0.25).cache()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:06:32+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153514_1784632069",
+         "id": "20180829-223544_1641843554",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:06:32+0000",
+         "dateFinished": "2018-09-19T21:06:35+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7917"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T16:12:01+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537373509238_-800486080",
+         "id": "20180919-161149_1402187491",
+         "dateCreated": "2018-09-19T16:11:49+0000",
+         "dateStarted": "2018-09-19T16:12:01+0000",
+         "dateFinished": "2018-09-19T16:12:01+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7918"
+      },
+      {
+         "text": "%pyspark\norders = spark.read.json(\"gs://de-training-input/alimazon/50000/client-orders/\")\norders_sample = orders.sample(False, 0.25).cache() # sample 25% of the dataset without replacement",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:06:40+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153514_1784632069",
+         "id": "20180829-223536_1861014599",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:06:40+0000",
+         "dateFinished": "2018-09-19T21:06:43+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7919"
+      },
+      {
+         "text": "%md\n**NOTE:** For a clearer benchmark, cache is used at several points in this notebook.\n",
+         "dateUpdated": "2018-09-19T21:26:46+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153515_1784247320",
+         "id": "20180829-223602_63436214",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7920",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T21:26:46+0000",
+         "dateStarted": "2018-09-19T21:26:46+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p><strong>NOTE:</strong> For a clearer benchmark, cache is used at several points in this notebook.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n# Live Code 1 - Catalyst Advantages\n\nThe Alimazon marketing team wants to run a digital ads campaign on their website. They intend to target each client with ads related to the items they spend the most money on.  You will deliver a report with the amount of money spent by each user on every product they have ever purchased. Be sure to sort the report by users and total amount spent per unique product.\n\nYour first approach was to use RDDs. As a good practice, you print only the first 20 rows to review your own results before creating the full report. You made good use of the Map operations and RDD properties for the task at hand.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:26:51+0000",
+         "config": {
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153515_1784247320",
+         "id": "20180829-223629_1747329333",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:26:51+0000",
+         "dateFinished": "2018-09-19T21:26:51+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7921",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h1>Live Code 1 - Catalyst Advantages</h1>\n<p>The Alimazon marketing team wants to run a digital ads campaign on their website. They intend to target each client with ads related to the items they spend the most money on. You will deliver a report with the amount of money spent by each user on every product they have ever purchased. Be sure to sort the report by users and total amount spent per unique product.</p>\n<p>Your first approach was to use RDDs. As a good practice, you print only the first 20 rows to review your own results before creating the full report. You made good use of the Map operations and RDD properties for the task at hand.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:26:55+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537294018302_498106551",
+         "id": "20180918-180658_720004346",
+         "dateCreated": "2018-09-18T18:06:58+0000",
+         "dateStarted": "2018-09-19T21:26:55+0000",
+         "dateFinished": "2018-09-19T21:26:55+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7922",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val ordersRDD = ordersSample.rdd\nval sortedRows = ordersRDD.map(row => ((row.getString(0), row.getString(2)), row.getDouble(5)))\n    .groupByKey\n    .map{ case (key, iter) => (key, iter.sum) }\n    .sortBy(row => (row._1._1,  row._2), ascending = false)\n    .take(20)\n    \nsortedRows.foreach(println)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:06:46+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153516_1782323576",
+         "id": "20180829-223922_1652280103",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:06:46+0000",
+         "dateFinished": "2018-09-19T21:06:49+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7923"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:26:58+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537294200880_-196872556",
+         "id": "20180918-181000_528885233",
+         "dateCreated": "2018-09-18T18:10:00+0000",
+         "dateStarted": "2018-09-19T21:26:58+0000",
+         "dateFinished": "2018-09-19T21:26:58+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7924",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\norders_RDD = orders_sample.rdd\nsorted_rows = orders_RDD.map(lambda row: ((row[0], row[2]), row[5])) \\\n                        .groupByKey() \\\n                        .map(lambda row: (row[0], sum(row[1]))) \\\n                        .sortBy(lambda row: (row[0][0], row[1]), ascending = False) \\\n                        .take(20)\nfor row in sorted_rows:\n    print(row)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:07:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153516_1782323576",
+         "id": "20180829-223904_1848044529",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:07:09+0000",
+         "dateFinished": "2018-09-19T21:07:10+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7925"
+      },
+      {
+         "text": "%md\nThe code seems to produce the correct results (if you're running both the Python and Scala versions, you may see discrepancies in the results due the random sampling done at the beginning of this notebook). However, before running the `saveAsTextFile` method, notice how long it took to run with a small sample. \n\nTo optimize this run time, remember that `Spark 2.2.0` (the version you\u2019re using) already has Catalyst optimizations if you use `DataFrames`. So, change your code accordingly and you'll get the optimizations for free. In essence, if your software has implemented optimizations for you, it\u2019s a good idea to take advantage of them.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:27:01+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153517_1781938827",
+         "id": "20180829-223838_2106718386",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:27:01+0000",
+         "dateFinished": "2018-09-19T21:27:01+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7926",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>The code seems to produce the correct results (if you&rsquo;re running both the Python and Scala versions, you may see discrepancies in the results due the random sampling done at the beginning of this notebook). However, before running the <code>saveAsTextFile</code> method, notice how long it took to run with a small sample. </p>\n<p>To optimize this run time, remember that <code>Spark 2.2.0</code> (the version you\u2019re using) already has Catalyst optimizations if you use <code>DataFrames</code>. So, change your code accordingly and you&rsquo;ll get the optimizations for free. In essence, if your software has implemented optimizations for you, it\u2019s a good idea to take advantage of them.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:27:04+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537294376849_81902354",
+         "id": "20180918-181256_1934397781",
+         "dateCreated": "2018-09-18T18:12:56+0000",
+         "dateStarted": "2018-09-19T21:27:04+0000",
+         "dateFinished": "2018-09-19T21:27:04+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7927",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "// Optimal Scenario - Using DataFrames\nordersSample.groupBy(col(\"client_id\"), col(\"product_id\"))\n      .agg(sum(\"total\").alias(\"gross-sales\"))\n      .orderBy(desc(\"client_id\"), desc(\"gross-sales\"))\n      .show",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:07:41+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153518_1783093074",
+         "id": "20180829-225010_174005329",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:07:42+0000",
+         "dateFinished": "2018-09-19T21:07:43+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7928"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:27:07+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537294785940_-476987845",
+         "id": "20180918-181945_1097966897",
+         "dateCreated": "2018-09-18T18:19:45+0000",
+         "dateStarted": "2018-09-19T21:27:07+0000",
+         "dateFinished": "2018-09-19T21:27:07+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7929",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\n# Optimal Scenario - Using DataFrames\norders_sample.groupBy(fun.col(\"client_id\"), fun.col(\"product_id\")) \\\n      .agg(fun.sum(\"total\").alias(\"gross-sales\")) \\\n      .orderBy(fun.desc(\"client_id\"), fun.desc(\"gross-sales\")) \\\n      .show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:07:46+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153517_1781938827",
+         "id": "20180829-224950_201420839",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:07:46+0000",
+         "dateFinished": "2018-09-19T21:07:47+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7930"
+      },
+      {
+         "text": "%md\nNow that the execution time has been reduced greatly, you can see how your final implementation takes advantage of Catalyst. Although both codes do approximately the same task, the final one has been optimized on the backend by Spark.\n\nAn alternative version through the RDD route would be using `reduceByKey` or `aggByKey`. According to the documentation, either of these can reduce the latency when working with RDDs by first reducing locally, then shuffling, and finally reducing again.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:27:10+0000",
+         "config": {
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153518_1783093074",
+         "id": "20180829-224057_45519513",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:27:10+0000",
+         "dateFinished": "2018-09-19T21:27:10+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7931",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Now that the execution time has been reduced greatly, you can see how your final implementation takes advantage of Catalyst. Although both codes do approximately the same task, the final one has been optimized on the backend by Spark.</p>\n<p>An alternative version through the RDD route would be using <code>reduceByKey</code> or <code>aggByKey</code>. According to the documentation, either of these can reduce the latency when working with RDDs by first reducing locally, then shuffling, and finally reducing again.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:27:17+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537295173028_-1749553317",
+         "id": "20180918-182613_1831992341",
+         "dateCreated": "2018-09-18T18:26:13+0000",
+         "dateStarted": "2018-09-19T21:27:17+0000",
+         "dateFinished": "2018-09-19T21:27:17+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7932",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "// Optimization using reduceByKey\nval sortedRows = ordersRDD.map(row => ((row.getString(0), row.getString(2)), row.getDouble(5)))\n                          .reduceByKey(_+_)\n                          .sortBy(pair => (pair._1._1,  pair._2), ascending = false)\n                          .take(20)\n\nsortedRows.foreach(println)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:07:56+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153519_1782708325",
+         "id": "20180829-210413_306858813",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:07:56+0000",
+         "dateFinished": "2018-09-19T21:07:58+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7933"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:27:23+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537295215440_-507706461",
+         "id": "20180918-182655_1509782753",
+         "dateCreated": "2018-09-18T18:26:55+0000",
+         "dateStarted": "2018-09-19T21:27:23+0000",
+         "dateFinished": "2018-09-19T21:27:23+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7934",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\n# Opimization Using reduceByKey\nsorted_rows = orders_RDD.map(lambda row: ((row[0], row[2]), row[5])) \\\n                        .reduceByKey(add) \\\n                        .sortBy(lambda row: (row[0][0], row[1]), ascending = False) \\\n                        .take(20)\n\nfor row in sorted_rows:\n    print(row)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:08:02+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153519_1782708325",
+         "id": "20180829-192512_1773196375",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:08:03+0000",
+         "dateFinished": "2018-09-19T21:08:03+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7935"
+      },
+      {
+         "text": "%md Does the benchmark result makes sense? Which one would you select and why? What would happen with even more data? What else could you do to keep improving this code piece?",
+         "dateUpdated": "2018-09-19T21:27:30+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153520_1793096545",
+         "id": "20180829-224121_622882701",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7936",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T21:27:31+0000",
+         "dateStarted": "2018-09-19T21:27:30+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Does the benchmark result makes sense? Which one would you select and why? What would happen with even more data? What else could you do to keep improving this code piece?</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n# Live Code 2 - Optimize with Repartition and Cache\nThe marketing campaign was a success! Even the marketing VP took an interest on your work with Spark and met directly with you to present you his latest idea. To extract more utility from the Alimazon dataset, he would like to study how users spend their money. \n\nYour task, should you choose to accept it, is to compute the SUM, MEAN, MAX, and MIN of the money spent by each user on the Alimazon orders dataset. This sounds quite easy, considering the previous request.\n\nFor some reasons, the Marketing VP also wants the metrics on separate files. You go ahead and create the following code.\n\n",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:27:33+0000",
+         "config": {
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153520_1793096545",
+         "id": "20180829-225242_1534870793",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:27:33+0000",
+         "dateFinished": "2018-09-19T21:27:33+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7937",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h1>Live Code 2 - Optimize with Repartition and Cache</h1>\n<p>The marketing campaign was a success! Even the marketing VP took an interest on your work with Spark and met directly with you to present you his latest idea. To extract more utility from the Alimazon dataset, he would like to study how users spend their money. </p>\n<p>Your task, should you choose to accept it, is to compute the SUM, MEAN, MAX, and MIN of the money spent by each user on the Alimazon orders dataset. This sounds quite easy, considering the previous request.</p>\n<p>For some reasons, the Marketing VP also wants the metrics on separate files. You go ahead and create the following code.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:27:36+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537295422904_-812540316",
+         "id": "20180918-183022_543642833",
+         "dateCreated": "2018-09-18T18:30:22+0000",
+         "dateStarted": "2018-09-19T21:27:36+0000",
+         "dateFinished": "2018-09-19T21:27:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7938",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "// Base Scenario - Data as read by spark\norders.show\norders.groupBy(\"client_id\").sum(\"total\").show\norders.groupBy(\"client_id\").avg(\"total\").show\norders.groupBy(\"client_id\").min(\"total\").show\norders.groupBy(\"client_id\").max(\"total\").show",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:08:07+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153521_1792711796",
+         "id": "20180829-225337_785829570",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:08:07+0000",
+         "dateFinished": "2018-09-19T21:08:16+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7939"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:27:39+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537295434137_303646892",
+         "id": "20180918-183034_443605703",
+         "dateCreated": "2018-09-18T18:30:34+0000",
+         "dateStarted": "2018-09-19T21:27:39+0000",
+         "dateFinished": "2018-09-19T21:27:39+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7940",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\n# Base Scenario - Data as read by spark\norders.show()\norders.groupBy(\"client_id\").sum(\"total\").show()\norders.groupBy(\"client_id\").avg(\"total\").show()\norders.groupBy(\"client_id\").min(\"total\").show()\norders.groupBy(\"client_id\").max(\"total\").show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:09:30+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153520_1793096545",
+         "id": "20180829-225331_739320534",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:09:30+0000",
+         "dateFinished": "2018-09-19T21:09:34+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7941"
+      },
+      {
+         "text": "%md\nThis was fairly easy compared to the previous task. Yet, being the efficiency-hungry developer you are, you think there is a way to make this code work faster. You go with the `repartition` method, because it makes sense to order data with the column you will use later. You expect the shuffling and latency to be reduced significantly.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:27:42+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153521_1792711796",
+         "id": "20180829-225501_317647165",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:27:42+0000",
+         "dateFinished": "2018-09-19T21:27:42+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7942",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>This was fairly easy compared to the previous task. Yet, being the efficiency-hungry developer you are, you think there is a way to make this code work faster. You go with the <code>repartition</code> method, because it makes sense to order data with the column you will use later. You expect the shuffling and latency to be reduced significantly.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:27:45+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537295628621_-77594940",
+         "id": "20180918-183348_690456626",
+         "dateCreated": "2018-09-18T18:33:48+0000",
+         "dateStarted": "2018-09-19T21:27:45+0000",
+         "dateFinished": "2018-09-19T21:27:45+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7943",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "// Using checkPartition function\nval ordersRepartitioned = orders.repartition($\"client_id\")\nordersRepartitioned.show\ncheckPartitions(orders)\ncheckPartitions(ordersRepartitioned)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:09:36+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153522_1793866043",
+         "id": "20180829-225754_1372456767",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:09:37+0000",
+         "dateFinished": "2018-09-19T21:09:42+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7944"
+      },
+      {
+         "text": "// Failed \"Improvement\" Scenario - Repartitioned data\nordersRepartitioned.groupBy(\"client_id\").sum(\"total\").show\nordersRepartitioned.groupBy(\"client_id\").avg(\"total\").show\nordersRepartitioned.groupBy(\"client_id\").min(\"total\").show\nordersRepartitioned.groupBy(\"client_id\").max(\"total\").show",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:10:01+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153523_1793481294",
+         "id": "20180829-225532_334396161",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:10:01+0000",
+         "dateFinished": "2018-09-19T21:10:06+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7945"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:27:47+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537295639949_-475394655",
+         "id": "20180918-183359_511725392",
+         "dateCreated": "2018-09-18T18:33:59+0000",
+         "dateStarted": "2018-09-19T21:27:47+0000",
+         "dateFinished": "2018-09-19T21:27:47+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7946",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\n# Using checkPartition function\norders_repartitioned = orders.repartition(\"client_id\")\norders_repartitioned.show\ncheck_partitions(orders)\ncheck_partitions(orders_repartitioned)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:10:10+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153522_1793866043",
+         "id": "20180829-225743_1301521202",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:10:10+0000",
+         "dateFinished": "2018-09-19T21:10:13+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7947"
+      },
+      {
+         "text": "%pyspark\n\n# Failed \"Improvement\" Scenario - Repartitioned data\norders_repartitioned.groupBy(\"client_id\").sum(\"total\").show()\norders_repartitioned.groupBy(\"client_id\").avg(\"total\").show()\norders_repartitioned.groupBy(\"client_id\").min(\"total\").show()\norders_repartitioned.groupBy(\"client_id\").max(\"total\").show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:21:14+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153523_1793481294",
+         "id": "20180829-225523_676296318",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:21:15+0000",
+         "dateFinished": "2018-09-19T21:21:19+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7948"
+      },
+      {
+         "text": "%md\nWeirdly, performance does not improve, as you were expecting it to. You use a quick function to monitor the partitions. You think something might have gone wrong with the partitioning that you can detect.\n\nAfter reviewing the results, you notice that partitions are indeed different, but there isn\u2019t anything obvious to optimize there. Repartition did its work! You decide to run the `explain` method.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:27:50+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153523_1793481294",
+         "id": "20180829-225601_437916405",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:27:50+0000",
+         "dateFinished": "2018-09-19T21:27:50+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7949",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Weirdly, performance does not improve, as you were expecting it to. You use a quick function to monitor the partitions. You think something might have gone wrong with the partitioning that you can detect.</p>\n<p>After reviewing the results, you notice that partitions are indeed different, but there isn\u2019t anything obvious to optimize there. Repartition did its work! You decide to run the <code>explain</code> method.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:27:53+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537295850885_404417166",
+         "id": "20180918-183730_1257070568",
+         "dateCreated": "2018-09-18T18:37:30+0000",
+         "dateStarted": "2018-09-19T21:27:53+0000",
+         "dateFinished": "2018-09-19T21:27:53+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7950",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "orders.explain\nordersRepartitioned.explain",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:21:23+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153524_1791557550",
+         "id": "20180829-230249_1160763117",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:21:24+0000",
+         "dateFinished": "2018-09-19T21:21:24+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7951"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:27:55+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537295871036_2101205788",
+         "id": "20180918-183751_1287390156",
+         "dateCreated": "2018-09-18T18:37:51+0000",
+         "dateStarted": "2018-09-19T21:27:55+0000",
+         "dateFinished": "2018-09-19T21:27:55+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7952",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\norders.explain()\norders_repartitioned.explain()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:21:27+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153524_1791557550",
+         "id": "20180829-230236_608426328",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:21:27+0000",
+         "dateFinished": "2018-09-19T21:21:27+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7953"
+      },
+      {
+         "text": "%md There it is. The shuffling still had to occur on each call to `show`. Going back to the documentation, you realize you might have made a mistake on the cache location. Each action executes the full DAG taking cache into account, which means the repartition method happened again on every action. A quick rewrite solves it.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:27:58+0000",
+         "config": {
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153525_1791172801",
+         "id": "20180829-230307_51822834",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:27:58+0000",
+         "dateFinished": "2018-09-19T21:27:58+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7954",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>There it is. The shuffling still had to occur on each call to <code>show</code>. Going back to the documentation, you realize you might have made a mistake on the cache location. Each action executes the full DAG taking cache into account, which means the repartition method happened again on every action. A quick rewrite solves it.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:28:03+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537309381688_1377281940",
+         "id": "20180918-222301_1833927303",
+         "dateCreated": "2018-09-18T22:23:01+0000",
+         "dateStarted": "2018-09-19T21:28:03+0000",
+         "dateFinished": "2018-09-19T21:28:03+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7955",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "// Optimal Scenario - Repartitioned data\nval ordersRepartitionedCached  = orders.repartition($\"client_id\").cache\nordersRepartitionedCached.show\n\ncheckPartitions(ordersRepartitionedCached)\nordersRepartitionedCached.groupBy(\"client_id\").sum(\"total\").show\nordersRepartitionedCached.groupBy(\"client_id\").avg(\"total\").show\nordersRepartitionedCached.groupBy(\"client_id\").min(\"total\").show\nordersRepartitionedCached.groupBy(\"client_id\").max(\"total\").show",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:21:31+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153526_1792327047",
+         "id": "20180829-192240_1457079661",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:21:31+0000",
+         "dateFinished": "2018-09-19T21:21:35+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7956"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:28:07+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537309392123_-961606624",
+         "id": "20180918-222312_829127060",
+         "dateCreated": "2018-09-18T22:23:12+0000",
+         "dateStarted": "2018-09-19T21:28:07+0000",
+         "dateFinished": "2018-09-19T21:28:07+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7957",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\n# Optimal Scenario - Repartitioned data\norders_repartitioned_cached  = orders.repartition(\"client_id\").cache()\norders_repartitioned_cached.show\ncheck_partitions(orders_repartitioned_cached)\n\norders_repartitioned_cached.groupBy(\"client_id\").sum(\"total\").show()\norders_repartitioned_cached.groupBy(\"client_id\").avg(\"total\").show()\norders_repartitioned_cached.groupBy(\"client_id\").min(\"total\").show()\norders_repartitioned_cached.groupBy(\"client_id\").max(\"total\").show() ",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:21:39+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153525_1791172801",
+         "id": "20180829-214700_1621651268",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:21:39+0000",
+         "dateFinished": "2018-09-19T21:21:40+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7958"
+      },
+      {
+         "text": "%md\nJust moving the cache solved your performance, because caching stores a point in your execution DAG in the selected storage level, until the next action requires it. This way, the correct usage of repartition and cache made the difference in execution time. ",
+         "dateUpdated": "2018-09-19T21:28:10+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153527_1791942298",
+         "id": "20180829-230337_936315368",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7959",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T21:28:10+0000",
+         "dateStarted": "2018-09-19T21:28:10+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Just moving the cache solved your performance, because caching stores a point in your execution DAG in the selected storage level, until the next action requires it. This way, the correct usage of repartition and cache made the difference in execution time.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n# Live Code 3 - Optimize with Repartition\nNow that you\u2019re moving up in the corporate ladder using Spark (because no one else knows how to use it in your organization), it is time to make some suggestions to make yourself more noticeable. You decide to push for an architectural change that will improve performance in your already generated reports. For this purpose, you want to experiment with repartition.\n\nYou know that the Alimazon storage is configured with monthly partitions. That does not seem optimal to you, but you need to generate some evidence to support your thoughts. You decide to run a few experimental partitions to observe if they are good for several shuffling scenarios.\n\n**NOTE:** Because of a limitation of Spark reading from GCS, we will have to simulate the partition by month that Alimazon uses using the following code.\n",
+         "dateUpdated": "2018-09-19T21:28:12+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153527_1791942298",
+         "id": "20180830-153040_1949700509",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7960",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T21:28:12+0000",
+         "dateStarted": "2018-09-19T21:28:12+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h1>Live Code 3 - Optimize with Repartition</h1>\n<p>Now that you\u2019re moving up in the corporate ladder using Spark (because no one else knows how to use it in your organization), it is time to make some suggestions to make yourself more noticeable. You decide to push for an architectural change that will improve performance in your already generated reports. For this purpose, you want to experiment with repartition.</p>\n<p>You know that the Alimazon storage is configured with monthly partitions. That does not seem optimal to you, but you need to generate some evidence to support your thoughts. You decide to run a few experimental partitions to observe if they are good for several shuffling scenarios.</p>\n<p><strong>NOTE:</strong> Because of a limitation of Spark reading from GCS, we will have to simulate the partition by month that Alimazon uses using the following code.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:28:16+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537309443963_-732052737",
+         "id": "20180918-222403_1191106331",
+         "dateCreated": "2018-09-18T22:24:03+0000",
+         "dateStarted": "2018-09-19T21:28:16+0000",
+         "dateFinished": "2018-09-19T21:28:16+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7961",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val ordersByMonth = orders.repartition(12, month($\"timestamp\").alias(\"month\")).cache\nordersByMonth.show",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:21:47+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153528_1790018554",
+         "id": "20180830-153303_1383442079",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:21:47+0000",
+         "dateFinished": "2018-09-19T21:21:49+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7962"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:28:19+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537309461750_-1803178351",
+         "id": "20180918-222421_1336053316",
+         "dateCreated": "2018-09-18T22:24:21+0000",
+         "dateStarted": "2018-09-19T21:28:19+0000",
+         "dateFinished": "2018-09-19T21:28:19+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7963",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\norders_by_month = orders.repartition(12, month(\"timestamp\").alias(\"month\")).cache()\norders_by_month.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:21:56+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153527_1791942298",
+         "id": "20180830-153137_747080515",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:21:56+0000",
+         "dateFinished": "2018-09-19T21:21:56+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7964"
+      },
+      {
+         "text": "%md\nFor the sake of simplicity, you decide to start testing with the same report metrics requested by the marketing VP. On this test, you want to obtain only the metrics for February, because that will reduce the computation time for the benchmark. More tests with distinct shuffling implications should be done, but this is good enough to start.\n\nYou run your partition analysis function first to study how the data is partitioned right now.\n",
+         "dateUpdated": "2018-09-19T21:28:21+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153528_1790018554",
+         "id": "20180830-153326_908443610",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7965",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T21:28:21+0000",
+         "dateStarted": "2018-09-19T21:28:21+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>For the sake of simplicity, you decide to start testing with the same report metrics requested by the marketing VP. On this test, you want to obtain only the metrics for February, because that will reduce the computation time for the benchmark. More tests with distinct shuffling implications should be done, but this is good enough to start.</p>\n<p>You run your partition analysis function first to study how the data is partitioned right now.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:28:25+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537309582422_-586016721",
+         "id": "20180918-222622_770501782",
+         "dateCreated": "2018-09-18T22:26:22+0000",
+         "dateStarted": "2018-09-19T21:28:25+0000",
+         "dateFinished": "2018-09-19T21:28:25+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7966",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "checkPartitions(ordersByMonth)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:22:01+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153529_1789633805",
+         "id": "20180830-153348_516778534",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:22:01+0000",
+         "dateFinished": "2018-09-19T21:22:02+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7967"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:28:28+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537309596852_-1313192142",
+         "id": "20180918-222636_1338718753",
+         "dateCreated": "2018-09-18T22:26:36+0000",
+         "dateStarted": "2018-09-19T21:28:28+0000",
+         "dateFinished": "2018-09-19T21:28:28+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7968",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\ncheck_partitions(orders_by_month)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:22:07+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153529_1789633805",
+         "id": "20180830-153344_2081551598",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:22:07+0000",
+         "dateFinished": "2018-09-19T21:22:08+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7969"
+      },
+      {
+         "text": "%md After checking the partitions, let\u2019s run the base benchmark to measure the rest of your experiments. When benchmarking your code (or any optimizations) it is always wise to have a base scenario with minimal or no optimizations at all.\n",
+         "dateUpdated": "2018-09-19T21:28:33+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153530_1790788052",
+         "id": "20180830-153407_141959711",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7970",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T21:28:33+0000",
+         "dateStarted": "2018-09-19T21:28:33+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>After checking the partitions, let\u2019s run the base benchmark to measure the rest of your experiments. When benchmarking your code (or any optimizations) it is always wise to have a base scenario with minimal or no optimizations at all.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:28:35+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537309786653_-745997287",
+         "id": "20180918-222946_578742017",
+         "dateCreated": "2018-09-18T22:29:46+0000",
+         "dateStarted": "2018-09-19T21:28:35+0000",
+         "dateFinished": "2018-09-19T21:28:35+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7971",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "// Base scenario: multiple metrics for february\nval ordersInFebruary = ordersByMonth.filter(month($\"timestamp\") === \"2\")\n\n// Exploring base scenario partitioning\nordersInFebruary.show\ncheckPartitions(ordersInFebruary)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:22:13+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153531_1790403303",
+         "id": "20180830-175623_2069300436",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:22:13+0000",
+         "dateFinished": "2018-09-19T21:22:15+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7972"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:28:38+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537309796451_1344358811",
+         "id": "20180918-222956_41862595",
+         "dateCreated": "2018-09-18T22:29:56+0000",
+         "dateStarted": "2018-09-19T21:28:38+0000",
+         "dateFinished": "2018-09-19T21:28:38+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7973",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\n# Base scenario: multiple metrics for february\norders_in_february = orders_by_month.filter(month(\"timestamp\") == \"2\")\n\n# Exploring base scenario partitioning\norders_in_february.show()\ncheck_partitions(orders_in_february)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:22:26+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153531_1790403303",
+         "id": "20180830-175540_1781171772",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:22:26+0000",
+         "dateFinished": "2018-09-19T21:22:27+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7974"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:28:41+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537310189784_1941485291",
+         "id": "20180918-223629_2081868328",
+         "dateCreated": "2018-09-18T22:36:29+0000",
+         "dateStarted": "2018-09-19T21:28:41+0000",
+         "dateFinished": "2018-09-19T21:28:41+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7975",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "// Scala version\nordersInFebruary.groupBy(month($\"timestamp\")).sum(\"total\").show\nordersInFebruary.groupBy(month($\"timestamp\")).avg(\"total\").show\nordersInFebruary.groupBy(month($\"timestamp\")).min(\"total\").show\nordersInFebruary.groupBy(month($\"timestamp\")).max(\"total\").show",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:22:31+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153533_1788094809",
+         "id": "20180830-153849_2103987845",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:22:31+0000",
+         "dateFinished": "2018-09-19T21:22:37+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7976"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:28:46+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537310199756_1618847886",
+         "id": "20180918-223639_689611166",
+         "dateCreated": "2018-09-18T22:36:39+0000",
+         "dateStarted": "2018-09-19T21:28:46+0000",
+         "dateFinished": "2018-09-19T21:28:46+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7977",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\n# Base scenario: multiple metrics for february\norders_in_february.groupBy(month(\"timestamp\")).sum(\"total\").show()\norders_in_february.groupBy(month(\"timestamp\")).avg(\"total\").show()\norders_in_february.groupBy(month(\"timestamp\")).min(\"total\").show()\norders_in_february.groupBy(month(\"timestamp\")).max(\"total\").show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:22:41+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153532_1788479558",
+         "id": "20180830-153545_1864356302",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:22:41+0000",
+         "dateFinished": "2018-09-19T21:22:44+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7978"
+      },
+      {
+         "text": "%md Cache is not used directly on `ordersInFebruary` because although filter requires some compute time, it is optimized on Spark. Even more so, because it only has narrow dependencies. The results are fast, but that\u2019s mostly because we dropped all months other than February so there were less partitions to work with in the nodes. \n\nNow you can proceed with your first repartition experiment. You want to avoid repartitioning by `client_id`, because you want to have something that will work for any shuffling scenario. You decide to start with an increased number of partitions on the month of February as a first approach.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:28:49+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153534_1789249056",
+         "id": "20180830-153946_1575142577",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:28:49+0000",
+         "dateFinished": "2018-09-19T21:28:49+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7979",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Cache is not used directly on <code>ordersInFebruary</code> because although filter requires some compute time, it is optimized on Spark. Even more so, because it only has narrow dependencies. The results are fast, but that\u2019s mostly because we dropped all months other than February so there were less partitions to work with in the nodes. </p>\n<p>Now you can proceed with your first repartition experiment. You want to avoid repartitioning by <code>client_id</code>, because you want to have something that will work for any shuffling scenario. You decide to start with an increased number of partitions on the month of February as a first approach.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:28:57+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537310285580_606496909",
+         "id": "20180918-223805_1789312994",
+         "dateCreated": "2018-09-18T22:38:05+0000",
+         "dateStarted": "2018-09-19T21:28:57+0000",
+         "dateFinished": "2018-09-19T21:28:57+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7980",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "// Bad optimization scenario\nval ordersInFebruary = ordersByMonth.filter(month($\"timestamp\") === \"2\")\nval repartitionedOrdersInFebruary1 = ordersInFebruary.repartition(3000).cache\ncheckPartitions(repartitionedOrdersInFebruary1)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:22:48+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153534_1789249056",
+         "id": "20180830-154151_443575427",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:22:48+0000",
+         "dateFinished": "2018-09-19T21:22:50+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7981"
+      },
+      {
+         "text": "// Scala Version\nrepartitionedOrdersInFebruary1.groupBy(month($\"timestamp\")).sum(\"total\").show\nrepartitionedOrdersInFebruary1.groupBy(month($\"timestamp\")).avg(\"total\").show\nrepartitionedOrdersInFebruary1.groupBy(month($\"timestamp\")).min(\"total\").show\nrepartitionedOrdersInFebruary1.groupBy(month($\"timestamp\")).max(\"total\").show",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:22:54+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153535_1788864307",
+         "id": "20180830-175832_714783056",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:22:54+0000",
+         "dateFinished": "2018-09-19T21:23:58+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7982"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:29:00+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537310302316_2127455283",
+         "id": "20180918-223822_487651124",
+         "dateCreated": "2018-09-18T22:38:22+0000",
+         "dateStarted": "2018-09-19T21:29:00+0000",
+         "dateFinished": "2018-09-19T21:29:00+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7983",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\n# Bad optimization scenario\norders_in_february = orders_by_month.filter(month(\"timestamp\") == \"2\")\nrepartitioned_orders_in_february1 = orders_in_february.repartition(3000).cache()\ncheck_partitions(orders_in_february)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:24:04+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153534_1789249056",
+         "id": "20180830-154108_122475076",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:24:04+0000",
+         "dateFinished": "2018-09-19T21:24:05+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7984"
+      },
+      {
+         "text": "%pyspark\n\nrepartitioned_orders_in_february1.groupBy(month(\"timestamp\")).sum(\"total\").show()\nrepartitioned_orders_in_february1.groupBy(month(\"timestamp\")).avg(\"total\").show()\nrepartitioned_orders_in_february1.groupBy(month(\"timestamp\")).min(\"total\").show()\nrepartitioned_orders_in_february1.groupBy(month(\"timestamp\")).max(\"total\").show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:24:09+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153535_1788864307",
+         "id": "20180830-175822_56277178",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:24:09+0000",
+         "dateFinished": "2018-09-19T21:25:04+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7985"
+      },
+      {
+         "text": "%md\nPerformance could certainly improve. This is a proof that just adding more partitions are not directly linked to better performance. As you can see in the `checkPartitions` output, plenty of partitions are empty, which is not good because it translates into useless computing time used by the worker nodes.\n\nAlso, remember that we\u2019re working on a relatively small Spark cluster, which limits the amount of CPUs we have access to. Considering that, let\u2019s say we want to partition to something more manageable.\n\nLet\u2019s repartition again separately (to have comparable benchmark results).",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:29:06+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153536_1774628598",
+         "id": "20180830-154230_1501626694",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:29:06+0000",
+         "dateFinished": "2018-09-19T21:29:06+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7986",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Performance could certainly improve. This is a proof that just adding more partitions are not directly linked to better performance. As you can see in the <code>checkPartitions</code> output, plenty of partitions are empty, which is not good because it translates into useless computing time used by the worker nodes.</p>\n<p>Also, remember that we\u2019re working on a relatively small Spark cluster, which limits the amount of CPUs we have access to. Considering that, let\u2019s say we want to partition to something more manageable.</p>\n<p>Let\u2019s repartition again separately (to have comparable benchmark results).</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:29:09+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537311968789_849498917",
+         "id": "20180918-230608_1608538552",
+         "dateCreated": "2018-09-18T23:06:08+0000",
+         "dateStarted": "2018-09-19T21:29:09+0000",
+         "dateFinished": "2018-09-19T21:29:09+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7987",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val repartitionedOrdersInFebruary2 = ordersInFebruary.repartition(9).cache\ncheckPartitions(repartitionedOrdersInFebruary2)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:25:29+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153536_1774628598",
+         "id": "20180830-154306_2010352408",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:25:29+0000",
+         "dateFinished": "2018-09-19T21:25:30+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7988"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:29:15+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537312011285_-1039956959",
+         "id": "20180918-230651_896323445",
+         "dateCreated": "2018-09-18T23:06:51+0000",
+         "dateStarted": "2018-09-19T21:29:15+0000",
+         "dateFinished": "2018-09-19T21:29:15+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7989",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\nrepartitioned_orders_in_february2 = orders_in_february.repartition(9).cache()\ncheck_partitions(repartitioned_orders_in_february2)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:25:41+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153536_1774628598",
+         "id": "20180830-154254_213443068",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:25:42+0000",
+         "dateFinished": "2018-09-19T21:25:42+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7990"
+      },
+      {
+         "text": "%md The output of checkPartitions no longer have empty partitions. Let\u2019s see how our benchmark code behaves with these bigger sets.",
+         "dateUpdated": "2018-09-19T21:29:18+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153537_1774243849",
+         "id": "20180830-154400_1865638795",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7991",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T21:29:18+0000",
+         "dateStarted": "2018-09-19T21:29:18+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>The output of checkPartitions no longer have empty partitions. Let\u2019s see how our benchmark code behaves with these bigger sets.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:29:23+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537312022770_79308240",
+         "id": "20180918-230702_293936432",
+         "dateCreated": "2018-09-18T23:07:02+0000",
+         "dateStarted": "2018-09-19T21:29:23+0000",
+         "dateFinished": "2018-09-19T21:29:23+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7992",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "// Optimal solution\nrepartitionedOrdersInFebruary2.groupBy(month($\"timestamp\")).sum(\"total\").show\nrepartitionedOrdersInFebruary2.groupBy(month($\"timestamp\")).avg(\"total\").show\nrepartitionedOrdersInFebruary2.groupBy(month($\"timestamp\")).min(\"total\").show\nrepartitionedOrdersInFebruary2.groupBy(month($\"timestamp\")).max(\"total\").show",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:25:47+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153538_1775398096",
+         "id": "20180829-192450_551330582",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:25:47+0000",
+         "dateFinished": "2018-09-19T21:25:51+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7993"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:29:26+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537312034478_-109239502",
+         "id": "20180918-230714_838772688",
+         "dateCreated": "2018-09-18T23:07:14+0000",
+         "dateStarted": "2018-09-19T21:29:26+0000",
+         "dateFinished": "2018-09-19T21:29:26+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7994",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\n# Optimal solution\nrepartitioned_orders_in_february2.groupBy(month(\"timestamp\")).sum(\"total\").show()\nrepartitioned_orders_in_february2.groupBy(month(\"timestamp\")).avg(\"total\").show()\nrepartitioned_orders_in_february2.groupBy(month(\"timestamp\")).min(\"total\").show()\nrepartitioned_orders_in_february2.groupBy(month(\"timestamp\")).max(\"total\").show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:25:58+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153538_1775398096",
+         "id": "20180829-220518_1718371005",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:25:58+0000",
+         "dateFinished": "2018-09-19T21:26:00+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7995"
+      },
+      {
+         "text": "%md\nYou see that performance significantly improved compared to the other scenarios. Even though partitions contain a larger amount of records, we must be aware of two things:\n 1) Due to a DataProc configuration, we can only use 3 CPUs in our cluster.\n 2) General rule-of-thumb for partitioning suggests 3 partitions per CPU. This allows the tasks to be scheduled more fairly between executor threads. However, this may not be efficient for all scenarios.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T21:29:29+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153539_1775013347",
+         "id": "20180829-230512_1037389140",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "dateStarted": "2018-09-19T21:29:29+0000",
+         "dateFinished": "2018-09-19T21:29:29+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7996",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>You see that performance significantly improved compared to the other scenarios. Even though partitions contain a larger amount of records, we must be aware of two things:<br/> 1) Due to a DataProc configuration, we can only use 3 CPUs in our cluster.<br/> 2) General rule-of-thumb for partitioning suggests 3 partitions per CPU. This allows the tasks to be scheduled more fairly between executor threads. However, this may not be efficient for all scenarios.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "",
+         "dateUpdated": "2018-09-13T19:49:13+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1536868153540_1773089602",
+         "id": "20180830-154554_116265660",
+         "dateCreated": "2018-09-13T19:49:13+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:7997"
+      }
+   ],
+   "name": "c6-examples-exercises",
+   "id": "2DS1NJ7SE",
+   "angularObjects": {
+      "2DR48BCZX:shared_process": [],
+      "2DT17NWU6:shared_process": [],
+      "2DPXK4WGK:shared_process": [],
+      "2DPTXJ6DB:shared_process": [],
+      "2DRNPWPRJ:shared_process": [],
+      "2DRD99AZM:shared_process": [],
+      "2DQCYZMU9:shared_process": [],
+      "2DPU4WTJ1:shared_process": [],
+      "2DTCFAKHG:shared_process": [],
+      "2DSPCP1NK:shared_process": [],
+      "2DQSECJDX:shared_process": [],
+      "2DTHQCYNG:shared_process": [],
+      "2DS1DFNS6:shared_process": [],
+      "2DSHTZC94:shared_process": [],
+      "2DTARHE1J:shared_process": [],
+      "2DTJW366Y:shared_process": [],
+      "2DQGWE5UQ:shared_process": [],
+      "2DTFCJZV3:shared_process": []
+   },
+   "config": {
+      "looknfeel": "default",
+      "personalizedMode": "false"
+   },
+   "info": {}
+}

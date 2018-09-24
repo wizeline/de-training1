@@ -1,0 +1,3452 @@
+{
+   "paragraphs": [
+      {
+         "text": "%md\n# Joins and Distributed Shared Variables\n## Examples and Exercises\n\nWelcome to the examples and exercises notebook of our seventh session in the Big Data Engineering certification!\n\nIn this notebook, we show examples and exercises on joins and distributed shared variables (broadcast variables and accumulators).\n\nIf you have any feedback about our courses, email us at academy@wizeline.com or use the Academy Slack channel.",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h1>Joins and Distributed Shared Variables</h1>\n<h2>Examples and Exercises</h2>\n<p>Welcome to the examples and exercises notebook of our seventh session in the Big Data Engineering certification!</p>\n<p>In this notebook, we show examples and exercises on joins and distributed shared variables (broadcast variables and accumulators).</p>\n<p>If you have any feedback about our courses, email us at <a href=\"mailto:&#97;c&#97;&#x64;&#x65;&#x6d;&#x79;&#64;&#x77;&#x69;z&#101;&#x6c;&#105;n&#101;&#46;&#99;o&#109;\">&#97;c&#97;&#x64;&#x65;&#x6d;&#x79;&#64;&#x77;&#x69;z&#101;&#x6c;&#105;n&#101;&#46;&#99;o&#109;</a> or use the Academy Slack channel.</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888164_-595033906",
+         "id": "20180902-235120_996826856",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:35769"
+      },
+      {
+         "text": "%md\n# Join Examples\n\nTwo dataframes serve as examples. The first one (`person`) is about persons of interest; it includes the name and academic affiliation. The second example dataframe (`university`) is about universities; it includes the institution\u2019s name and country of origin.",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h1>Join Examples</h1>\n<p>Two dataframes serve as examples. The first one (<code>person</code>) is about persons of interest; it includes the name and academic affiliation. The second example dataframe (<code>university</code>) is about universities; it includes the institution\u2019s name and country of origin.</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888168_-596572902",
+         "id": "20180902-234218_214064962",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35770"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888169_-596957651",
+         "id": "20180902-234405_581583838",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35771"
+      },
+      {
+         "text": "val person = Seq( \n    (0, \"Caucher Birkar\", 0),\n    (1, \"Alessio Figalli\", 1), \n    (2, \"Peter Scholze\", 2),\n    (3, \"Akshay Venkatesh\", 3),\n    (4, \"Maryam Mirzakhani\", 3),\n    (5, \"Manjul Bhargava\", 5)\n).toDF(\"id_person\", \"name\", \"id_university\")\n\nz.show(person)",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 6,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888169_-596957651",
+         "id": "20180902-234347_1939646086",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35772"
+      },
+      {
+         "text": "val university = Seq(\n    (0, \"University of Cambridge\", \"UK\"), \n    (1, \"Swiss Federal Institute of Technology Zurich\", \"Switzerland\"), \n    (2, \"University of Bonn\", \"Germany\"),\n    (3, \"Stanford University\", \"US\"),\n    (4, \"University of Warwick\", \"UK\")\n).toDF(\"id_university\", \"university\", \"country\")\n    \nz.show(university)",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 6,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888170_-595803404",
+         "id": "20180902-235805_2092442557",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35773"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888171_-596188153",
+         "id": "20180902-234425_229070519",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35774"
+      },
+      {
+         "text": "%pyspark\nvalues = [\n    (0, \"Caucher Birkar\", 0),\n    (1, \"Alessio Figalli\", 1), \n    (2, \"Peter Scholze\", 2),\n    (3, \"Akshay Venkatesh\", 3),\n    (4, \"Maryam Mirzakhani\", 3),\n    (5, \"Manjul Bhargava\", 5)\n]\nperson = spark.createDataFrame(values, ['id_person', 'name', 'id_university']) \\\n    .alias('person')\n\nz.show(person)",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 6,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888172_-598111898",
+         "id": "20180902-234530_660660952",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35775"
+      },
+      {
+         "text": "%pyspark\nvalues = [\n    (0, \"University of Cambridge\", \"UK\"), \n    (1, \"Swiss Federal Institute of Technology Zurich\", \"Switzerland\"), \n    (2, \"University of Bonn\", \"Germany\"),\n    (3, \"Stanford University\", \"US\"),\n    (4, \"University of Warwick\", \"UK\")\n]\nuniversity = spark.createDataFrame(values, ['id_university', 'university', 'country']) \\\n    .alias('university')\n\nz.show(university)",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 6,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888172_-598111898",
+         "id": "20180902-235540_1202253387",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35776"
+      },
+      {
+         "text": "%md\n\nThe *join expression* can be defined beforehand:",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>The <em>join expression</em> can be defined beforehand:</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888173_-598496646",
+         "id": "20180902-234910_400890505",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35777"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888174_-597342400",
+         "id": "20180902-235433_1375501608",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35778"
+      },
+      {
+         "text": "val joinExpression = person.col(\"id_university\") === university.col(\"id_university\")",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888174_-597342400",
+         "id": "20180902-235455_412208279",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35779"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888175_-597727149",
+         "id": "20180903-013508_313940674",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35780"
+      },
+      {
+         "text": "%pyspark\nfrom pyspark.sql.functions import col\n\njoin_expression = col('person.id_university') == col('university.id_university')",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888175_-597727149",
+         "id": "20180902-235429_876845722",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35781"
+      },
+      {
+         "text": "%md\nThe join is performed on the `person` dataframe using the `university` dataframe as the right-hand component and the join expression previously defined.\n\nThe default join is an *inner join*",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "editorSetting": {
+               "language": "text",
+               "editOnDblClick": false
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/text",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>The join is performed on the <code>person</code> dataframe using the <code>university</code> dataframe as the right-hand component and the join expression previously defined.</p>\n<p>The default join is an <em>inner join</em></p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888175_-597727149",
+         "id": "20180903-002630_417317455",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35782"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888176_-587338928",
+         "id": "20180903-013639_1253947890",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35783"
+      },
+      {
+         "text": "val jointDF = person.join(university, joinExpression)\n\nz.show(jointDF)",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888176_-587338928",
+         "id": "20180903-010224_1456397403",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35784"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888177_-587723677",
+         "id": "20180903-013657_1005456565",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35785"
+      },
+      {
+         "text": "%pyspark\njoint_df = person.join(university, join_expression)\n\nz.show(joint_df)",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888177_-587723677",
+         "id": "20180903-010554_133290646",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35786"
+      },
+      {
+         "text": "%md\nYou can also use a string with the join column (if this column exists in both dataframes). This has the benefit that only one column appears in the result.",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>You can also use a string with the join column (if this column exists in both dataframes). This has the benefit that only one column appears in the result.</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888177_-587723677",
+         "id": "20180903-010620_1367050104",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35787"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888178_-586569431",
+         "id": "20180903-013812_1793580096",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35788"
+      },
+      {
+         "text": "val jointDF = person.join(university, \"id_university\")\n\nz.show(jointDF)",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888178_-586569431",
+         "id": "20180903-011458_976822459",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35789"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888179_-586954179",
+         "id": "20180903-013832_661713842",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35790"
+      },
+      {
+         "text": "%pyspark\njoint_df = person.join(university, \"id_university\")\n\nz.show(joint_df)",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888179_-586954179",
+         "id": "20180903-011532_940453101",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35791"
+      },
+      {
+         "text": "%md\nWe can specify the type of join to perform as a parameter of the `join` function:",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>We can specify the type of join to perform as a parameter of the <code>join</code> function:</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888179_-586954179",
+         "id": "20180903-011606_2069335456",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35792"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888180_-588877924",
+         "id": "20180903-014001_4866802",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35793"
+      },
+      {
+         "text": "val joinType = \"outer\"\nval outerJointDF = person.join(university, joinExpression, joinType)\n\nz.show(outerJointDF)",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888180_-588877924",
+         "id": "20180903-011820_651924128",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35794"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888181_-589262673",
+         "id": "20180903-012205_637787490",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35795"
+      },
+      {
+         "text": "%pyspark\njoin_type = \"outer\"\nouter_joint_df = person.join(university, join_expression, join_type)\n\nz.show(outer_joint_df)",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888181_-589262673",
+         "id": "20180903-012321_518027660",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35796"
+      },
+      {
+         "text": "%md\nWe can look how the join is executed using the `explain` function:",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>We can look how the join is executed using the <code>explain</code> function:</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888181_-589262673",
+         "id": "20180903-012356_1640037851",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35797"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888182_-588108426",
+         "id": "20180903-012448_1048325266",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35798"
+      },
+      {
+         "text": "jointDF.explain()",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888182_-588108426",
+         "id": "20180903-014259_974676519",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35799"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888182_-588108426",
+         "id": "20180903-014310_1981593463",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35800"
+      },
+      {
+         "text": "%pyspark\njoint_df.explain()",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "editorHide": false,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888183_-588493175",
+         "id": "20180903-014321_630769686",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35801"
+      },
+      {
+         "text": "%md\nNote that Spark executed this join as a `BroadcastHashJoin` given that the dataframes are very small.",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Note that Spark executed this join as a <code>BroadcastHashJoin</code> given that the dataframes are very small.</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888183_-588493175",
+         "id": "20180903-014349_1731492178",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35802"
+      },
+      {
+         "text": "%md\nYou can enforce a `BroadcastHashJoin` as follows:",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>You can enforce a <code>BroadcastHashJoin</code> as follows:</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888184_-590416920",
+         "id": "20180903-014550_1877926423",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35803"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888184_-590416920",
+         "id": "20180903-014623_477076944",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35804"
+      },
+      {
+         "text": "import org.apache.spark.sql.functions.broadcast\n\nperson.join(broadcast(university), joinExpression).explain()",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "editorHide": false,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888184_-590416920",
+         "id": "20180903-014606_1182026288",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35805"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888186_-589647422",
+         "id": "20180903-014615_1252613758",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35806"
+      },
+      {
+         "text": "%pyspark\nfrom pyspark.sql.functions import broadcast\n\nperson.join(broadcast(university), join_expression).explain()",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888186_-589647422",
+         "id": "20180903-014639_559781593",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35807"
+      },
+      {
+         "text": "%md\n# Broadcast Variables Examples",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h1>Broadcast Variables Examples</h1>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888186_-589647422",
+         "id": "20180903-014709_708947323",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35808"
+      },
+      {
+         "text": "%md\n### WizeSquare Checkins\nFor our example of variable broadcasting, we use a new dataset of a fictitious application called Wizesquare, which enables users to \u201ccheck in\u201d at different places in the city of Guadalajara.\n\nThis dataset is contained in two files:\n\n- `gdl_neighborhoods.csv`, which lists neighborhoods of Guadalajara. \n- `gdl_checkins.csv`, which lists possible \u201ccheck ins\u201d.\n\nLet's have a preview of each to understand the dataset better:",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h3>WizeSquare Checkins</h3>\n<p>For our example of variable broadcasting, we use a new dataset of a fictitious application called Wizesquare, which enables users to \u201ccheck in\u201d at different places in the city of Guadalajara.</p>\n<p>This dataset is contained in two files:</p>\n<ul>\n  <li><code>gdl_neighborhoods.csv</code>, which lists neighborhoods of Guadalajara.</li>\n  <li><code>gdl_checkins.csv</code>, which lists possible \u201ccheck ins\u201d.</li>\n</ul>\n<p>Let&rsquo;s have a preview of each to understand the dataset better:</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888187_-590032171",
+         "id": "20180903-015008_356775911",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35809"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888187_-590032171",
+         "id": "20180903-015038_28960163",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35810"
+      },
+      {
+         "text": "val neighborhoods = spark.read.format(\"csv\")\n    .option(\"header\", true)\n    .option(\"inferSchema\", true)\n    .load(\"gs://de-training-input/wizesquare/gdl_neighborhoods.csv\")\n    \nneighborhoods.show()",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "editorHide": false,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888187_-590032171",
+         "id": "20180903-015054_743292883",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35811"
+      },
+      {
+         "text": "neighborhoods.printSchema",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888188_-591955915",
+         "id": "20180903-015107_1104969318",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35812"
+      },
+      {
+         "text": "neighborhoods.count()",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888188_-591955915",
+         "id": "20180903-015130_630193468",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35813"
+      },
+      {
+         "text": "val checkins = spark.read.format(\"csv\")\n    .option(\"header\", true)\n    .option(\"inferSchema\", true)\n    .load(\"gs://de-training-input/wizesquare/gdl_checkins.csv\")\n    \ncheckins.show()",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888189_-592340664",
+         "id": "20180903-015142_536337579",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35814"
+      },
+      {
+         "text": "checkins.printSchema",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888194_-900524533",
+         "id": "20180903-015151_1707274519",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35815"
+      },
+      {
+         "text": "checkins.count()",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888195_-900909282",
+         "id": "20180903-015241_1882551393",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35816"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888201_-904756771",
+         "id": "20180903-015248_1559395882",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35817"
+      },
+      {
+         "text": "%pyspark\nneighborhoods = spark.read.format(\"csv\") \\\n    .option(\"header\", True) \\\n    .option(\"inferSchema\", True) \\\n    .load(\"gs://de-training-input/wizesquare/gdl_neighborhoods.csv\")\n    \nneighborhoods.show()",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888201_-904756771",
+         "id": "20180903-015300_985421927",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35818"
+      },
+      {
+         "text": "%pyspark\nneighborhoods.printSchema()",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888202_-903602524",
+         "id": "20180903-015324_816667257",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35819"
+      },
+      {
+         "text": "%pyspark\nneighborhoods.count()",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888202_-903602524",
+         "id": "20180903-015359_1734772458",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35820"
+      },
+      {
+         "text": "%pyspark\ncheckins = spark.read.format(\"csv\") \\\n    .option(\"header\", True) \\\n    .option(\"inferSchema\", True) \\\n    .load(\"gs://de-training-input/wizesquare/gdl_checkins.csv\")\n\ncheckins.show()",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888202_-903602524",
+         "id": "20180903-015421_469965502",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35821"
+      },
+      {
+         "text": "%pyspark\ncheckins.printSchema()",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888203_-903987273",
+         "id": "20180903-015500_777719148",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35822"
+      },
+      {
+         "text": "%pyspark\ncheckins.count()",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888203_-903987273",
+         "id": "20180903-015812_1930796986",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35823"
+      },
+      {
+         "text": "%md\nOur goal in this example is to obtain a single dataset by joining `checkins` with `neighborhoods`. Notice that `checkins` is larger than `neighborhoods` by several orders of magnitude, so a naive join could be extremely expensive due to all the shuffling involved.\n\nFortunately, when dealing with Dataframes or Datasets, the Catalyst optimizer has enough built-in intelligence to perform an optimization known as \u201cbroadcast join\u201d automatically. This automatic operation involves two logical steps:\n\n1. Send the smaller dataset to all worker nodes using an efficient mechanism (e.g. P2P broadcasting). Notice that this copy remains immutable.\n2. Perform the join operation in each partition, without sending data between partitions.",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Our goal in this example is to obtain a single dataset by joining <code>checkins</code> with <code>neighborhoods</code>. Notice that <code>checkins</code> is larger than <code>neighborhoods</code> by several orders of magnitude, so a naive join could be extremely expensive due to all the shuffling involved.</p>\n<p>Fortunately, when dealing with Dataframes or Datasets, the Catalyst optimizer has enough built-in intelligence to perform an optimization known as \u201cbroadcast join\u201d automatically. This automatic operation involves two logical steps:</p>\n<ol>\n  <li>Send the smaller dataset to all worker nodes using an efficient mechanism (e.g. P2P broadcasting). Notice that this copy remains immutable.</li>\n  <li>Perform the join operation in each partition, without sending data between partitions.</li>\n</ol>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888204_-905911018",
+         "id": "20180903-015819_1798879913",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35824"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888204_-905911018",
+         "id": "20180903-015915_558512455",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35825"
+      },
+      {
+         "text": "checkins.join(neighborhoods.withColumnRenamed(\"id\", \"neighborhood_id\"), \"neighborhood_id\")\n    .withColumnRenamed(\"name\", \"neighborhood\")\n    .select(\"timestamp\", \"user_id\", \"neighborhood\")\n    .show()",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888204_-905911018",
+         "id": "20180903-015854_2078321977",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35826"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888205_-906295767",
+         "id": "20180903-015912_29931278",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35827"
+      },
+      {
+         "text": "%pyspark\ncheckins.join(neighborhoods.withColumnRenamed(\"id\", \"neighborhood_id\"), \"neighborhood_id\") \\\n    .withColumnRenamed(\"name\", \"neighborhood\") \\\n    .select(\"timestamp\", \"user_id\", \"neighborhood\") \\\n    .show()",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888205_-906295767",
+         "id": "20180903-020237_1074768916",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35828"
+      },
+      {
+         "text": "%md\nHowever, it\u2019s essential to learn how to broadcast variables manually, because you may encounter a more complicated problem in which Catalyst can\u2019t automatically perform optimization for you.\n\nLet's see how this can be accomplished:",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>However, it\u2019s essential to learn how to broadcast variables manually, because you may encounter a more complicated problem in which Catalyst can\u2019t automatically perform optimization for you.</p>\n<p>Let&rsquo;s see how this can be accomplished:</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888206_-905141520",
+         "id": "20180903-020255_1204302961",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35829"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888206_-905141520",
+         "id": "20180903-020331_648476586",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35830"
+      },
+      {
+         "text": "import java.sql.Timestamp\nimport org.apache.spark.sql.Row\n\nval neighborhoodsMap = sc.broadcast(neighborhoods.as[(Int, String)].collect.toMap)\n\nval userCheckins = checkins.rdd.mapPartitions({\n    partition => partition.map {\n        case Row(userId: Int, neighborhoodId: Int, timestamp: Timestamp) => (timestamp, userId, neighborhoodsMap.value.getOrElse(neighborhoodId, null))\n    }\n}, preservesPartitioning = true).toDF(\"timestamp\", \"user_id\", \"neighborhood\")\n\nuserCheckins.show()",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888206_-905141520",
+         "id": "20180903-024103_1329554196",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35831"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888207_-905526269",
+         "id": "20180903-024147_1707375064",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35832"
+      },
+      {
+         "text": "%pyspark\n\nneighborhoods_map = dict((row.id, row.name) for row in neighborhoods.collect())\nneighborhoods_map = sc.broadcast(neighborhoods_map)\n\nuser_checkins = checkins.rdd.mapPartitions(\n    lambda partition: ((row.timestamp, row.user_id, neighborhoods_map.value[row.neighborhood_id]) for row in partition),\n    preservesPartitioning = True) \\\n    .toDF([\"timestamp\", \"user_id\", \"neighborhood\"])\n\nuser_checkins.show()",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888207_-905526269",
+         "id": "20180903-024349_185441568",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35833"
+      },
+      {
+         "text": "%md\nNotice that the result is the same. Can you think of an example where you might benefit from manually broadcasting a variable?",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Notice that the result is the same. Can you think of an example where you might benefit from manually broadcasting a variable?</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888207_-905526269",
+         "id": "20180903-024300_610871304",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35834"
+      },
+      {
+         "text": "%md\n# Accumulators Example",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h1>Accumulators Example</h1>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888208_-895138048",
+         "id": "20180903-024306_1373260629",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35835"
+      },
+      {
+         "text": "%md\n### Implementing a subset of `wc`\nTo illustrate the use of accumulators in a real-world problem (albeit a very simple one), let\u2019s try to implement a subset of the well-known wc tool in Spark. If you don\u2019t know this tool, run man wc from your local shell to see the documentation. In a nutshell, it\u2019s a simple tool that counts the number of words, lines, characters, and bytes in a file.\n\nFor this example, let\u2019s focus on counting only lines, words (defined as any sequence of characters separated by whitespace), and characters.",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h3>Implementing a subset of <code>wc</code></h3>\n<p>To illustrate the use of accumulators in a real-world problem (albeit a very simple one), let\u2019s try to implement a subset of the well-known wc tool in Spark. If you don\u2019t know this tool, run man wc from your local shell to see the documentation. In a nutshell, it\u2019s a simple tool that counts the number of words, lines, characters, and bytes in a file.</p>\n<p>For this example, let\u2019s focus on counting only lines, words (defined as any sequence of characters separated by whitespace), and characters.</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888208_-895138048",
+         "id": "20180903-030050_975508079",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35836"
+      },
+      {
+         "text": "%md\nWe begin by reading a text dataset. Because it is unstructured data, we use RDDs rather than Dataframes or Datasets.\n",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>We begin by reading a text dataset. Because it is unstructured data, we use RDDs rather than Dataframes or Datasets.</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888209_-895522797",
+         "id": "20180903-030105_1672555582",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35837"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888209_-895522797",
+         "id": "20180903-030143_433393922",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35838"
+      },
+      {
+         "text": "import org.apache.spark.rdd.RDD\n\nval textFile: RDD[String] = sc.textFile(\"gs://de-training-input/words/big.txt\")\ntextFile.take(10)",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888209_-895522797",
+         "id": "20180903-030326_1478326167",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35839"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888211_-894753300",
+         "id": "20180903-030505_1128943470",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35840"
+      },
+      {
+         "text": "%pyspark\ntext_file = sc.textFile(\"gs://de-training-input/words/big.txt\")\ntext_file.take(10)",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888211_-894753300",
+         "id": "20180903-030614_1084291841",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35841"
+      },
+      {
+         "text": "%md\nThe actual implementation is pretty straightforward:",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>The actual implementation is pretty straightforward:</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888211_-894753300",
+         "id": "20180903-030640_1884286071",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35842"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888216_-898216040",
+         "id": "20180903-030848_223624712",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35843"
+      },
+      {
+         "text": "val linesCount = sc.longAccumulator(\"linesCount\")\nval charsCount = sc.longAccumulator(\"charsCount\")\nval wordsCount = sc.longAccumulator(\"wordsCount\")\n\ntextFile.foreach(line => {\n    linesCount.add(1)\n    charsCount.add(line.length + 1 /* to account for the newline */)\n    wordsCount.add(line.split(\" \").length)\n})\n\nprintln(s\"Lines: ${linesCount.value}\")\nprintln(s\"Words: ${wordsCount.value}\")\nprintln(s\"Characters: ${charsCount.value}\")",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888216_-898216040",
+         "id": "20180903-030901_1860386095",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35844"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888217_-898600789",
+         "id": "20180903-030913_736387439",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35845"
+      },
+      {
+         "text": "%pyspark\nlines_count = sc.accumulator(0)\nchars_count = sc.accumulator(0)\nwords_count = sc.accumulator(0)\n\ndef do_count(line):\n    global lines_count, chars_count, words_count\n    lines_count.add(1)\n    chars_count.add(len(line) + 1) # to account for the newline\n    words_count.add(len(line.split(\" \")))\n    \ntext_file.foreach(do_count)\n\nprint(\"Lines: {}\".format(lines_count.value))\nprint(\"Words: {}\".format(words_count.value))\nprint(\"Characters: {}\".format(chars_count.value))",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888217_-898600789",
+         "id": "20180903-030938_308038297",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35846"
+      },
+      {
+         "text": "%md\n### Custom Accumulators: A running average of line lengths\nOut of the box, Spark provides accumulators only for integers and floating point numbers (i.e. doubles). \n\nHowever, if you have a more complicated accumulation-like operation to run, you can always define a custom accumulator.\n\nLet\u2019s assume we want to create an accumulator that keeps a running average of the length of the lines seen in the input. Admittedly, this is a contrived example, but it helps to illustrate how to create a custom accumulator:",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h3>Custom Accumulators: A running average of line lengths</h3>\n<p>Out of the box, Spark provides accumulators only for integers and floating point numbers (i.e. doubles). </p>\n<p>However, if you have a more complicated accumulation-like operation to run, you can always define a custom accumulator.</p>\n<p>Let\u2019s assume we want to create an accumulator that keeps a running average of the length of the lines seen in the input. Admittedly, this is a contrived example, but it helps to illustrate how to create a custom accumulator:</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888217_-898600789",
+         "id": "20180903-031745_1193924628",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35847"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888218_-897446542",
+         "id": "20180903-032131_2007537207",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35848"
+      },
+      {
+         "text": "// You are free to implement whatever methods you need here, as long as your class is serializable\nclass RunningAverage(var value: Double = 0.0, var count: Double = 0.0) extends Serializable {\n  def reset(): Unit = {\n    this.value = 0.0\n    this.count = 0.0\n  }\n  \n  def copy(): RunningAverage = {\n    new RunningAverage(this.value, this.count)\n  }\n  \n  def merge(other:RunningAverage): RunningAverage = {\n    val combinedCount = this.count + other.count\n    this.value = (this.value * this.count + other.value * other.count) / combinedCount\n    this.count = combinedCount\n    \n    return this\n  }\n  \n  def add(item: Double) = {\n      this.count += 1\n      this.value += (item - this.value) / this.count\n  }\n  \n  def isZero(): Boolean =\n    this.count == 0\n  \n  override def toString(): String =\n    this.value.toString\n}\n\n// You are required to implement several methods here since AccumulatorV2 is an abstract class\nclass LineLengthRunningAverage(val runningAverage: RunningAverage) extends org.apache.spark.util.AccumulatorV2[String, RunningAverage] {\n    def this() = this(new RunningAverage())\n    \n    def reset(): Unit = {\n        this.runningAverage.reset()\n    }\n\n    def add(line: String): Unit = {\n        this.runningAverage.add(line.length)\n    }\n    \n    def value(): RunningAverage = \n        this.runningAverage\n    \n    def isZero: Boolean = {\n       this.runningAverage.isZero()\n    }\n    \n    def copy(): org.apache.spark.util.AccumulatorV2[String, RunningAverage] = {\n        new LineLengthRunningAverage(this.runningAverage.copy())\n    }\n\n    def merge(other: org.apache.spark.util.AccumulatorV2[String, RunningAverage]) = {\n        this.runningAverage.merge(other.value)\n    }\n}",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888218_-897446542",
+         "id": "20180903-032148_400273349",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35849"
+      },
+      {
+         "text": "%md Don't forget that custom accumulators must be registered explicitly!",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Don&rsquo;t forget that custom accumulators must be registered explicitly!</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888219_-897831291",
+         "id": "20180903-032215_1877246416",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35850"
+      },
+      {
+         "text": "val runningAverage = new LineLengthRunningAverage\nsc.register(runningAverage, \"runningAverage\")",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888219_-897831291",
+         "id": "20180903-032224_634744357",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35851"
+      },
+      {
+         "text": "%md\nOnce you\u2019ve created your accumulator, using it is as simple as using the built-in ones:",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Once you\u2019ve created your accumulator, using it is as simple as using the built-in ones:</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888219_-897831291",
+         "id": "20180903-212218_1012440983",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35852"
+      },
+      {
+         "text": "runningAverage.reset()\n\ntextFile.foreach(line => {\n    runningAverage.add(line)\n})\n\nprintln(runningAverage.value)",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888220_-899755035",
+         "id": "20180903-032236_1417298392",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35853"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-19T22:14:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888220_-899755035",
+         "id": "20180903-032251_2124856048",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35854",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T22:14:08+0000",
+         "dateStarted": "2018-09-19T22:14:08+0000"
+      },
+      {
+         "text": "%pyspark\ntext_file = sc.textFile(\"gs://de-training-input/words/big.txt\")\ntext_file.take(10)",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888222_-898985537",
+         "id": "20180903-234159_525007135",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35855"
+      },
+      {
+         "text": "%pyspark\n\nfrom pyspark import AccumulatorParam\n\nclass RunningAverage(AccumulatorParam):\n    def zero(self, template):\n        return [0.0] * len(template)\n    \n    def addInPlace(self, average1, average2):\n        value1, count1 = average1\n        value2, count2 = average2\n        \n        average1[1] = count1 + count2\n        average1[0] = (value1 * count1 + value2 * count2) / (count1 + count2)\n        \n        return average1",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": []
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888222_-898985537",
+         "id": "20180903-234038_1125764819",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35856"
+      },
+      {
+         "text": "%md\nLets create the custom accumulator with the initial values for `value` and `count`",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Lets create the custom accumulator with the initial values for <code>value</code> and <code>count</code></p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888222_-898985537",
+         "id": "20180903-234622_10739007",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35857"
+      },
+      {
+         "text": "%pyspark\nrunning_average = sc.accumulator([0.0, 0.0], RunningAverage())",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": []
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888223_-899370286",
+         "id": "20180903-233935_2018482609",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35858"
+      },
+      {
+         "text": "%pyspark\ndef add_line_length(line):\n    global running_average\n    running_average += [len(line), 1]\n    \ntext_file.foreach(add_line_length)",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": []
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888223_-899370286",
+         "id": "20180903-234511_1365848907",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35859"
+      },
+      {
+         "text": "%pyspark\nrunning_average.value",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888224_-913605996",
+         "id": "20180903-233958_1064278817",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35860"
+      },
+      {
+         "text": "%md\nThis final value returns the updated list with the average line length and the total number of lines",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>This final value returns the updated list with the average line length and the total number of lines</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888224_-913605996",
+         "id": "20180903-234806_1442035553",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35861"
+      },
+      {
+         "text": "%md\n# Exercises",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h1>Exercises</h1>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888224_-913605996",
+         "id": "20180903-032307_1534705460",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35862"
+      },
+      {
+         "text": "%md\n### Distances Between Bike Stations\n\nFor this exercise, we work with data from a bike sharing project.\n\nWe have data on the stations, which includes location, latitude, and longitude (you can find it at `gs://de-training-input/bike-data/201508_station_data.csv`)\n\nWe also have trip data, which includes start terminal and end terminal (you can find it at `gs://de-training-input/bike-data/201508_station_data.csv`)\n\n#### Joining Rides and Stations\nPerform two joins so that you have the latitude and longitude of both terminals, to later be able to calculate the distance between the stations. \n\nThe calculation of the distance is given below. It is meant to be applied to a Dataframe with the following columns `\"startLatitude\", \"startLongitude\", \"endLatitude\", \"endLongitude\"`.\n\n#### Distance calculation\nCalculate the distance between two stations, given their latitude and longitude",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h3>Distances Between Bike Stations</h3>\n<p>For this exercise, we work with data from a bike sharing project.</p>\n<p>We have data on the stations, which includes location, latitude, and longitude (you can find it at <code>gs://de-training-input/bike-data/201508_station_data.csv</code>)</p>\n<p>We also have trip data, which includes start terminal and end terminal (you can find it at <code>gs://de-training-input/bike-data/201508_station_data.csv</code>)</p>\n<h4>Joining Rides and Stations</h4>\n<p>Perform two joins so that you have the latitude and longitude of both terminals, to later be able to calculate the distance between the stations. </p>\n<p>The calculation of the distance is given below. It is meant to be applied to a Dataframe with the following columns <code>&quot;startLatitude&quot;, &quot;startLongitude&quot;, &quot;endLatitude&quot;, &quot;endLongitude&quot;</code>.</p>\n<h4>Distance calculation</h4>\n<p>Calculate the distance between two stations, given their latitude and longitude</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888225_-913990745",
+         "id": "20180903-033020_1676298871",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35863"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T22:18:07+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537395235250_1063909761",
+         "id": "20180919-221355_185544408",
+         "dateCreated": "2018-09-19T22:13:55+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:42022",
+         "dateFinished": "2018-09-19T22:18:07+0000",
+         "dateStarted": "2018-09-19T22:18:07+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "import org.apache.spark.sql.Column\nimport org.apache.spark.sql.functions._\n\ndef calculateDistance(startLatitude: Column, startLongitude: Column, endLatitude: Column, endLongitude: Column): Column = {\n    val earthRadius = lit(6371e3)\n    val startLatitudeRadians = radians(startLatitude)\n    val endLatitudeRadians = radians(endLatitude)\n    val deltaLatitudeRadians = endLatitudeRadians - startLatitudeRadians\n    val deltaLongitudeRadians = radians(endLongitude - startLongitude)\n    \n    val a = pow(sin(deltaLatitudeRadians/2.0), 2.0) + cos(endLatitudeRadians) * cos(startLatitudeRadians) * pow(sin(deltaLongitudeRadians/2.0), 2.0)\n    val c = lit(2.0) * atan2(sqrt(a), sqrt(lit(1.0) - a))\n    \n    return earthRadius * c\n}",
+         "dateUpdated": "2018-09-19T22:16:42+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "editorHide": false,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "TEXT",
+                  "data": "import org.apache.spark.sql.Column\nimport org.apache.spark.sql.functions._\ncalculateDistance: (startLatitude: org.apache.spark.sql.Column, startLongitude: org.apache.spark.sql.Column, endLatitude: org.apache.spark.sql.Column, endLongitude: org.apache.spark.sql.Column)org.apache.spark.sql.Column\n"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888225_-913990745",
+         "id": "20180903-213833_64825935",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35864",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T22:16:38+0000",
+         "dateStarted": "2018-09-19T22:16:37+0000"
+      },
+      {
+         "user": "anonymous",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537395489602_1875697648",
+         "id": "20180919-221809_1092769022",
+         "dateCreated": "2018-09-19T22:18:09+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:42139",
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-19T22:18:20+0000",
+         "dateFinished": "2018-09-19T22:18:20+0000",
+         "dateStarted": "2018-09-19T22:18:20+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\nfrom pyspark.sql.functions import lit, radians, pow, sin, cos, atan2, sqrt\n\ndef calculate_distance(start_latitude, start_longitude, end_latitude, end_longitude):\n    earth_radius = lit(6371e3)\n    start_latitude_radians = radians(start_latitude)\n    end_latitude_radians = radians(end_latitude)\n    delta_latitude_radians = end_latitude_radians - start_latitude_radians\n    delta_longitude_radians = radians(end_longitude - start_longitude)\n    \n    a = pow(sin(delta_latitude_radians/2.0), 2.0) + cos(end_latitude_radians) * cos(start_latitude_radians) * pow(sin(delta_longitude_radians/2.0), 2.0)\n    c = lit(2.0) * atan2(sqrt(a), sqrt(lit(1.0) - a))\n    \n    return earth_radius * c",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T22:23:35+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            },
+            "editorMode": "ace/mode/python",
+            "editorHide": false,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537395503770_-942572721",
+         "id": "20180919-221823_1611804361",
+         "dateCreated": "2018-09-19T22:18:23+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:42208",
+         "dateFinished": "2018-09-19T22:23:35+0000",
+         "dateStarted": "2018-09-19T22:23:35+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": []
+         }
+      },
+      {
+         "text": "%md\n### URL Domains Extraction\n\nFor this exercise, we use a web traffic dataset that contains information on users and the web pages these users have visited (you can find this information in the `gs://de-training-input/web-traffic/user_visits.csv` dataset).\n\n#### Extracting whitelisted domains from URLs\n\nWe\u2019re interested in retrieving all records whose URL domains \u201cmatch\u201d a small list of \u201cwhitelisted\u201d domains (you can find this information in the `gs://de-training-input/web-traffic/domains_whitelist.csv` dataset). To see what we mean by \u201cmatch\u201d, let\u2019s see an example of what this dataset looks like and the expected resulting table:",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h3>URL Domains Extraction</h3>\n<p>For this exercise, we use a web traffic dataset that contains information on users and the web pages these users have visited (you can find this information in the <code>gs://de-training-input/web-traffic/user_visits.csv</code> dataset).</p>\n<h4>Extracting whitelisted domains from URLs</h4>\n<p>We\u2019re interested in retrieving all records whose URL domains \u201cmatch\u201d a small list of \u201cwhitelisted\u201d domains (you can find this information in the <code>gs://de-training-input/web-traffic/domains_whitelist.csv</code> dataset). To see what we mean by \u201cmatch\u201d, let\u2019s see an example of what this dataset looks like and the expected resulting table:</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888226_-912836498",
+         "id": "20180903-033130_1291220492",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35865"
+      },
+      {
+         "text": "%md\n`DomainsWhitelist`\n\n| domain            |\n|-------------------|\n| www.facebook.com  |\n| www.google.com    |\n| fb.com            |\n| ...               |\n",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 3,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p><code>DomainsWhitelist</code></p>\n<table>\n  <thead>\n    <tr>\n      <th>domain </th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>www.facebook.com </td>\n    </tr>\n    <tr>\n      <td>www.google.com </td>\n    </tr>\n    <tr>\n      <td>fb.com </td>\n    </tr>\n    <tr>\n      <td>&hellip; </td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888226_-912836498",
+         "id": "20180903-033928_748952850",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35866"
+      },
+      {
+         "text": "%md\n`UserVisits`\n\n| url                                    | user_id    |\n|----------------------------------------|------------|\n| https://www.google.com                 | 1219012901 |\n| https://www.facebook.com/fulanito?...  | 1219012902 |\n| https://www.facebook.com/menganito?... | 1219012903 |\n| https://docs.google.com/document/d/... | 1219012904 |\n| https://research.fb.com/category/...   | 1219012905 |\n| https://https://stackoverflow.com/q... | 1219012906 |\n| ...                                    | ...        |",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 4,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p><code>UserVisits</code></p>\n<table>\n  <thead>\n    <tr>\n      <th>url </th>\n      <th>user_id </th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td><a href=\"https://www.google.com\">https://www.google.com</a> </td>\n      <td>1219012901 </td>\n    </tr>\n    <tr>\n      <td><a href=\"https://www.facebook.com/fulanito?..\">https://www.facebook.com/fulanito?..</a>. </td>\n      <td>1219012902 </td>\n    </tr>\n    <tr>\n      <td><a href=\"https://www.facebook.com/menganito?..\">https://www.facebook.com/menganito?..</a>. </td>\n      <td>1219012903 </td>\n    </tr>\n    <tr>\n      <td><a href=\"https://docs.google.com/document/d/..\">https://docs.google.com/document/d/..</a>. </td>\n      <td>1219012904 </td>\n    </tr>\n    <tr>\n      <td><a href=\"https://research.fb.com/category/..\">https://research.fb.com/category/..</a>. </td>\n      <td>1219012905 </td>\n    </tr>\n    <tr>\n      <td><a href=\"https://https://stackoverflow.com/q..\">https://https://stackoverflow.com/q..</a>. </td>\n      <td>1219012906 </td>\n    </tr>\n    <tr>\n      <td>&hellip; </td>\n      <td>&hellip; </td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888226_-912836498",
+         "id": "20180903-034250_1807895638",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35867"
+      },
+      {
+         "text": "%md\n`UserVisitsAugmented`\n\n| url                                    | user_id    | domain           |\n|----------------------------------------|------------|------------------|\n| https://www.google.com                 | 1219012901 | www.google.com   |\n| https://www.facebook.com/fulanito?...  | 1219012902 | www.facebook.com |\n| https://www.facebook.com/menganito?... | 1219012903 | www.facebook.com |\n| https://docs.google.com/document/d/... | 1219012904 | google.com       |\n| https://research.fb.com/category/...   | 1219012905 | fb.com           |\n| https://https://stackoverflow.com/q... | 1219012906 | null             |\n| ...                                    | ...        | ...              |",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 5,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p><code>UserVisitsAugmented</code></p>\n<table>\n  <thead>\n    <tr>\n      <th>url </th>\n      <th>user_id </th>\n      <th>domain </th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td><a href=\"https://www.google.com\">https://www.google.com</a> </td>\n      <td>1219012901 </td>\n      <td>www.google.com </td>\n    </tr>\n    <tr>\n      <td><a href=\"https://www.facebook.com/fulanito?..\">https://www.facebook.com/fulanito?..</a>. </td>\n      <td>1219012902 </td>\n      <td>www.facebook.com </td>\n    </tr>\n    <tr>\n      <td><a href=\"https://www.facebook.com/menganito?..\">https://www.facebook.com/menganito?..</a>. </td>\n      <td>1219012903 </td>\n      <td>www.facebook.com </td>\n    </tr>\n    <tr>\n      <td><a href=\"https://docs.google.com/document/d/..\">https://docs.google.com/document/d/..</a>. </td>\n      <td>1219012904 </td>\n      <td>google.com </td>\n    </tr>\n    <tr>\n      <td><a href=\"https://research.fb.com/category/..\">https://research.fb.com/category/..</a>. </td>\n      <td>1219012905 </td>\n      <td>fb.com </td>\n    </tr>\n    <tr>\n      <td><a href=\"https://https://stackoverflow.com/q..\">https://https://stackoverflow.com/q..</a>. </td>\n      <td>1219012906 </td>\n      <td>null </td>\n    </tr>\n    <tr>\n      <td>&hellip; </td>\n      <td>&hellip; </td>\n      <td>&hellip; </td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888227_-913221247",
+         "id": "20180903-034847_979641234",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35868"
+      },
+      {
+         "text": "%md\n\nNotice that the value in the `domain` column is not always the full domain specified in the original URL, but rather _the longest subdomain that matches one of the domains in the whitelist dataset_.\n\nNotice also that the new `domain` column can only contain domains that are listed in the whitelist table. Therefore, any URLs that don\u2019t \u201cmatch\u201d get a `null` value (see the last example in the table above.)\n\nIn the `UserVisitsAugmented` table, you can see that the record `https://docs.google.com/document/d/...` was assigned the `google.com` domain, rather than `docs.google.com`, because the longest matching subdomain for `www.google.com` (in the whitelist table) and `docs.google.com` (in the user visits table) is `google.com`.\n\nWith this in mind, the final resulting table (which excludes records whose domain value is `null`), is as follows:",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Notice that the value in the <code>domain</code> column is not always the full domain specified in the original URL, but rather <em>the longest subdomain that matches one of the domains in the whitelist dataset</em>.</p>\n<p>Notice also that the new <code>domain</code> column can only contain domains that are listed in the whitelist table. Therefore, any URLs that don\u2019t \u201cmatch\u201d get a <code>null</code> value (see the last example in the table above.)</p>\n<p>In the <code>UserVisitsAugmented</code> table, you can see that the record <code>https://docs.google.com/document/d/...</code> was assigned the <code>google.com</code> domain, rather than <code>docs.google.com</code>, because the longest matching subdomain for <code>www.google.com</code> (in the whitelist table) and <code>docs.google.com</code> (in the user visits table) is <code>google.com</code>.</p>\n<p>With this in mind, the final resulting table (which excludes records whose domain value is <code>null</code>), is as follows:</p>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888227_-913221247",
+         "id": "20180903-033256_1596751433",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35869"
+      },
+      {
+         "text": "%md\n`UserVisitsAugmentedFinal`\n\n| url                                    | user_id    | domain           |\n|----------------------------------------|------------|------------------|\n| https://www.google.com                 | 1219012901 | www.google.com   |\n| https://www.facebook.com/fulanito?...  | 1219012902 | www.facebook.com |\n| https://www.facebook.com/menganito?... | 1219012903 | www.facebook.com |\n| https://docs.google.com/document/d/... | 1219012904 | google.com       |\n| https://research.fb.com/category/...   | 1219012905 | fb.com           |\n| ...                                    | ...        | ...              |\n",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p><code>UserVisitsAugmentedFinal</code></p>\n<table>\n  <thead>\n    <tr>\n      <th>url </th>\n      <th>user_id </th>\n      <th>domain </th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td><a href=\"https://www.google.com\">https://www.google.com</a> </td>\n      <td>1219012901 </td>\n      <td>www.google.com </td>\n    </tr>\n    <tr>\n      <td><a href=\"https://www.facebook.com/fulanito?..\">https://www.facebook.com/fulanito?..</a>. </td>\n      <td>1219012902 </td>\n      <td>www.facebook.com </td>\n    </tr>\n    <tr>\n      <td><a href=\"https://www.facebook.com/menganito?..\">https://www.facebook.com/menganito?..</a>. </td>\n      <td>1219012903 </td>\n      <td>www.facebook.com </td>\n    </tr>\n    <tr>\n      <td><a href=\"https://docs.google.com/document/d/..\">https://docs.google.com/document/d/..</a>. </td>\n      <td>1219012904 </td>\n      <td>google.com </td>\n    </tr>\n    <tr>\n      <td><a href=\"https://research.fb.com/category/..\">https://research.fb.com/category/..</a>. </td>\n      <td>1219012905 </td>\n      <td>fb.com </td>\n    </tr>\n    <tr>\n      <td>&hellip; </td>\n      <td>&hellip; </td>\n      <td>&hellip; </td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+               }
+            ]
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888228_-915144991",
+         "id": "20180903-035224_1589355180",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35870"
+      },
+      {
+         "text": "%md\n",
+         "dateUpdated": "2018-09-19T22:08:08+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537394888229_-915529740",
+         "id": "20180903-033420_448657208",
+         "dateCreated": "2018-09-19T22:08:08+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:35871"
+      }
+   ],
+   "name": "c7-examples-exercises",
+   "id": "2DPWSPZRN",
+   "angularObjects": {
+      "2DR48BCZX:shared_process": [],
+      "2DT17NWU6:shared_process": [],
+      "2DPXK4WGK:shared_process": [],
+      "2DPTXJ6DB:shared_process": [],
+      "2DRNPWPRJ:shared_process": [],
+      "2DRD99AZM:shared_process": [],
+      "2DQCYZMU9:shared_process": [],
+      "2DPU4WTJ1:shared_process": [],
+      "2DTCFAKHG:shared_process": [],
+      "2DSPCP1NK:shared_process": [],
+      "2DQSECJDX:shared_process": [],
+      "2DTHQCYNG:shared_process": [],
+      "2DS1DFNS6:shared_process": [],
+      "2DSHTZC94:shared_process": [],
+      "2DTARHE1J:shared_process": [],
+      "2DTJW366Y:shared_process": [],
+      "2DQGWE5UQ:shared_process": [],
+      "2DTFCJZV3:shared_process": []
+   },
+   "config": {
+      "looknfeel": "default",
+      "personalizedMode": "false"
+   },
+   "info": {}
+}

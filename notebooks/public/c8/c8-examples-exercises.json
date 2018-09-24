@@ -1,0 +1,2813 @@
+{
+   "paragraphs": [
+      {
+         "text": "%md\n# Spark SQL and Advanced Features\n\nThis notebook has the examples and exercises of the last session of the Big Data Engineering course. You\u2019re now closer than ever to obtain the Wizeline Certification for Big Data Engineering with Spark!\n\nIf you have any feedback about our courses, email us at academy@wizeline.com or use the Academy Slack channel.",
+         "dateUpdated": "2018-09-19T23:40:33+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956427_1655549589",
+         "id": "20180904-175659_2094249658",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "focus": true,
+         "$$hashKey": "object:65566",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:40:33+0000",
+         "dateStarted": "2018-09-19T23:40:33+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h1>Spark SQL and Advanced Features</h1>\n<p>This notebook has the examples and exercises of the last session of the Big Data Engineering course. You\u2019re now closer than ever to obtain the Wizeline Certification for Big Data Engineering with Spark!</p>\n<p>If you have any feedback about our courses, email us at <a href=\"mailto:a&#x63;&#97;&#x64;&#x65;&#109;&#121;@&#x77;&#x69;z&#101;&#x6c;&#x69;&#110;&#101;&#46;&#99;&#111;&#x6d;\">a&#x63;&#97;&#x64;&#x65;&#109;&#121;@&#x77;&#x69;z&#101;&#x6c;&#x69;&#110;&#101;&#46;&#99;&#111;&#x6d;</a> or use the Academy Slack channel.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n### Scala Dependencies\n**Be sure to execute the next cell to import the geocoding library dependency that we use later on in this notebook. If you don't do it now, it will fail later and you'll have to restart the Spark interpreter.**",
+         "dateUpdated": "2018-09-19T23:40:36+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956430_1654395343",
+         "id": "20180906-203539_2098717483",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65567",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:40:36+0000",
+         "dateStarted": "2018-09-19T23:40:36+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h3>Scala Dependencies</h3>\n<p><strong>Be sure to execute the next cell to import the geocoding library dependency that we use later on in this notebook. If you don&rsquo;t do it now, it will fail later and you&rsquo;ll have to restart the Spark interpreter.</strong></p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%spark.dep\nz.load(\"com.koddi:geocoder_2.11:1.1.0\")",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T22:44:32+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956430_1654395343",
+         "id": "20180906-203645_239727750",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T22:44:32+0000",
+         "dateFinished": "2018-09-19T22:44:46+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65568"
+      },
+      {
+         "text": "%md\n## Spark SQL\nYou can execute Spark SQL in an ad hoc manner via the `sql` method on the `SparkSession` object.\nNotice that the resulting operations of SQL statements return `Dataframe` objects that can be evaluated programmatically. Before using a DataFrame on any SQL expression you need to register it on the catalog with the `createOrReplaceTempView` method.",
+         "dateUpdated": "2018-09-19T23:40:44+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956431_1654010594",
+         "id": "20180904-180218_386131105",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65569",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:40:44+0000",
+         "dateStarted": "2018-09-19T23:40:44+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h2>Spark SQL</h2>\n<p>You can execute Spark SQL in an ad hoc manner via the <code>sql</code> method on the <code>SparkSession</code> object.<br/>Notice that the resulting operations of SQL statements return <code>Dataframe</code> objects that can be evaluated programmatically. Before using a DataFrame on any SQL expression you need to register it on the catalog with the <code>createOrReplaceTempView</code> method.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "dateUpdated": "2018-09-19T23:40:46+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956432_1664398814",
+         "id": "20180904-195605_1803424098",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65570",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:40:46+0000",
+         "dateStarted": "2018-09-19T23:40:46+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val orders = spark.read.json(\"gs://de-training-input/alimazon/50000/client-orders/\").cache\norders.createOrReplaceTempView(\"orders\")",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T22:44:41+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956433_1664014065",
+         "id": "20180904-195044_1604145392",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T22:44:42+0000",
+         "dateFinished": "2018-09-19T22:45:26+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65571"
+      },
+      {
+         "text": "// Spark SQL Expressions\nsql(\"\"\"SELECT client_id, weekofyear(timestamp) as week, sum(quantity) as quantity, sum(total) as total\n       FROM orders\n       WHERE total > 100.0\n       GROUP BY client_id, week\n       ORDER BY week, total\"\"\").show",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T22:45:37+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956434_1665168312",
+         "id": "20180905-145453_823587374",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T22:45:37+0000",
+         "dateFinished": "2018-09-19T22:45:49+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65572"
+      },
+      {
+         "text": "%md\n**NOTE**: Notice how we use `\"\"\"` quotes to express multi-line SQL statements.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:40:51+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956435_1664783563",
+         "id": "20180904-202654_283486007",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:40:51+0000",
+         "dateFinished": "2018-09-19T23:40:51+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65573",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p><strong>NOTE</strong>: Notice how we use <code>&quot;&quot;&quot;</code> quotes to express multi-line SQL statements.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-19T23:40:59+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956436_1662859819",
+         "id": "20180904-195616_2004106895",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65574",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:40:59+0000",
+         "dateStarted": "2018-09-19T23:40:59+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\norders = spark.read.json(\"gs://de-training-input/alimazon/50000/client-orders/\").cache()\norders.createOrReplaceTempView(\"orders\")",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T22:46:36+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956437_1662475070",
+         "id": "20180904-195516_427751880",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T22:46:36+0000",
+         "dateFinished": "2018-09-19T22:46:40+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65575"
+      },
+      {
+         "text": "%pyspark\n\n# Spark SQL Expressions\nspark.sql(\"\"\"SELECT client_id, weekofyear(timestamp) as week, sum(quantity) as quantity, sum(total) as total\n             FROM orders\n             WHERE total > 100.0\n             GROUP BY client_id, week\n             ORDER BY week, total\"\"\").show()",
+         "dateUpdated": "2018-09-19T22:46:43+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956438_1663629316",
+         "id": "20180905-145527_1608201196",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65576"
+      },
+      {
+         "text": "%md\nNotice that both (Python and Scala) versions accept the same SQL expressions. This makes Spark SQL a unifying point between both languages.",
+         "dateUpdated": "2018-09-19T23:41:03+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956439_1663244567",
+         "id": "20180904-203310_1048571304",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65577",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:41:03+0000",
+         "dateStarted": "2018-09-19T23:41:03+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Notice that both (Python and Scala) versions accept the same SQL expressions. This makes Spark SQL a unifying point between both languages.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n## Structured and Semi-Structured Data with SQL",
+         "dateUpdated": "2018-09-19T23:41:08+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956439_1663244567",
+         "id": "20180904-195000_1485754160",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65578",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:41:08+0000",
+         "dateStarted": "2018-09-19T23:41:08+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h2>Structured and Semi-Structured Data with SQL</h2>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "dateUpdated": "2018-09-19T23:41:13+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956440_1661320823",
+         "id": "20180904-202155_315081087",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65579",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:41:13+0000",
+         "dateStarted": "2018-09-19T23:41:13+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\nSo far we have only been working with structured data (data that is organized in columns and with defined types), but Spark can also handle semi-structured data. \nSemi-structured data is the one you typically found on JSON formats where information is expressed in a nested format.\n\nLets try reading a JSON file that uses a hierarchical structure and study its behavior.",
+         "dateUpdated": "2018-09-19T23:41:16+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956441_1660936074",
+         "id": "20180905-145552_1723344622",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65580",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:41:16+0000",
+         "dateStarted": "2018-09-19T23:41:16+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>So far we have only been working with structured data (data that is organized in columns and with defined types), but Spark can also handle semi-structured data.<br/>Semi-structured data is the one you typically found on JSON formats where information is expressed in a nested format.</p>\n<p>Lets try reading a JSON file that uses a hierarchical structure and study its behavior.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val df = spark.read.json(\"gs://de-training-input/json/users.jsonl\")\ndf.printSchema",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T22:52:40+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956441_1660936074",
+         "id": "20180904-195025_963063679",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T22:52:40+0000",
+         "dateFinished": "2018-09-19T22:52:42+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65581"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-19T23:41:19+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956449_1645546118",
+         "id": "20180904-202231_394201458",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65582",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:41:19+0000",
+         "dateStarted": "2018-09-19T23:41:19+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\ndf = spark.read.json(\"gs://de-training-input/json/users.jsonl\")\ndf.printSchema()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T22:56:27+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956450_1646700365",
+         "id": "20180905-151039_1473049760",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T22:54:29+0000",
+         "dateFinished": "2018-09-19T22:54:30+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65583"
+      },
+      {
+         "text": "%md\nTake a moment to look again at the printed tree schema. Notice how Spark is smart enough to ingest and load this type of information without giving it an explicit structure.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:41:23+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956442_1662090321",
+         "id": "20180905-145656_568867824",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:41:23+0000",
+         "dateFinished": "2018-09-19T23:41:23+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65584",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Take a moment to look again at the printed tree schema. Notice how Spark is smart enough to ingest and load this type of information without giving it an explicit structure.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\nBut as the saying goes `explicit is better than implicit`. You can provide the data structure using `SQL Types`, as shown below.",
+         "dateUpdated": "2018-09-19T23:41:29+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956443_1661705572",
+         "id": "20180905-145717_746937236",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65585",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:41:29+0000",
+         "dateStarted": "2018-09-19T23:41:29+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>But as the saying goes <code>explicit is better than implicit</code>. You can provide the data structure using <code>SQL Types</code>, as shown below.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:41:32+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537397796653_1895877198",
+         "id": "20180919-225636_1029393046",
+         "dateCreated": "2018-09-19T22:56:36+0000",
+         "dateStarted": "2018-09-19T23:41:32+0000",
+         "dateFinished": "2018-09-19T23:41:32+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65586",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "import org.apache.spark.sql.types.{BooleanType, IntegerType, LongType, StringType, StructField, StructType, ArrayType}\n\nval address = StructType(\n    List(\n        StructField(\"streetAddress\", StringType, false),\n        StructField(\"city\", StringType, false),\n        StructField(\"state\", StringType, false),\n        StructField(\"postalCode\", LongType, false)))\n\nval phoneNumbers = ArrayType(\n        StructType(\n        List(\n          StructField(\"type\", StringType, false),\n          StructField(\"number\", StringType, false))))\n\nval schema = StructType(\n    List(\n      StructField(\"firstName\", StringType, false),\n      StructField(\"lastName\", StringType, false),\n      StructField(\"isAlive\", BooleanType, false),\n      StructField(\"age\", LongType, false),\n      StructField(\"address\", address, false),\n      StructField(\"phoneNumbers\", phoneNumbers, false)))\n",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T22:53:01+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956444_1659781827",
+         "id": "20180905-194849_1534052588",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T22:53:01+0000",
+         "dateFinished": "2018-09-19T22:53:04+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65587"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:41:35+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537398537333_-551238533",
+         "id": "20180919-230857_339696836",
+         "dateCreated": "2018-09-19T23:08:57+0000",
+         "dateStarted": "2018-09-19T23:41:35+0000",
+         "dateFinished": "2018-09-19T23:41:35+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65588",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\nfrom pyspark.sql.types import StringType, LongType, BooleanType, StructType, StructField\n\naddress = StructType([\n    StructField(\"streetAddress\", StringType(), False),\n    StructField(\"city\", StringType(), False),\n    StructField(\"state\", StringType(), False),\n    StructField(\"postalCode\", LongType(), False)])\n    \nphoneNumbers = ArrayType(StructType([\n    StructField(\"type\", StringType(), False),\n    StructField(\"number\", StringType(), False)\n    ]))\n          \nschema = StructType([\n    StructField(\"firstName\", StringType(), False),\n    StructField(\"lastName\", StringType(), False),\n    StructField(\"isAlive\", BooleanType(), False),\n    StructField(\"age\", LongType(), False),\n    StructField(\"address\", address, False),\n    StructField(\"phoneNumbers\", phoneNumbers, False)\n])",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:17:21+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956451_1646315616",
+         "id": "20180905-151111_1463086761",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:17:21+0000",
+         "dateFinished": "2018-09-19T23:17:21+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65589"
+      },
+      {
+         "text": "%md\nUse the `.schema(StructType)` method to explicitly define the desired schema.",
+         "dateUpdated": "2018-09-19T23:41:39+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956444_1659781827",
+         "id": "20180905-145750_1668144120",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65590",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:41:39+0000",
+         "dateStarted": "2018-09-19T23:41:39+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Use the <code>.schema(StructType)</code> method to explicitly define the desired schema.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:41:41+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537398561138_-1887289217",
+         "id": "20180919-230921_985648981",
+         "dateCreated": "2018-09-19T23:09:21+0000",
+         "dateStarted": "2018-09-19T23:41:41+0000",
+         "dateFinished": "2018-09-19T23:41:41+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65591",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val df = spark.read.schema(schema).json(\"gs://de-training-input/json/users.jsonl\")\n\ndf.createOrReplaceTempView(\"users\")\nsql(\"SELECT * FROM users WHERE array_contains(phoneNumbers.type, 'mobile')\").show",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T22:53:14+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956445_1659397078",
+         "id": "20180905-145759_1687587881",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T22:53:14+0000",
+         "dateFinished": "2018-09-19T22:53:17+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65592"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:41:44+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537398583335_672106439",
+         "id": "20180919-230943_627263086",
+         "dateCreated": "2018-09-19T23:09:43+0000",
+         "dateStarted": "2018-09-19T23:41:44+0000",
+         "dateFinished": "2018-09-19T23:41:44+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65593",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\ndf = spark.read.schema(schema).json(\"gs://de-training-input/json/users.jsonl\")\n\ndf.createOrReplaceTempView(\"users\")\nspark.sql(\"SELECT * FROM users WHERE array_contains(phoneNumbers.type, 'mobile')\").show()",
+         "dateUpdated": "2018-09-19T23:11:18+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956451_1646315616",
+         "id": "20180905-195042_1161395664",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65594"
+      },
+      {
+         "text": "%md\nSometimes the structure of a dataset may be included in the datasource itself. For example, `.csv` files that contain headers. The headers define the column names and can give us a hint of what the data type for that column may be.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:41:49+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956446_1660551325",
+         "id": "20180905-145759_1540877788",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:41:49+0000",
+         "dateFinished": "2018-09-19T23:41:49+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65595",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Sometimes the structure of a dataset may be included in the datasource itself. For example, <code>.csv</code> files that contain headers. The headers define the column names and can give us a hint of what the data type for that column may be.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n**NOTES**: \n- Use the `.option(\"header\", \"true\")` method to explicitly say to Spark that the datasource already contains the desired column names.\n- Use the `.option(\"inferSchema\", \"true\")` method to tell Spark to infer the `StructType` to use on the dataset.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:42:01+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956447_1660166576",
+         "id": "20180905-150959_96143849",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:42:01+0000",
+         "dateFinished": "2018-09-19T23:42:01+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65596",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p><strong>NOTES</strong>:<br/>- Use the <code>.option(&quot;header&quot;, &quot;true&quot;)</code> method to explicitly say to Spark that the datasource already contains the desired column names.<br/>- Use the <code>.option(&quot;inferSchema&quot;, &quot;true&quot;)</code> method to tell Spark to infer the <code>StructType</code> to use on the dataset.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:41:54+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537398689338_-945977225",
+         "id": "20180919-231129_1817749853",
+         "dateCreated": "2018-09-19T23:11:29+0000",
+         "dateStarted": "2018-09-19T23:41:54+0000",
+         "dateFinished": "2018-09-19T23:41:54+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65597",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val bikeTrip = spark.read.option(\"header\", \"true\").option(\"inferSchema\", \"true\").csv(\"gs://de-training-input/bike-data/201508_trip_data.csv\")\nbikeTrip.printSchema",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T22:54:09+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956448_1645930867",
+         "id": "20180905-194827_2010269848",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T22:54:09+0000",
+         "dateFinished": "2018-09-19T22:54:17+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65598"
+      },
+      {
+         "text": "bikeTrip.createOrReplaceTempView(\"biketrips\")\nsql(\"\"\"SELECT * FROM biketrips WHERE `Start Terminal` == '60'\"\"\").show",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T22:54:20+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956449_1645546118",
+         "id": "20180905-151025_2134752189",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T22:54:20+0000",
+         "dateFinished": "2018-09-19T22:54:22+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65599"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:42:12+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537398881243_-1504588300",
+         "id": "20180919-231441_1269717977",
+         "dateCreated": "2018-09-19T23:14:41+0000",
+         "dateStarted": "2018-09-19T23:42:12+0000",
+         "dateFinished": "2018-09-19T23:42:12+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65600",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\nbikeTrip = spark.read.option(\"header\", \"true\").option(\"inferSchema\", \"true\").csv(\"gs://de-training-input/bike-data/201508_trip_data.csv\")\nbikeTrip.printSchema()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:16:39+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956452_1644391871",
+         "id": "20180905-195127_639813020",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:15:48+0000",
+         "dateFinished": "2018-09-19T23:15:51+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65601"
+      },
+      {
+         "text": "%pyspark\n\nbikeTrip.createOrReplaceTempView(\"biketrips\")\nspark.sql(\"\"\"SELECT * FROM biketrips WHERE `Start Terminal` == '60'\"\"\").show()",
+         "dateUpdated": "2018-09-19T23:16:28+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956453_1644007122",
+         "id": "20180905-195230_711257491",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65602"
+      },
+      {
+         "text": "%md\n## User Defined Functions\n\nThe following example illustrates the use of User Defined Functions (UDFs) in Spark. \n\nWe chose this particular example because it illustrates a common scenario you can find in the real world: you need to transform one or more columns in your dataset, but there is no function in the set of SQL functions that Spark provides. This is where UDFs shine.\n\nFor our example, we use the `gs://de-training-input/wizesquare/gdl_neighborhoods.csv` dataset. This dataset contains a list of neighborhoods in Guadalajara. For each record in this dataset, we want to create two new columns: `latitude` and `longitude`, describing the geolocation of the corresponding neighborhood. To accomplish this, we use an external API (you can find the project's documentation [here](https://github.com/KoddiDev/geocoder)) that internally calls Google's Geocoding API.\n\nWe enabled the corresponding Google API in the `data-castle-bravo` project (the one you've been using throughout this course), and we provide you with an API Key (you'll see it in later snippets) so you can focus only on the details of how to define and use UDFs in Spark.",
+         "dateUpdated": "2018-09-19T23:43:47+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956453_1644007122",
+         "id": "20180904-203710_1372710220",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65603",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:43:47+0000",
+         "dateStarted": "2018-09-19T23:43:47+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h2>User Defined Functions</h2>\n<p>The following example illustrates the use of User Defined Functions (UDFs) in Spark. </p>\n<p>We chose this particular example because it illustrates a common scenario you can find in the real world: you need to transform one or more columns in your dataset, but there is no function in the set of SQL functions that Spark provides. This is where UDFs shine.</p>\n<p>For our example, we use the <code>gs://de-training-input/wizesquare/gdl_neighborhoods.csv</code> dataset. This dataset contains a list of neighborhoods in Guadalajara. For each record in this dataset, we want to create two new columns: <code>latitude</code> and <code>longitude</code>, describing the geolocation of the corresponding neighborhood. To accomplish this, we use an external API (you can find the project&rsquo;s documentation <a href=\"https://github.com/KoddiDev/geocoder\">here</a>) that internally calls Google&rsquo;s Geocoding API.</p>\n<p>We enabled the corresponding Google API in the <code>data-castle-bravo</code> project (the one you&rsquo;ve been using throughout this course), and we provide you with an API Key (you&rsquo;ll see it in later snippets) so you can focus only on the details of how to define and use UDFs in Spark.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n**NOTE**: In production settings, API keys should not be embedded in the source code but instead retrieved from a secrets management system.",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:42:19+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956454_1645161369",
+         "id": "20180905-143821_950713702",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:42:19+0000",
+         "dateFinished": "2018-09-19T23:42:19+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65604",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p><strong>NOTE</strong>: In production settings, API keys should not be embedded in the source code but instead retrieved from a secrets management system.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:43:56+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537399753783_-1891200768",
+         "id": "20180919-232913_393642553",
+         "dateCreated": "2018-09-19T23:29:13+0000",
+         "dateStarted": "2018-09-19T23:43:56+0000",
+         "dateFinished": "2018-09-19T23:43:56+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65606",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\nFor our Python version, some additional coding is needed to create a geocoding function, since Zeppelin doesn't support adding third-party packages at the moment.\n\nThe following code snippet defines a function that wraps the requests made to the Google\u2019s Geocoding API. It receives a string representation of the location to search and an API key to validate the request. This function will return a string with the geocoding information of the provided location.",
+         "dateUpdated": "2018-09-19T23:42:22+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956457_1642468127",
+         "id": "20180905-195931_2086718212",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65605",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:42:22+0000",
+         "dateStarted": "2018-09-19T23:42:22+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>For our Python version, some additional coding is needed to create a geocoding function, since Zeppelin doesn&rsquo;t support adding third-party packages at the moment.</p>\n<p>The following code snippet defines a function that wraps the requests made to the Google\u2019s Geocoding API. It receives a string representation of the location to search and an API key to validate the request. This function will return a string with the geocoding information of the provided location.</p>\n</div>"
+               }
+            ]
+         },
+         "focus": true
+      },
+      {
+         "text": "%pyspark\n\nimport requests\n\ndef geocode(address, api_key=None):\n    url = 'https://maps.googleapis.com/maps/api/geocode/json'\n    params = { \n        'sensor': 'false', \n        'address': address, \n        'key': api_key\n    }\n    response = requests.get(url, params=params)\n    results = response.json()['results']\n    \n    return results",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:30:53+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956458_1643622374",
+         "id": "20180906-190336_867590911",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:30:54+0000",
+         "dateFinished": "2018-09-19T23:30:54+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65607"
+      },
+      {
+         "text": "%md\nLet us now load the datasets and define the geocoding function:",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:44:07+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537399186059_1411670969",
+         "id": "20180919-231946_2144353417",
+         "dateCreated": "2018-09-19T23:19:46+0000",
+         "dateStarted": "2018-09-19T23:44:07+0000",
+         "dateFinished": "2018-09-19T23:44:07+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65608",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Let us now load the datasets and define the geocoding function:</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "dateUpdated": "2018-09-19T23:44:11+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956459_1643237625",
+         "id": "20180905-200024_834656917",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65609",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:44:11+0000",
+         "dateStarted": "2018-09-19T23:44:11+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val neighborhoods = spark.read.format(\"csv\")\n    .option(\"header\", \"true\")\n    .option(\"inferSchema\", \"true\")\n    .load(\"gs://de-training-input/wizesquare/gdl_neighborhoods.csv\")\n\nneighborhoods.printSchema\nneighborhoods.show",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:31:00+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956460_1641313880",
+         "id": "20180905-200023_1678323582",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:31:00+0000",
+         "dateFinished": "2018-09-19T23:31:02+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65610"
+      },
+      {
+         "text": "import com.koddi.geocoder.{Geocoder, Parameters}\n\ndef geolocate: (String => String) = address => {\n    // Our defining the API key again here, instead of using the one defined above, is a workaround to prevent \n    // this function (technically a closure) from \"capturing\" the `geo` object we defined above, which would cause\n    // the job to fail with a \"Task Not Serializable\" error because `Geocoder` is a nonserializable class\n    val googleGeocodingAPIKey = \"AIzaSyDmAFXh9E7T4nub2dEyJpCpvL36imBAZEs\"\n    val geocoder = Geocoder.create(googleGeocodingAPIKey, Some(Parameters(region = Some(\"mx\"))))\n    \n    val results = geocoder.lookup(address)\n    if (results.isEmpty)\n        null\n    else\n        results.head.geometry.location.toString\n}",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:31:06+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956461_1640929131",
+         "id": "20180905-200022_1315168762",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:31:06+0000",
+         "dateFinished": "2018-09-19T23:31:07+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65611"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-19T23:44:19+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956461_1640929131",
+         "id": "20180905-200114_1629262019",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65612",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:44:19+0000",
+         "dateStarted": "2018-09-19T23:44:19+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\nneighborhoods = spark.read.format(\"csv\") \\\n    .option(\"header\", \"true\") \\\n    .option(\"inferSchema\", \"true\") \\\n    .load(\"gs://de-training-input/wizesquare/gdl_neighborhoods.csv\")\n\nneighborhoods.printSchema()\nneighborhoods.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:31:39+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956462_1642083378",
+         "id": "20180905-200113_887059962",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:31:39+0000",
+         "dateFinished": "2018-09-19T23:31:40+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65613"
+      },
+      {
+         "text": "%pyspark\n\ndef geolocate(address):\n    results = geocode(address, api_key='AIzaSyDmAFXh9E7T4nub2dEyJpCpvL36imBAZEs')\n    if len(results) > 0:\n        location = results[0]['geometry']['location']\n        return '{0},{1}'.format(location['lat'], location['lng'])",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:31:49+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956463_1641698629",
+         "id": "20180905-200109_1104217257",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:31:49+0000",
+         "dateFinished": "2018-09-19T23:31:49+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65614"
+      },
+      {
+         "text": "%md\nSomething to note about the implementation shown above is that we had to create a `geocoder` object inside the function. This may seem wasteful, since we're always creating the same object, but it is the only way to achieve our goal since the `Geocoder` class is not serializable.\n\nThis is important because Spark sends \"user functions\" to worker nodes in a serialized format. When one such function includes references to objects which are not serializable, an exception occurs and Sparks aborts the job.\n\nIn a real-world setting, several optimizations would be advisable:\n\n* Using a serializable gateway object, which is created only once.\n* Sending a batch of values rather than one row at a time.",
+         "dateUpdated": "2018-09-19T23:44:23+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956463_1641698629",
+         "id": "20180905-200140_1689995322",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65615",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:44:23+0000",
+         "dateStarted": "2018-09-19T23:44:23+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Something to note about the implementation shown above is that we had to create a <code>geocoder</code> object inside the function. This may seem wasteful, since we&rsquo;re always creating the same object, but it is the only way to achieve our goal since the <code>Geocoder</code> class is not serializable.</p>\n<p>This is important because Spark sends &ldquo;user functions&rdquo; to worker nodes in a serialized format. When one such function includes references to objects which are not serializable, an exception occurs and Sparks aborts the job.</p>\n<p>In a real-world setting, several optimizations would be advisable:</p>\n<ul>\n  <li>Using a serializable gateway object, which is created only once.</li>\n  <li>Sending a batch of values rather than one row at a time.</li>\n</ul>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\nThe actual definition of the UDF is extremely simple:",
+         "dateUpdated": "2018-09-19T23:44:26+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956464_1652086849",
+         "id": "20180905-200139_2058611350",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65616",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:44:26+0000",
+         "dateStarted": "2018-09-19T23:44:26+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>The actual definition of the UDF is extremely simple:</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md \n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "dateUpdated": "2018-09-19T23:44:29+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956465_1651702100",
+         "id": "20180905-200138_1434049784",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65617",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:44:29+0000",
+         "dateStarted": "2018-09-19T23:44:29+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "import org.apache.spark.sql.functions.udf\n\nval geolocateUDF = udf(geolocate)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:32:00+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956466_1652856347",
+         "id": "20180905-200217_506827115",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:32:00+0000",
+         "dateFinished": "2018-09-19T23:32:01+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65618"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-19T23:44:32+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956466_1652856347",
+         "id": "20180905-200226_675067168",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65619",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:44:32+0000",
+         "dateStarted": "2018-09-19T23:44:32+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\nfrom pyspark.sql.functions import udf\n\ngeolocateUDF = udf(geolocate)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:32:02+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956467_1652471598",
+         "id": "20180905-200225_673234342",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:32:03+0000",
+         "dateFinished": "2018-09-19T23:32:03+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65620"
+      },
+      {
+         "text": "%md\nSince our UDF returns a string with the geographic coordinates separated by a comma, we need to parse the response to get the two new columns we want. The code below is a parse operation of the answer, using the `split()` function.",
+         "dateUpdated": "2018-09-19T23:44:35+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956469_1650163105",
+         "id": "20180905-200215_547333470",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65621",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:44:35+0000",
+         "dateStarted": "2018-09-19T23:44:35+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Since our UDF returns a string with the geographic coordinates separated by a comma, we need to parse the response to get the two new columns we want. The code below is a parse operation of the answer, using the <code>split()</code> function.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "dateUpdated": "2018-09-19T23:44:37+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956469_1650163105",
+         "id": "20180905-200306_1697202419",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65622",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:44:37+0000",
+         "dateStarted": "2018-09-19T23:44:37+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "import org.apache.spark.sql.functions.{concat, lit, split}\n\nval GDL = lit(\", Guadalajara\")\n\nval geolocatedHoods = neighborhoods\n    .withColumn(\"_address\", concat($\"name\", GDL))\n    .withColumn(\"_geolocation\", split(geolocateUDF($\"_address\"), \",\"))\n    .withColumn(\"latitude\", $\"_geolocation\".getItem(0))\n    .withColumn(\"longitude\", $\"_geolocation\".getItem(1))\n    .drop(\"_geolocation\", \"_address\")\n    \ngeolocatedHoods.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:32:06+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956470_1651317352",
+         "id": "20180905-200306_240629734",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:32:06+0000",
+         "dateFinished": "2018-09-19T23:32:21+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65623"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-19T23:44:41+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956471_1650932603",
+         "id": "20180905-200333_1855548871",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65624",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:44:41+0000",
+         "dateStarted": "2018-09-19T23:44:41+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\n\nfrom pyspark.sql.functions import udf, concat, split, lit, col\n\nGDL = lit(', Guadalajara')\n\ngeolocatedHoods = neighborhoods \\\n    .withColumn('_address', concat(col(\"name\"), GDL)) \\\n    .withColumn('_geolocation', split(geolocateUDF(col('_address')), ',')) \\\n    .withColumn('latitude', col('_geolocation').getItem(0)) \\\n    .withColumn('longitude', col('_geolocation').getItem(1)) \\\n    .drop('_geolocation', '_address')\n    \ngeolocatedHoods.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:32:27+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956472_1649008858",
+         "id": "20180905-200332_2052561211",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:32:27+0000",
+         "dateFinished": "2018-09-19T23:35:31+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65625"
+      },
+      {
+         "text": "%md\nKeep in mind that UDFs incur some performance cost (especially if you write them in Python). Whenever you face a problem, browse the list of [existing functions](https://spark.apache.org/docs/2.3.0/api/sql/index.html) before using UDFs. Only use UDFs as a last resort.\n\n**NOTE**: Whether you are running the Python or the Scala version of this example, we encourage to run the other one to compare relative performance. You should notice that the Python version is significantly slower. Can you tell why? Discuss with your classmates and your instructors.",
+         "dateUpdated": "2018-09-19T23:44:44+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956473_1648624109",
+         "id": "20180905-200331_786285263",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65626",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:44:44+0000",
+         "dateStarted": "2018-09-19T23:44:44+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Keep in mind that UDFs incur some performance cost (especially if you write them in Python). Whenever you face a problem, browse the list of <a href=\"https://spark.apache.org/docs/2.3.0/api/sql/index.html\">existing functions</a> before using UDFs. Only use UDFs as a last resort.</p>\n<p><strong>NOTE</strong>: Whether you are running the Python or the Scala version of this example, we encourage to run the other one to compare relative performance. You should notice that the Python version is significantly slower. Can you tell why? Discuss with your classmates and your instructors.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n## Window Functions",
+         "dateUpdated": "2018-09-19T23:44:47+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956473_1648624109",
+         "id": "20180905-200021_983176726",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65627",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:44:47+0000",
+         "dateStarted": "2018-09-19T23:44:47+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<h2>Window Functions</h2>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\nA window function calculates a return value for every input row of a table based on a group of rows. This group of rows is called a Frame.\n\nEvery input row can have a unique frame associated with it. This characteristic of window functions makes them more powerful than other functions. Window functions allow users to concisely express various data processing tasks that would, otherwise, be hard (if not impossible) to express.",
+         "dateUpdated": "2018-09-19T23:44:50+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956482_1634388400",
+         "id": "20180905-162550_1531572392",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65628",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:44:50+0000",
+         "dateStarted": "2018-09-19T23:44:50+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>A window function calculates a return value for every input row of a table based on a group of rows. This group of rows is called a Frame.</p>\n<p>Every input row can have a unique frame associated with it. This characteristic of window functions makes them more powerful than other functions. Window functions allow users to concisely express various data processing tasks that would, otherwise, be hard (if not impossible) to express.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n Now, let\u2019s take a look at an example that uses window functions.",
+         "dateUpdated": "2018-09-19T23:44:52+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956483_1634003651",
+         "id": "20180905-162738_2135360483",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65629",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:44:52+0000",
+         "dateStarted": "2018-09-19T23:44:52+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Now, let\u2019s take a look at an example that uses window functions.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "dateUpdated": "2018-09-19T23:44:55+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956474_1649778356",
+         "id": "20180905-195832_580510579",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65630",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:44:55+0000",
+         "dateStarted": "2018-09-19T23:44:55+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "import org.apache.spark.sql.expressions.Window\n\nval df = (1 to 10).union(1 to 10).toDF.withColumn(\"module3\", $\"value\" % 3)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:24:54+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956484_1632079907",
+         "id": "20180904-195109_846107798",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:24:54+0000",
+         "dateFinished": "2018-09-19T23:24:56+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65631"
+      },
+      {
+         "text": "%md\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "dateUpdated": "2018-09-19T23:44:58+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956488_1630540911",
+         "id": "20180904-195134_1185900876",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65632",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:44:58+0000",
+         "dateStarted": "2018-09-19T23:44:58+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\nfrom pyspark.sql.types import IntegerType\nfrom pyspark.sql.window import Window\nfrom pyspark.sql.functions import col, row_number, rank, dense_rank\n\ndf = sqlContext.createDataFrame(list(range(1, 11)) * 2, IntegerType())\ndf = df.withColumn(\"module3\", df.value % 3)",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:25:01+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956489_1630156162",
+         "id": "20180904-202224_1329528656",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:25:01+0000",
+         "dateFinished": "2018-09-19T23:25:02+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65633"
+      },
+      {
+         "text": "%md\nWe are going to apply window functions `over` the partitions returned by calling the `partitionBy` function on the `module3` column.",
+         "dateUpdated": "2018-09-19T23:45:01+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956485_1631695158",
+         "id": "20180905-162910_1588961281",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65634",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:45:01+0000",
+         "dateStarted": "2018-09-19T23:45:01+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>We are going to apply window functions <code>over</code> the partitions returned by calling the <code>partitionBy</code> function on the <code>module3</code> column.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:45:06+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537399400769_2079501470",
+         "id": "20180919-232320_611727546",
+         "dateCreated": "2018-09-19T23:23:20+0000",
+         "dateStarted": "2018-09-19T23:45:06+0000",
+         "dateFinished": "2018-09-19T23:45:06+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65635",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "val window = Window.partitionBy(\"module3\").orderBy(\"value\")\nval df2 = df.withColumn(\"rownumber\", row_number over window).withColumn(\"rank\", rank over window).withColumn(\"denserank\", dense_rank over window)\n\ndf2.show",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:25:05+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956485_1631695158",
+         "id": "20180905-152337_431852333",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:25:05+0000",
+         "dateFinished": "2018-09-19T23:25:10+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65636"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:45:11+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537399449921_348192716",
+         "id": "20180919-232409_604058879",
+         "dateCreated": "2018-09-19T23:24:09+0000",
+         "dateStarted": "2018-09-19T23:45:11+0000",
+         "dateFinished": "2018-09-19T23:45:11+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65637",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\nfrom pyspark.sql.window import Window\n\nwindow = Window.partitionBy(\"module3\").orderBy(\"value\")\ndf2 = df.withColumn(\"rownumber\", row_number().over(window)).withColumn(\"rank\", rank().over(window)).withColumn(\"denserank\", dense_rank().over(window))\n\ndf2.show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:25:23+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956490_1631310409",
+         "id": "20180905-154620_305403315",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:25:24+0000",
+         "dateFinished": "2018-09-19T23:25:27+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65638"
+      },
+      {
+         "text": "%md\n`row_column` returns a sequential number starting at 1 within a window partition.\n`rank` returns the rank of rows within a window partition.\n`dense_rank` returns the rank of rows within a window partition, without any gaps.\n\nThe difference between `rank` and `dense_rank` is that `dense_rank` leaves no gaps in ranking sequence when there are ties. That is, if you were ranking a competition using `dense_rank` and had three people tie for second place, you would say that all three were in second place and that the next person came in third.",
+         "dateUpdated": "2018-09-19T23:45:15+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956486_1632849404",
+         "id": "20180905-163327_198216651",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65639",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:45:15+0000",
+         "dateStarted": "2018-09-19T23:45:15+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p><code>row_column</code> returns a sequential number starting at 1 within a window partition.<br/><code>rank</code> returns the rank of rows within a window partition.<br/><code>dense_rank</code> returns the rank of rows within a window partition, without any gaps.</p>\n<p>The difference between <code>rank</code> and <code>dense_rank</code> is that <code>dense_rank</code> leaves no gaps in ranking sequence when there are ties. That is, if you were ranking a competition using <code>dense_rank</code> and had three people tie for second place, you would say that all three were in second place and that the next person came in third.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md\nRemember that window functions come from SQL native operations, They can also be expressed using `Spark SQL` syntax, as shown below.",
+         "dateUpdated": "2018-09-19T23:45:23+0000",
+         "config": {
+            "tableHide": false,
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "colWidth": 12,
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "results": {},
+            "enabled": true
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956487_1632464655",
+         "id": "20180905-203021_549018823",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65640",
+         "user": "anonymous",
+         "dateFinished": "2018-09-19T23:45:23+0000",
+         "dateStarted": "2018-09-19T23:45:23+0000",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<p>Remember that window functions come from SQL native operations, They can also be expressed using <code>Spark SQL</code> syntax, as shown below.</p>\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:45:25+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537399541126_1792310225",
+         "id": "20180919-232541_2097995141",
+         "dateCreated": "2018-09-19T23:25:41+0000",
+         "dateStarted": "2018-09-19T23:45:25+0000",
+         "dateFinished": "2018-09-19T23:45:25+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65641",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/nRs6Nz/scala.png\" alt=\"Scala\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "df.createOrReplaceTempView(\"values\")\n\nsql(\"\"\"SELECT *,\n       ROW_NUMBER() OVER(PARTITION BY module3 ORDER BY value ASC) AS rownumber,\n       RANK() OVER(PARTITION BY module3 ORDER BY value ASC) AS rownumber,\n       DENSE_RANK() OVER(PARTITION BY module3 ORDER BY value ASC) AS rownumber \n       FROM values\"\"\").show()",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:25:34+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956487_1632464655",
+         "id": "20180905-201817_1064115099",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "dateStarted": "2018-09-19T23:25:34+0000",
+         "dateFinished": "2018-09-19T23:25:36+0000",
+         "status": "FINISHED",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65642"
+      },
+      {
+         "text": "%md <img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">",
+         "user": "anonymous",
+         "dateUpdated": "2018-09-19T23:45:29+0000",
+         "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {},
+            "editorSetting": {
+               "language": "markdown",
+               "editOnDblClick": true
+            },
+            "editorMode": "ace/mode/markdown",
+            "editorHide": true,
+            "tableHide": false
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537399654173_1803219467",
+         "id": "20180919-232734_1520590513",
+         "dateCreated": "2018-09-19T23:27:34+0000",
+         "dateStarted": "2018-09-19T23:45:29+0000",
+         "dateFinished": "2018-09-19T23:45:29+0000",
+         "status": "FINISHED",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65643",
+         "results": {
+            "code": "SUCCESS",
+            "msg": [
+               {
+                  "type": "HTML",
+                  "data": "<div class=\"markdown-body\">\n<img src=\"https://image.ibb.co/k8qhvK/python.png\" alt=\"Python\">\n</div>"
+               }
+            ]
+         }
+      },
+      {
+         "text": "%pyspark\ndf.createOrReplaceTempView(\"values\")\n\nspark.sql(\"\"\"SELECT *,\n       ROW_NUMBER() OVER(PARTITION BY module3 ORDER BY value ASC) AS rownumber,\n       RANK() OVER(PARTITION BY module3 ORDER BY value ASC) AS rownumber,\n       DENSE_RANK() OVER(PARTITION BY module3 ORDER BY value ASC) AS rownumber \n       FROM values\"\"\").show()",
+         "dateUpdated": "2018-09-19T22:42:36+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/python",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "python",
+               "editOnDblClick": false
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956491_1630925660",
+         "id": "20180905-144421_1269858826",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65644"
+      },
+      {
+         "text": "",
+         "dateUpdated": "2018-09-19T22:42:36+0000",
+         "config": {
+            "colWidth": 12,
+            "editorMode": "ace/mode/scala",
+            "results": {},
+            "enabled": true,
+            "editorSetting": {
+               "language": "scala"
+            }
+         },
+         "settings": {
+            "params": {},
+            "forms": {}
+         },
+         "apps": [],
+         "jobName": "paragraph_1537396956492_1629001915",
+         "id": "20180905-204119_1312357842",
+         "dateCreated": "2018-09-19T22:42:36+0000",
+         "status": "READY",
+         "errorMessage": "",
+         "progressUpdateIntervalMs": 500,
+         "$$hashKey": "object:65645"
+      }
+   ],
+   "name": "c8-examples-exercises",
+   "id": "2DSKC8ED4",
+   "angularObjects": {
+      "2DR48BCZX:shared_process": [],
+      "2DT17NWU6:shared_process": [],
+      "2DPXK4WGK:shared_process": [],
+      "2DPTXJ6DB:shared_process": [],
+      "2DRNPWPRJ:shared_process": [],
+      "2DRD99AZM:shared_process": [],
+      "2DQCYZMU9:shared_process": [],
+      "2DPU4WTJ1:shared_process": [],
+      "2DTCFAKHG:shared_process": [],
+      "2DSPCP1NK:shared_process": [],
+      "2DQSECJDX:shared_process": [],
+      "2DTHQCYNG:shared_process": [],
+      "2DS1DFNS6:shared_process": [],
+      "2DSHTZC94:shared_process": [],
+      "2DTARHE1J:shared_process": [],
+      "2DTJW366Y:shared_process": [],
+      "2DQGWE5UQ:shared_process": [],
+      "2DTFCJZV3:shared_process": []
+   },
+   "config": {
+      "looknfeel": "default",
+      "personalizedMode": "false"
+   },
+   "info": {}
+}
