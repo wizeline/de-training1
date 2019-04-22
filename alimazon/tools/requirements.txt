@@ -1,7 +1,0 @@
-bs4
-requests
-sqlitebiter==0.17.1
-click
-pytest
-autopep8
-numpy
