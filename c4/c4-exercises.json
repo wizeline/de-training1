@@ -1,199 +1,202 @@
 {
    "paragraphs": [
-      {
-         "text": "%md\n# RDD, Dataset and Dataframe Operations\n\nWelcome to the notebook with the exercises for the fourth session. You\u2019re well on your way to obtain the Wizeline Certification for Big Data Engineering with Spark!\n\nIf you have any feedback about our courses, email us at academy@wizeline.com or use the Academy Slack channel.",
-         "dateUpdated": "2018-09-13T16:10:15+0000",
-         "config": {
-            "tableHide": false,
-            "editorSetting": {
-               "language": "markdown",
-               "editOnDblClick": true
-            },
-            "colWidth": 12,
-            "editorMode": "ace/mode/markdown",
-            "editorHide": true,
-            "results": {},
-            "enabled": true
-         },
-         "settings": {
-            "params": {},
-            "forms": {}
-         },
-         "results": {
-            "code": "SUCCESS",
-            "msg": [
-               {
-                  "type": "HTML",
-                  "data": "<div class=\"markdown-body\">\n<h1>RDD, Dataset and Dataframe Operations</h1>\n<p>Welcome to the notebook with the exercises for the fourth session. You\u2019re well on your way to obtain the Wizeline Certification for Big Data Engineering with Spark!</p>\n<p>If you have any feedback about our courses, email us at <a href=\"mailto:&#97;&#99;&#x61;&#x64;&#x65;&#109;&#121;&#64;&#119;&#x69;&#122;&#101;&#x6c;i&#x6e;&#101;.&#x63;&#x6f;&#109;\">&#97;&#99;&#x61;&#x64;&#x65;&#109;&#121;&#64;&#119;&#x69;&#122;&#101;&#x6c;i&#x6e;&#101;.&#x63;&#x6f;&#109;</a> or use the Academy Slack channel.</p>\n</div>"
-               }
-            ]
-         },
-         "apps": [],
-         "jobName": "paragraph_1536855015923_417401842",
-         "id": "20180821-144757_297621591",
-         "dateCreated": "2018-09-13T16:10:15+0000",
-         "status": "READY",
-         "errorMessage": "",
-         "progressUpdateIntervalMs": 500,
-         "focus": true,
-         "$$hashKey": "object:9562"
-      },
-      {
-         "text": "%md\n# Exercise #1 - Using Dataframes\n\nUsing the [Titanic dataset](https://www.kaggle.com/c/titanic), can you calculate the \"ground truth\" (i.e. number of survivors and deaths) registered on the dataset?\nThe expected answer would be an object that contains the `survivors` and `deaths` count columns.\n\nFor this exercise you need to: \n\n- Read and load the Titanic dataset from the input bucket at: `gs://de-training-input/titanic/train.csv`\n- Perform a combination of operations on this dataset such as `grouping`, `aggregation`, `filtering`, etc.",
-         "user": "anonymous",
-         "dateUpdated": "2018-09-13T16:11:48+0000",
-         "config": {
-            "tableHide": false,
-            "editorSetting": {
-               "language": "markdown",
-               "editOnDblClick": true
-            },
-            "colWidth": 12,
-            "editorMode": "ace/mode/markdown",
-            "editorHide": true,
-            "results": {},
-            "enabled": true
-         },
-         "settings": {
-            "params": {},
-            "forms": {}
-         },
-         "results": {
-            "code": "SUCCESS",
-            "msg": [
-               {
-                  "type": "HTML",
-                  "data": "<div class=\"markdown-body\">\n<h1>Exercise #1 - Using Dataframes</h1>\n<p>Using the <a href=\"https://www.kaggle.com/c/titanic\">Titanic dataset</a>, can you calculate the &ldquo;ground truth&rdquo; (i.e. number of survivors and deaths) registered on the dataset?<br/>The expected answer would be an object that contains the <code>survivors</code> and <code>deaths</code> count columns.</p>\n<p>For this exercise you need to: </p>\n<ul>\n  <li>Read and load the Titanic dataset from the input bucket at: <code>gs://de-training-input/titanic/train.csv</code></li>\n  <li>Perform a combination of operations on this dataset such as <code>grouping</code>, <code>aggregation</code>, <code>filtering</code>, etc.</li>\n</ul>\n</div>"
-               }
-            ]
-         },
-         "apps": [],
-         "jobName": "paragraph_1536855015925_415093348",
-         "id": "20180821-145549_158161860",
-         "dateCreated": "2018-09-13T16:10:15+0000",
-         "dateStarted": "2018-09-13T16:11:48+0000",
-         "dateFinished": "2018-09-13T16:11:48+0000",
-         "status": "FINISHED",
-         "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:9563"
-      },
-      {
-         "text": "// Write your solution here ... \n",
-         "dateUpdated": "2018-09-13T16:10:15+0000",
-         "config": {
-            "colWidth": 12,
-            "editorMode": "ace/mode/scala",
-            "results": {},
-            "enabled": true,
-            "editorSetting": {
-               "language": "scala",
-               "editOnDblClick": false
-            }
-         },
-         "settings": {
-            "params": {},
-            "forms": {}
-         },
-         "apps": [],
-         "jobName": "paragraph_1536855015926_416247595",
-         "id": "20180823-204602_1408007104",
-         "dateCreated": "2018-09-13T16:10:15+0000",
-         "status": "READY",
-         "errorMessage": "",
-         "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:9564"
-      },
-      {
-         "text": "%md\n# Exercise #2 - Using Datasets\n\nUsing the `Flights dataset`, can you calculate the total number of flights from each origin and the number of **distinct** destinations from that origin?\n\nThe expected answer is a `Dataset` object that contains three columns: `origin_country_name`, `total_flights_from` and `total_destinations_from`.\n\nFor this exercise, you need to:\n\n- Read and load the Flights dataset from the input bucket at: `gs://de-training-input/flight-data/*.csv`\n- Perform a combination of operations on this dataset such as `grouping`, `aggregation`, `filtering`, etc.",
-         "user": "anonymous",
-         "dateUpdated": "2018-09-13T16:14:46+0000",
-         "config": {
-            "tableHide": false,
-            "editorSetting": {
-               "language": "markdown",
-               "editOnDblClick": true
-            },
-            "colWidth": 12,
-            "editorMode": "ace/mode/markdown",
-            "editorHide": true,
-            "results": {},
-            "enabled": true
-         },
-         "settings": {
-            "params": {},
-            "forms": {}
-         },
-         "results": {
-            "code": "SUCCESS",
-            "msg": [
-               {
-                  "type": "HTML",
-                  "data": "<div class=\"markdown-body\">\n<h1>Exercise #2 - Using Datasets</h1>\n<p>Using the <code>Flights dataset</code>, can you calculate the total number of flights from each origin and the number of <strong>distinct</strong> destinations from that origin?</p>\n<p>The expected answer is a <code>Dataset</code> object that contains three columns: <code>origin_country_name</code>, <code>total_flights_from</code> and <code>total_destinations_from</code>.</p>\n<p>For this exercise, you need to:</p>\n<ul>\n  <li>Read and load the Flights dataset from the input bucket at: <code>gs://de-training-input/flight-data/*.csv</code></li>\n  <li>Perform a combination of operations on this dataset such as <code>grouping</code>, <code>aggregation</code>, <code>filtering</code>, etc.</li>\n</ul>\n</div>"
-               }
-            ]
-         },
-         "apps": [],
-         "jobName": "paragraph_1536855015926_416247595",
-         "id": "20180821-145902_702298758",
-         "dateCreated": "2018-09-13T16:10:15+0000",
-         "dateStarted": "2018-09-13T16:14:46+0000",
-         "dateFinished": "2018-09-13T16:14:46+0000",
-         "status": "FINISHED",
-         "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:9565"
-      },
-      {
-         "text": "// Write your solution here ... \n",
-         "dateUpdated": "2018-09-13T16:10:15+0000",
-         "config": {
-            "colWidth": 12,
-            "editorMode": "ace/mode/scala",
-            "results": {},
-            "enabled": true,
-            "editorSetting": {
-               "language": "scala",
-               "editOnDblClick": false
-            }
-         },
-         "settings": {
-            "params": {},
-            "forms": {}
-         },
-         "apps": [],
-         "jobName": "paragraph_1536855015927_415862846",
-         "id": "20180822-220235_1374472250",
-         "dateCreated": "2018-09-13T16:10:15+0000",
-         "status": "READY",
-         "errorMessage": "",
-         "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:9566"
-      }
+       {
+           "text": "%md\n# Operating RDDs, Datasets, and Dataframes\n\nWelcome to your notebook with the exercises for the fourth session.\n\nIn this notebook, you can find two exercises. The first one is to practice the use of dataframes, whereas the second one is to practice the use of datasets. \n\nIf you have any feedback about our courses, you can email us at academy@wizeline.com or use the Academy Slack channel.",
+           "user": "anonymous",
+           "dateUpdated": "2019-05-02T21:54:24+0000",
+           "config": {
+               "tableHide": false,
+               "editorSetting": {
+                   "language": "markdown",
+                   "editOnDblClick": true,
+                   "completionSupport": false
+               },
+               "colWidth": 12,
+               "editorMode": "ace/mode/markdown",
+               "editorHide": true,
+               "results": {},
+               "enabled": true,
+               "fontSize": 9
+           },
+           "settings": {
+               "params": {},
+               "forms": {}
+           },
+           "results": {
+               "code": "SUCCESS",
+               "msg": [
+                   {
+                       "type": "HTML",
+                       "data": "<div class=\"markdown-body\">\n<h1>Operating RDDs, Datasets, and Dataframes</h1>\n<p>Welcome to your notebook with the exercises for the fourth session.</p>\n<p>In this notebook, you can find two exercises. The first one is to practice the use of dataframes, whereas the second one is to practice the use of datasets. </p>\n<p>If you have any feedback about our courses, you can email us at <a href=\"mailto:&#x61;&#x63;&#97;&#100;e&#109;&#121;&#x40;w&#105;&#122;&#101;&#x6c;&#105;n&#101;.co&#109;\">&#x61;&#x63;&#97;&#100;e&#109;&#121;&#x40;w&#105;&#122;&#101;&#x6c;&#105;n&#101;.co&#109;</a> or use the Academy Slack channel.</p>\n</div>"
+                   }
+               ]
+           },
+           "apps": [],
+           "jobName": "paragraph_1556834004142_1513804984",
+           "id": "20180821-144757_297621591",
+           "dateCreated": "2019-05-02T21:53:24+0000",
+           "dateStarted": "2019-05-02T21:54:24+0000",
+           "dateFinished": "2019-05-02T21:54:24+0000",
+           "status": "FINISHED",
+           "progressUpdateIntervalMs": 500,
+           "focus": true,
+           "$$hashKey": "object:1174"
+       },
+       {
+           "text": "%md\n# Exercise #1 - Using Dataframes\n\nUsing the [Titanic dataset](https://www.kaggle.com/c/titanic), **can you calculate the “ground truth”** (i.e. number of survivors and deaths) **registered in the dataset?**\nThe expected answer would be an object that contains the `survivors` and `deaths` count columns.\n\nFor this exercise you need to: \n\n1. Read and load the Titanic dataset from the input bucket. You can find it at: `gs://de-training-input/titanic/train.csv`\n2. Perform a combination of operations on this dataset such as `grouping`, `aggregation`, `filtering`, etc.",
+           "user": "anonymous",
+           "dateUpdated": "2019-05-02T22:09:37+0000",
+           "config": {
+               "tableHide": false,
+               "editorSetting": {
+                   "language": "markdown",
+                   "editOnDblClick": true,
+                   "completionSupport": false
+               },
+               "colWidth": 12,
+               "editorMode": "ace/mode/markdown",
+               "editorHide": true,
+               "results": {},
+               "enabled": true,
+               "fontSize": 9
+           },
+           "settings": {
+               "params": {},
+               "forms": {}
+           },
+           "results": {
+               "code": "SUCCESS",
+               "msg": [
+                   {
+                       "type": "HTML",
+                       "data": "<div class=\"markdown-body\">\n<h1>Exercise #1 - Using Dataframes</h1>\n<p>Using the <a href=\"https://www.kaggle.com/c/titanic\">Titanic dataset</a>, <strong>can you calculate the “ground truth”</strong> (i.e. number of survivors and deaths) <strong>registered in the dataset?</strong><br/>The expected answer would be an object that contains the <code>survivors</code> and <code>deaths</code> count columns.</p>\n<p>For this exercise you need to: </p>\n<ol>\n  <li>Read and load the Titanic dataset from the input bucket. You can find it at: <code>gs://de-training-input/titanic/train.csv</code></li>\n  <li>Perform a combination of operations on this dataset such as <code>grouping</code>, <code>aggregation</code>, <code>filtering</code>, etc.</li>\n</ol>\n</div>"
+                   }
+               ]
+           },
+           "apps": [],
+           "jobName": "paragraph_1556834004152_1180540185",
+           "id": "20180821-145549_158161860",
+           "dateCreated": "2019-05-02T21:53:24+0000",
+           "status": "FINISHED",
+           "progressUpdateIntervalMs": 500,
+           "$$hashKey": "object:1175",
+           "dateFinished": "2019-05-02T22:09:37+0000",
+           "dateStarted": "2019-05-02T22:09:37+0000"
+       },
+       {
+           "text": "// Write your solution here ... \n",
+           "user": "anonymous",
+           "dateUpdated": "2019-05-02T21:53:24+0000",
+           "config": {
+               "colWidth": 12,
+               "editorMode": "ace/mode/scala",
+               "results": {},
+               "enabled": true,
+               "editorSetting": {
+                   "language": "scala",
+                   "editOnDblClick": false,
+                   "completionKey": "TAB",
+                   "completionSupport": true
+               },
+               "fontSize": 9
+           },
+           "settings": {
+               "params": {},
+               "forms": {}
+           },
+           "apps": [],
+           "jobName": "paragraph_1556834004155_-2064587167",
+           "id": "20180823-204602_1408007104",
+           "dateCreated": "2019-05-02T21:53:24+0000",
+           "status": "READY",
+           "errorMessage": "",
+           "progressUpdateIntervalMs": 500,
+           "$$hashKey": "object:1176"
+       },
+       {
+           "text": "%md\n# Exercise #2 - Using Datasets\n\nUsing the `Flights dataset`, can you calculate the total number of flights from each origin and the number of **distinct** destinations from that origin?\n\nUsing the `Flights dataset`:\n\n- Can you **calculate the total number of flights** from each origin?\n- Can you **calculate the total number of distinct destinations** from each origin?\n\n\nThe expected answer is a `Dataset` object that contains the following three columns: `origin_country_name`, `total_flights_from` and `total_destinations_from`.\n\n\nFor this exercise, you need to:\n\n1. Read and load the Flights dataset from the input bucket at: `gs://de-training-input/flight-data/*.csv`\n2. Perform a combination of operations on this dataset such as `grouping`, `aggregation`, `filtering`, etc.",
+           "user": "anonymous",
+           "dateUpdated": "2019-05-02T22:12:36+0000",
+           "config": {
+               "tableHide": false,
+               "editorSetting": {
+                   "language": "markdown",
+                   "editOnDblClick": true,
+                   "completionSupport": false
+               },
+               "colWidth": 12,
+               "editorMode": "ace/mode/markdown",
+               "editorHide": true,
+               "results": {},
+               "enabled": true,
+               "fontSize": 9
+           },
+           "settings": {
+               "params": {},
+               "forms": {}
+           },
+           "results": {
+               "code": "SUCCESS",
+               "msg": [
+                   {
+                       "type": "HTML",
+                       "data": "<div class=\"markdown-body\">\n<h1>Exercise #2 - Using Datasets</h1>\n<p>Using the <code>Flights dataset</code>, can you calculate the total number of flights from each origin and the number of <strong>distinct</strong> destinations from that origin?</p>\n<p>Using the <code>Flights dataset</code>:</p>\n<ul>\n  <li>Can you <strong>calculate the total number of flights</strong> from each origin?</li>\n  <li>Can you <strong>calculate the total number of distinct destinations</strong> from each origin?</li>\n</ul>\n<p>The expected answer is a <code>Dataset</code> object that contains the following three columns: <code>origin_country_name</code>, <code>total_flights_from</code> and <code>total_destinations_from</code>.</p>\n<p>For this exercise, you need to:</p>\n<ol>\n  <li>Read and load the Flights dataset from the input bucket at: <code>gs://de-training-input/flight-data/*.csv</code></li>\n  <li>Perform a combination of operations on this dataset such as <code>grouping</code>, <code>aggregation</code>, <code>filtering</code>, etc.</li>\n</ol>\n</div>"
+                   }
+               ]
+           },
+           "apps": [],
+           "jobName": "paragraph_1556834004156_1420050046",
+           "id": "20180821-145902_702298758",
+           "dateCreated": "2019-05-02T21:53:24+0000",
+           "status": "FINISHED",
+           "progressUpdateIntervalMs": 500,
+           "$$hashKey": "object:1177",
+           "dateFinished": "2019-05-02T22:12:36+0000",
+           "dateStarted": "2019-05-02T22:12:36+0000"
+       },
+       {
+           "text": "// Write your solution here ... \n",
+           "user": "anonymous",
+           "dateUpdated": "2019-05-02T21:53:24+0000",
+           "config": {
+               "colWidth": 12,
+               "editorMode": "ace/mode/scala",
+               "results": {},
+               "enabled": true,
+               "editorSetting": {
+                   "language": "scala",
+                   "editOnDblClick": false,
+                   "completionKey": "TAB",
+                   "completionSupport": true
+               },
+               "fontSize": 9
+           },
+           "settings": {
+               "params": {},
+               "forms": {}
+           },
+           "apps": [],
+           "jobName": "paragraph_1556834004156_1297212439",
+           "id": "20180822-220235_1374472250",
+           "dateCreated": "2019-05-02T21:53:24+0000",
+           "status": "READY",
+           "errorMessage": "",
+           "progressUpdateIntervalMs": 500,
+           "$$hashKey": "object:1178"
+       }
    ],
    "name": "c4-exercises",
-   "id": "2DS1SJDBJ",
+   "id": "2E9WMFPB2",
+   "noteParams": {},
+   "noteForms": {},
    "angularObjects": {
-      "2DQ8Z25M4:shared_process": [],
-      "2DSQRVJFF:shared_process": [],
-      "2DPPE4C8J:shared_process": [],
-      "2DR4D5PBY:shared_process": [],
-      "2DPVZHJA3:shared_process": [],
-      "2DPMNM22A:shared_process": [],
-      "2DRD6N5YM:shared_process": [],
-      "2DRF3NFQ5:shared_process": [],
-      "2DRRDUNVE:shared_process": [],
-      "2DRT74HFR:shared_process": [],
-      "2DRNBXRHR:shared_process": [],
-      "2DQTZTN2X:shared_process": [],
-      "2DT6UZNJV:shared_process": [],
-      "2DQ42BKMU:shared_process": [],
-      "2DT6PTPDM:shared_process": [],
-      "2DSD8RKMP:shared_process": [],
-      "2DS52QHW5:shared_process": [],
-      "2DRAMEKXJ:shared_process": []
+       "md:shared_process": [],
+       "spark:shared_process": []
    },
    "config": {
-      "looknfeel": "default",
-      "personalizedMode": "false"
+       "isZeppelinNotebookCronEnable": false,
+       "looknfeel": "default",
+       "personalizedMode": "false"
    },
    "info": {}
 }
